@@ -1,0 +1,10 @@
+Package: MoIn
+Version: 0.1
+Date: 2017-04-11
+Title: Modelling Interactions in R
+Description: This package provides functions to calculate simple location and interaction models
+Author:
+ Daniel Knitter <knitter@geographie.uni-kiel.de>,
+Maintainer: Daniel Knitter <knitter@geographie.uni-kiel.de>
+License: GPL-3
+RoxygenNote: 6.0.1
