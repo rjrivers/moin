@@ -4,20 +4,18 @@
 \alias{sc}
 \title{Singly constrained location model}
 \usage{
-sc(ei, Pi, Wj, alpha = 1, beta = 1, cij, detfun = "power")
+sc(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power")
 }
 \arguments{
-\item{ei}{purchasing power, money, etc. of location i}
+\item{Oi}{origin values, e.g. measured as purchasing power, money, etc. of location i}
 
-\item{Pi}{population, size, etc. of location i}
-
-\item{Wj}{attractiveness of location j}
-
-\item{alpha}{default = 1}
-
-\item{beta}{distance decay factor, default = 1}
+\item{Dj}{destination values, e.g. measured as attractiveness of location j}
 
 \item{cij}{distance/cost etc. matrix}
+
+\item{alpha}{default = 1; scaling factor for the attractiveness}
+
+\item{beta}{distance decay factor, default = 1}
 
 \item{detfun}{deterrence function (always negative); default is
 "power beta"; further option is "exp" for an expontential
@@ -41,7 +39,6 @@ A gravity like approach
 ## From Wilson & Kirkby 1980, 100f.
 ei <- c(2,1,1)
 Pi <- c(50, 1000, 500)
-eiPi <- ei * Pi
 Wj <- c(10, 100, 20)
 cij <- matrix(data = c(1, 5, 5,
                       5, 2.585, 5,
@@ -50,7 +47,20 @@ cij <- matrix(data = c(1, 5, 5,
               nc = 3
 )
 
-sc(ei = ei, Pi = Pi, Wj = Wj, cij = cij, detfun = "power")
+sc(Oi = ei * Pi, Dj = Wj, cij = cij, detfun = "power")
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# from: Chan, Y., 2011. Location Theory and Decision
+# Analysis. Springer Berlin Heidelberg, Berlin, Heidelberg.
+# p. 128f.
+cij <- matrix(data = c(8,5,10,
+                       3,10,5),                      
+              nrow = 2,
+              byrow = TRUE)
+Vi <- c(1000, 1400)
+Vj <- c(1300, 300, 800)
+
+sc(Oi = Vi, Dj = Vj, cij = cij, beta = 2)
 }
 \references{
 Wilson, A.G., Kirkby, M.J., 1980. Mathematics for geographers and planners, 2nd ed, Contemporary problems in geography. Clarendon Pr., Oxford.

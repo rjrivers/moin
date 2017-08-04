@@ -2,10 +2,9 @@
 #'
 #' A gravity like approach
 #' 
-#' @param ei purchasing power, money, etc. of location i
-#' @param Pi population, size, etc. of location i
-#' @param Wj attractiveness of location j
-#' @param alpha default = 1
+#' @param Oi origin values, e.g. measured as purchasing power, money, etc. of location i
+#' @param Dj destination values, e.g. measured as attractiveness of location j
+#' @param alpha default = 1; scaling factor for the attractiveness
 #' @param beta distance decay factor, default = 1
 #' @param cij distance/cost etc. matrix
 #' @param detfun deterrence function (always negative); default is
@@ -27,7 +26,6 @@
 #' @examples ## From Wilson & Kirkby 1980, 100f.
 #' ei <- c(2,1,1)
 #' Pi <- c(50, 1000, 500)
-#' eiPi <- ei * Pi
 #' Wj <- c(10, 100, 20)
 #' cij <- matrix(data = c(1, 5, 5,
 #'                       5, 2.585, 5,
@@ -36,48 +34,55 @@
 #'               nc = 3
 #' )
 #'
-#' sc(ei = ei, Pi = Pi, Wj = Wj, cij = cij, detfun = "power")
+#' sc(Oi = ei * Pi, Dj = Wj, cij = cij, detfun = "power")
+#'
+#' ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # from: Chan, Y., 2011. Location Theory and Decision
+#' # Analysis. Springer Berlin Heidelberg, Berlin, Heidelberg.
+#' # p. 128f.
+#' cij <- matrix(data = c(8,5,10,
+#'                        3,10,5),                      
+#'               nrow = 2,
+#'               byrow = TRUE)
+#' Vi <- c(1000, 1400)
+#' Vj <- c(1300, 300, 800)
+#' 
+#' sc(Oi = Vi, Dj = Vj, cij = cij, beta = 2)
 #' @export sc
-sc <- function(ei, Pi, Wj, alpha = 1, beta = 1, cij, detfun = "power") {
-    ## calculation of distance matrix using deterrence function
-    if (detfun == "power") {
-        fcij <- cij^-beta
-    } else if (detfun == "exp") {
-        beta <- 1/mean(cij, na.rm = TRUE)
-        fcij <- exp(-beta * cij)        
-    } else {
-        cat("Sorry, I do not know this kind of deterrence function\n")
+sc <- function(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power") {
+  ## calculation of distance matrix using deterrence function
+  if (detfun == "power") {
+    fcij <- cij^-beta
+  } else if (detfun == "exp") {
+    beta <- 1/mean(cij, na.rm = TRUE)
+    fcij <- exp(-beta * cij)        
+  } else {
+    cat("Sorry, I do not know this kind of deterrence function\n")
+  }
+
+  Dj <- Dj^alpha
+
+  ## calculation of flows
+  Tij <- cij
+  
+  for( i in 1:length(Oi)) {
+    for( j in 1:length(Dj)) {
+      Tij[i,j] <- Oi[i] * ((Dj[j] * fcij[i,j]) / sum(Dj * fcij[i,]))
     }
+  }
 
-    ## calculation of flows
-    K <- 1 / colSums(Wj^alpha * fcij, na.rm = TRUE)
-    Sij <- K * ei * Pi * t(Wj^alpha * t(fcij))
-
-    ## Explanation for the two matrix transposes:
-    ## W * t(fcij) makes sure that the multiplication is conducted
-    ## along the columns; the result is column-arranged
-    ## t(W * t(fcij)) makes sure that the subsequent calculation are
-    ## again along the rows
-    ##
-    ## alternative loop approach
-    ## --------------------------------------------------
-    ## Sij <- cij
-    ## K <- Pi
-    ## for (j in 1:length(Wj)) {
-    ##         K[j] <- 1 / sum(Wj^alpha * fcij[j,])
-    ##     }        
-    ## for (i in 1:length(Pi)) {
-    ##     Sij[i,] <- K[i] * ei[i] * Pi[i] * Wj^alpha * fcij[i,]
-    ## }  
-    
-    ##
-    ## output
-    return(list(flows = Sij,
-                si = colSums(Sij, na.rm = TRUE),
-                sj = rowSums(Sij, na.rm = TRUE),
-                K = K
-                )
-           )
+  ## calibration factor/weighting factor/ calibration constant
+  ## K <- Oi
+  ## for (j in 1:length(Dj)) {
+  ##   K[j] <- 1 / sum(Dj * fcij[j,])
+  ## }
+  
+  ## output
+  return(list(flows = Tij,
+              si = colSums(Tij, na.rm = TRUE),
+              sj = rowSums(Tij, na.rm = TRUE)
+              )
+         )
 }
 
 
@@ -145,80 +150,80 @@ sc <- function(ei, Pi, Wj, alpha = 1, beta = 1, cij, detfun = "power") {
 #' dc(Oi_target, Dj_target, cij = cost_mat, beta = .1, detfun = "exp")
 #' @export dc
 dc <- function(Oi, Dj, beta = 1, cij, iterations = 1000, detfun = "power") {
-    ## calculation of distance matrix using deterrence function
-    if (detfun == "power") {
-        fcij <- cij^-beta
-    } else if (detfun == "exp") {
-        if(missing(beta)) {
-            beta <- beta_est <- 1/mean(cij)
-        }   
-        fcij <- exp(-beta * cij)        
-    } else {
-        cat("Sorry, I do not know this kind of deterrence function\n")
+  ## calculation of distance matrix using deterrence function
+  if (detfun == "power") {
+    fcij <- cij^-beta
+  } else if (detfun == "exp") {
+    if(missing(beta)) {
+      beta <- beta_est <- 1/mean(cij)
+    }   
+    fcij <- exp(-beta * cij)        
+  } else {
+    cat("Sorry, I do not know this kind of deterrence function\n")
+  }
+  
+  Ai <- rep(1, length(Oi))
+  Bj <- rep(1, length(Dj))
+  ai_conv <- bj_conv <- data.frame(rbind(rep(0,length(Oi))))
+  
+  ind <- 1
+  while(ind < iterations) {
+    ai_conv[ind,] <- Ai
+    for (i in 1:length(Ai)) {
+      Ai[i] <- 1 / sum(Bj * Dj * fcij[i,])
     }
     
-    Ai <- rep(1, length(Oi))
-    Bj <- rep(1, length(Dj))
-    ai_conv <- bj_conv <- data.frame(rbind(rep(0,length(Oi))))
-                                     
-    ind <- 1
-    while(ind < iterations) {
-        ai_conv[ind,] <- Ai
-        for (i in 1:length(Ai)) {
-            Ai[i] <- 1 / sum(Bj * Dj * fcij[i,])
-        }
-        
-        bj_conv[ind,] <- Bj
-        for (j in 1:length(Bj)) {
-            Bj[j] <- 1 / sum(Ai * Oi * fcij[,j])
-        }
-        
-        if (ind > 1 &
-            abs(sum(Ai-ai_conv[ind,])) < 0.001 &
-            abs(sum(Bj-bj_conv[ind,])) < 0.001
-            ) {
-            conv <- ind
-            ind <- iterations
-        }
-        else {
-            ind <- ind+1
-        }
+    bj_conv[ind,] <- Bj
+    for (j in 1:length(Bj)) {
+      Bj[j] <- 1 / sum(Ai * Oi * fcij[,j])
     }
-
-    Tij <- cij
-
-    ## Wordy loop
-    for (i in 1:length(Oi)) {
-        for (j in 1:length(Dj)) {
-            Tij[i,j] <- Ai[i] * Bj[j] * Oi[i] * Dj[j] * fcij[i,j]
-        }
+    
+    if (ind > 1 &
+          abs(sum(Ai-ai_conv[ind,])) < 0.001 &
+          abs(sum(Bj-bj_conv[ind,])) < 0.001
+        ) {
+      conv <- ind
+      ind <- iterations
     }
+    else {
+      ind <- ind+1
+    }
+  }
 
-    ## concise loop
-    ## for (i in 1:length(Oi)) {
-    ##     Tij[i,] <- Ai[i] * Bj * Oi[i] * Dj * cij[i,]^-beta
-    ## }
-    
-    return(list(iteration = conv+1,
-                beta = beta,
-                Oi = data.frame(Target = Oi,
-                                sj = rowSums(Tij)
-                                ),
-                Dj = data.frame(Target = Dj,
-                                si = colSums(Tij)
-                                ),
-                Ratio = data.frame(rj = (Oi / rowSums(Tij)),
-                                   ri = (Dj / rowSums(Tij))
-                                   ),
-                error = sum(abs(Oi - rowSums(Tij))) + sum(abs(Dj - colSums(Tij))),
-                Ai = rbind(tail(ai_conv, 4), Ai),
-                Bj = rbind(tail(bj_conv, 4), Bj),                                        
-                Tij = Tij,
-                sumTij = sum(Tij)
-                                        #Tij_check = impedance * Ai * Bj
-                )
-           )
-    
+  Tij <- cij
+
+  ## Wordy loop
+  for (i in 1:length(Oi)) {
+    for (j in 1:length(Dj)) {
+      Tij[i,j] <- Ai[i] * Bj[j] * Oi[i] * Dj[j] * fcij[i,j]
+    }
+  }
+
+  ## concise loop
+  ## for (i in 1:length(Oi)) {
+  ##     Tij[i,] <- Ai[i] * Bj * Oi[i] * Dj * cij[i,]^-beta
+  ## }
+  
+  return(list(iteration = conv+1,
+              beta = beta,
+              Oi = data.frame(Target = Oi,
+                              sj = rowSums(Tij)
+                              ),
+              Dj = data.frame(Target = Dj,
+                              si = colSums(Tij)
+                              ),
+              Ratio = data.frame(rj = (Oi / rowSums(Tij)),
+                                 ri = (Dj / rowSums(Tij))
+                                 ),
+              error = sum(abs(Oi - rowSums(Tij))) + sum(abs(Dj - colSums(Tij))),
+              Ai = rbind(tail(ai_conv, 4), Ai),
+              Bj = rbind(tail(bj_conv, 4), Bj),                                        
+              Tij = Tij,
+              sumTij = sum(Tij)
+              #Tij_check = impedance * Ai * Bj
+              )
+         )
+  
 }
 
 
@@ -285,52 +290,52 @@ dc <- function(Oi, Dj, beta = 1, cij, iterations = 1000, detfun = "power") {
 #' dc2(Oi_target, Dj_target, cij = cost_mat, beta = 0.1, detfun = "exp")
 #' @export dc2
 dc2 <- function(Oi, Dj, cij, beta = 1, iterations = 100, detfun = "exp") {
-    if (detfun == "power") {
-        fcij <- cij^-beta
-    } else if (detfun == "exp") {
-        if(missing(beta)) {
-        beta <- beta_est <- 1/mean(cij)
-        }        
-        fcij <- exp(-beta * cij)        
-    } else {
-        cat("Sorry, I do not know this kind of deterrence function\n")
-    }
-    
-    Tij <- cij
+  if (detfun == "power") {
+    fcij <- cij^-beta
+  } else if (detfun == "exp") {
+    if(missing(beta)) {
+      beta <- beta_est <- 1/mean(cij)
+    }        
+    fcij <- exp(-beta * cij)        
+  } else {
+    cat("Sorry, I do not know this kind of deterrence function\n")
+  }
+  
+  Tij <- cij
 
-    ef <- sum(Oi)/sum(fcij) # expansion factor
-    Tij <- fcij * ef
+  ef <- sum(Oi)/sum(fcij) # expansion factor
+  Tij <- fcij * ef
+  
+  ind <- 0
+  while (ind < iterations) {
+    ai <- (Oi / rowSums(Tij))
+    Tij <- Tij * ai
+    bj <- (Dj / colSums(Tij))
+    Tij <- t(t(Tij) * bj)
     
-    ind <- 0
-    while (ind < iterations) {
-        ai <- (Oi / rowSums(Tij))
-        Tij <- Tij * ai
-        bj <- (Dj / colSums(Tij))
-        Tij <- t(t(Tij) * bj)
-        
-        if ((sum(abs(Dj - colSums(Tij))) < 0.01) & (sum(abs(Oi - rowSums(Tij))) < 0.01)
-            ) {
-            return(list(iteration = ind,
-                        Oi = data.frame(Target = Oi,
-                                        sj = rowSums(Tij)
-                                        ),
-                        Dj = data.frame(Target = Dj,
-                                        si = colSums(Tij)
-                                        ),
-                        Ratio = data.frame(rj = (Oi / rowSums(Tij)),
-                                           ri = (Dj / rowSums(Tij))
-                                           ),
-                        ExpansionFactor = ef,
-                        error = sum(abs(Oi - rowSums(Tij))) + sum(abs(Dj - colSums(Tij))),
-                        Tij = Tij,
-                        sumTij = sum(Tij)
-                        #Tij_check = impedance * Ai * Bj
-                        )
-                   )
-                   stop
-        }
-        else {
-            ind <- ind+1
-        }
+    if ((sum(abs(Dj - colSums(Tij))) < 0.01) & (sum(abs(Oi - rowSums(Tij))) < 0.01)
+        ) {
+      return(list(iteration = ind,
+                  Oi = data.frame(Target = Oi,
+                                  sj = rowSums(Tij)
+                                  ),
+                  Dj = data.frame(Target = Dj,
+                                  si = colSums(Tij)
+                                  ),
+                  Ratio = data.frame(rj = (Oi / rowSums(Tij)),
+                                     ri = (Dj / rowSums(Tij))
+                                     ),
+                  ExpansionFactor = ef,
+                  error = sum(abs(Oi - rowSums(Tij))) + sum(abs(Dj - colSums(Tij))),
+                  Tij = Tij,
+                  sumTij = sum(Tij)
+                  #Tij_check = impedance * Ai * Bj
+                  )
+             )
+      stop
     }
+    else {
+      ind <- ind+1
+    }
+  }
 }
