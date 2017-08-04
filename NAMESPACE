@@ -3,3 +3,4 @@
 export(dc)
 export(dc2)
 export(sc)
+importFrom(utils,tail)

@@ -98,6 +98,7 @@ sc <- function(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power") {
 #'     "power beta"; further option is "exp" for an expontential
 #'     function; ..
 #'
+#' @importFrom utils tail
 #' @return a list with the elements:
 #' \itemize{
 #' \item iteration: when was convergence achieved
