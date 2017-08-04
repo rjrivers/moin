@@ -2,10 +2,10 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Travis-CI Build Status](https://travis-ci.org/CRC1266-A2/moin.svg?branch=master)](https://travis-ci.org/CRC1266-A2/moin)
 
-MoIn
+moin
 ====
 
-The goal of MoIn is to allow simple interaction analysis using ideas from gravity models as well as entropy maximizing models in a singly- and a doubly-constrained framework.
+The goal of this package is to allow simple interaction analysis using ideas from gravity models as well as entropy maximizing models in a singly- and a doubly-constrained framework.
 
 ### Citation
 
@@ -24,11 +24,15 @@ devtools::install_github("CRC1266-A2/moin")
 
 ### Licenses
 
-**Text and figures:** [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
+-   Text and figures:
+    [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
+    If figures are created by other people these figures are linked to their source location.
 
-**Code:** See the [DESCRIPTION](DESCRIPTION) file
+-   Code:
+    See the [DESCRIPTION](DESCRIPTION) file
 
-\*\*<Data:**> [CC-0](http://creativecommons.org/publicdomain/zero/1.0/) attribution requested in reuse
+-   Data:
+    [CC-0](http://creativecommons.org/publicdomain/zero/1.0/) attribution requested in reuse
 
 ### Contributions
 
