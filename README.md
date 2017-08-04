@@ -11,11 +11,11 @@ The goal of this package is to allow simple interaction analysis using ideas fro
 
 Please cite this compendium as:
 
-> Knitter, Daniel (2017). *MoIn -- Modeling Spatial Interactions*. Accessed 04 Aug 2017. Online at <https://doi.org/xxx/xxx>
+> Knitter, Daniel (2017). *moin -- Modeling Spatial Interactions*. Accessed 04 Aug 2017. Online at <https://doi.org/xxx/xxx>
 
 ### Installation
 
-You can install MoIn from github with:
+You can install moin from github with:
 
 ``` r
 if(!require('devtools')) install.packages('devtools')

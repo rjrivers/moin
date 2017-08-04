@@ -22,11 +22,11 @@ The goal of this package is to allow simple interaction analysis using ideas fro
 
 Please cite this compendium as:
 
-> Knitter, Daniel (`r format(Sys.Date(), "%Y")`). _MoIn -- Modeling Spatial Interactions_. Accessed `r format(Sys.Date(), "%d %b %Y")`. Online at <https://doi.org/xxx/xxx>
+> Knitter, Daniel (`r format(Sys.Date(), "%Y")`). _moin -- Modeling Spatial Interactions_. Accessed `r format(Sys.Date(), "%d %b %Y")`. Online at <https://doi.org/xxx/xxx>
 
 ### Installation
 
-You can install MoIn from github with:
+You can install moin from github with:
 
 ```{r gh-installation, eval = FALSE}
 if(!require('devtools')) install.packages('devtools')
