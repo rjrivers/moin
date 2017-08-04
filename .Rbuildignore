@@ -1,0 +1,7 @@
+^\.travis\.yml$
+^README\.Rmd$
+^README\.html$
+^README-.*\.png$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
+^moin.pdf$
