@@ -27,9 +27,8 @@ as soon as the beta estimating function is implemented.); ..}
 a list with the elements:
 \itemize{
 \item flows showing the flows from i to j,  
-\item si are the sum of the rows, i.e. the sum of i along columns j; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power (ei) and population (Pi)
-\item sj are the constraints
-\item K is the proportionality factor
+\item si are the sum of the rows, i.e. the sum of i along columns j; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power/population, etc. (Oi)
+\item sj are the constraints 
 }
 }
 \description{
@@ -61,7 +60,4 @@ Vi <- c(1000, 1400)
 Vj <- c(1300, 300, 800)
 
 sc(Oi = Vi, Dj = Vj, cij = cij, beta = 2)
-}
-\references{
-Wilson, A.G., Kirkby, M.J., 1980. Mathematics for geographers and planners, 2nd ed, Contemporary problems in geography. Clarendon Pr., Oxford.
 }
