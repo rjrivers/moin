@@ -65,7 +65,7 @@ sc <- function(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power") {
   
   for( i in 1:length(Oi)) {
     for( j in 1:length(Dj)) {
-      Tij[i,j] <- Oi[i] * ((Dj[j] * fcij[i,j]) / sum(Dj * fcij[i,]))
+      Tij[i,j] <- Oi[i] * ((Dj[j] * fcij[i,j]) / sum(Dj * fcij[i,], na.rm = TRUE))
     }
   }
 
