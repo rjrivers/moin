@@ -35,11 +35,8 @@ library(moin)
 
 # Analyses
 
-## Load Data
-
 ```{r load}
 library(magrittr)
-library(rgdal)
 
 library(readr)
 sett <- readr::read_delim(file = "../data/raw_data/Wagrien/Brozio_Siedlungsplaetze_Wagrien.csv",
@@ -47,8 +44,10 @@ sett <- readr::read_delim(file = "../data/raw_data/Wagrien/Brozio_Siedlungsplaet
 
 library(sp)
 coordinates(sett) <- ~Rechts+Hoch
-proj4string(sett) <- CRS("+init=epsg:25832")
-
+proj4string(sett) <- CRS("+init=epsg:31468")
+sett <- spTransform(sett, CRSobj = CRS("+init=epsg:25832"))
+sett <- remove.duplicates(obj = sett,
+                          zero = 1)
 ```
 
 ## Create Delaunay Graph and calculate the distances between the connected points
@@ -56,53 +55,114 @@ proj4string(sett) <- CRS("+init=epsg:25832")
 ```{r del}
 library(spdep)
 settdel <- tri2nb(coords = sett@coords)
+settgab <- graph2nb(gabrielneigh(coords = sett@coords))
+
+no_neighs <- which(unlist(lapply(settgab, function(x){max(x)}))==0)
+sett2 <- sett[-c(no_neighs),]
+
+par(mfrow = c(1,2))
+plot(nb2lines(nb = settdel, coords = sett@coords), main = "Delaunay graph")
+plot(nb2lines(nb = settgab, coords = sett@coords), main = "Gabriel graph")
 
 library(rgeos)
-distmat <- gDistance(tellpoints, byid = TRUE)
-distmat <- distmat / 1000
+distmat_del<- gDistance(sett, byid = TRUE)
+distmat_del <- distmat_del / 1000
 
-for (i in 1:dim(distmat)[1]) {
-  distmat[i,-c(telldel[[i]])] <- NA
-  }
+distmat_gab <- gDistance(sett2, byid = TRUE)  
+distmat_gab <- distmat_gab / 1000
+
+for (i in 1:dim(distmat_del)[1]) {
+  distmat_del[i,-c(settdel[[i]])] <- NA
+}
+
+for (i in 1:dim(distmat_gab)[1]) {
+  distmat_gab[i,-c(settgab[[i]])] <- NA
+}
 ```	
 
 ## Interaction 
 
+A singly-constrained interaction is calculated:
+
+$$
+s_i = O_i * \frac{D_j * c_{ij}}{\sum D_j * c_{ij}}
+$$
+
 ```{r moin1}
 library(moin)
 
-int_mod <- sc(Oi = rep(x = 10, times = length(tellpoints)),
-              Dj = rep(x = 5, times = length(tellpoints)),
-              cij = distmat,
-              beta = 1,
-              detfun = "power")
-tellpoints@data$si <- int_mod$si
+int_mod_del <- sc(Oi = rep(x = 10, times = length(sett)),
+                  Dj = rep(x = 5, times = length(sett)),
+                  cij = distmat_del,
+                  beta = 1,
+                  detfun = "power")
+sett@data$si_del <- int_mod_del$si
 
-mapview(tellpoints,
-        cex = tellpoints$si,
-        zcol = "si")  
+int_mod_gab <- sc(Oi = rep(x = 10, times = length(sett2)),
+                  Dj = rep(x = 5, times = length(sett2)),
+                  cij = distmat_gab,
+                  beta = 1,
+                  detfun = "power")
+sett2@data$si_gab <- int_mod_gab$si
+
+library(ggplot2)
+plot_del <- sett %>%
+  sf::st_as_sf() %>%
+  ggplot(aes(size = si_del, color = si_del)) + 
+  geom_sf() +
+  theme_bw() +
+  guides(color=guide_legend(), size = guide_legend())
+
+plot_gab <- sett2 %>%
+  sf::st_as_sf() %>%
+  ggplot(aes(size = si_gab, color = si_gab)) + 
+  geom_sf() +
+  theme_bw() +
+  guides(color=guide_legend(), size = guide_legend())
+
+cowplot::plot_grid(plot_del,
+                   plot_gab,
+                   labels = c("A","B"))
 ```
+
 
 ## Network measures as attributes for Interaction
 
 ```{r netw}
-g <- igraph::graph_from_adj_list(adjlist = telldel,
+g <- igraph::graph_from_adj_list(adjlist = settdel,
                                  mode = "all")
-tellpoints@data$degree <- igraph::degree(g)
-tellpoints@data$closeness <- igraph::closeness(g)
-tellpoints@data$betweeness <- igraph::betweenness(g)
+sett@data$del_degree <- igraph::degree(g)
+sett@data$del_closeness <- igraph::closeness(g)
+sett@data$del_betweeness <- igraph::betweenness(g)
 
-int_mod <- sc(Oi = rep(x = 10, times = length(tellpoints)),
-              Dj = tellpoints@data$degree,
-              cij = distmat,
-              beta = 1,
-              detfun = "power"
-              )
-tellpoints@data$si <- int_mod$si
+int_mod_del_deg <- sc(Oi = rep(x = 10, times = length(sett)),
+                      Dj = sett@data$del_degree,
+                      cij = distmat_del,
+                      beta = 1,
+                      detfun = "power"
+                      )
+sett@data$si_del_deg <- int_mod_del_deg$si
 
-mapview(tellpoints,
-        cex = tellpoints$si,
-        zcol = "si")
+mapview::mapview(sett["si_del_deg"],
+                 cex = sett$si_del_deg,
+                 zcol = "si_del_deg")
+
+g <- igraph::graph_from_adjacency_matrix(distmat_gab)
+sett2@data$gab_degree <- igraph::degree(g)
+sett2@data$gab_closeness <- igraph::closeness(g)
+sett2@data$gab_betweeness <- igraph::betweenness(g)
+
+int_mod_gab_deg <- sc(Oi = rep(x = 10, times = length(sett2)),
+                      Dj = sett2@data$gab_degree,
+                      cij = distmat_gab,
+                      beta = 1,
+                      detfun = "power"
+                      )
+sett2@data$si_gab_deg <- int_mod_gab_deg$si
+
+mapview::mapview(sett2["si_gab_deg"],
+                 cex = sett2$si_gab_deg,
+                 zcol = "si_gab_deg")
 ```
 
 ### What is the influence of different beta values on the location importance of sites?
@@ -118,18 +178,17 @@ beta_seq <- seq(from = 0.1, to = 2.0, by = .1)
 
 for (i in 1:length(beta_seq)) {
   j <- beta_seq[i]
-  beta_test <- rbind(beta_test, data.frame(beta = rep(j, length(tellpoints)),
-                                           si = sc(Oi = rep(x = 10, times = length(tellpoints)),
-                                                   Dj = tellpoints@data$degree,
-                                                   cij = distmat,
+  beta_test <- rbind(beta_test, data.frame(beta = rep(j, length(sett)),
+                                           si = sc(Oi = rep(x = 10, times = length(sett)),
+                                                   Dj = sett@data$del_degree,
+                                                   cij = distmat_del,
                                                    beta = j,
                                                    detfun = "power"
                                                    )$si,
-                                           degree = tellpoints$degree)
+                                           degree = sett$del_degree)
                      )
 }
 beta_test <- beta_test[2:length(beta_test[,1]),]
-head(beta_test)
 
 beta_test2 <- beta_test %>%
   dplyr::as.tbl()
@@ -145,7 +204,7 @@ ggplot(beta_test2, aes(x = si, y = as.factor(beta), fill = as.factor(degree))) +
        y = expression(paste(beta," factor of power function")),
        title = "Location attractiveness (si) in relation to degree-centrality and distance weight (beta) factors",
        subtitle = "Connections based on Delaunay graph; Origins weighted equally; attractiveness equals degree centrality",
-       caption = "Data source: settlements in Harran Ovası, SE Turkey, digitized from Corona satellite images (acquisition dates ~1960-1970)") +   
+       caption = "Data source: settlements in Wagrien (Schleswig Holstein, Germany)") +   
   guides(fill=guide_legend(nrow = 1))
 ```
 
