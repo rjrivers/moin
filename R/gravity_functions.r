@@ -3,7 +3,7 @@
 #' A gravity like approach
 #' 
 #' @param Oi origin values, e.g. measured as purchasing power, money, etc. of location i
-#' @param Dj destination values, e.g. measured as attractiveness of location j
+#' @param Wj destination values, e.g. measured as attractiveness of location j
 #' @param alpha default = 1; scaling factor for the attractiveness
 #' @param beta distance decay factor, default = 1
 #' @param cij distance/cost etc. matrix
@@ -16,7 +16,7 @@
 #' @return a list with the elements:
 #' \itemize{
 #' \item flows showing the flows from i to j,  
-#' \item si are the sum of the rows, i.e. the sum of i along columns j; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power/population, etc. (Oi)
+#' \item Dj are the sum of the columns; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power/population, etc. (Oi)
 #' \item sj are the constraints 
 #' }
 #'
@@ -32,7 +32,7 @@
 #'               nc = 3
 #' )
 #'
-#' sc(Oi = ei * Pi, Dj = Wj, cij = cij, detfun = "power")
+#' sc(Oi = ei * Pi, Wj = Wj, cij = cij, detfun = "power")
 #'
 #' ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' # from: Chan, Y., 2011. Location Theory and Decision
@@ -45,9 +45,9 @@
 #' Vi <- c(1000, 1400)
 #' Vj <- c(1300, 300, 800)
 #' 
-#' sc(Oi = Vi, Dj = Vj, cij = cij, beta = 2)
+#' sc(Oi = Vi, Wj = Vj, cij = cij, beta = 2)
 #' @export sc
-sc <- function(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power") {
+sc <- function(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power") {
   ## calculation of distance matrix using deterrence function
   if (detfun == "power") {
     fcij <- cij^-beta
@@ -58,27 +58,26 @@ sc <- function(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power") {
     cat("Sorry, I do not know this kind of deterrence function\n")
   }
 
-  Dj <- Dj^alpha
+  Wj <- Wj^alpha
 
   ## calculation of flows
   Tij <- cij
   
   for( i in 1:length(Oi)) {
-    for( j in 1:length(Dj)) {
-      Tij[i,j] <- Oi[i] * ((Dj[j] * fcij[i,j]) / sum(Dj * fcij[i,], na.rm = TRUE))
+    for( j in 1:length(Wj)) {
+      Tij[i,j] <- Oi[i] * ((Wj[j] * fcij[i,j]) / sum(Wj * fcij[i,], na.rm = TRUE))
     }
   }
 
   ## calibration factor/weighting factor/ calibration constant
   ## K <- Oi
-  ## for (j in 1:length(Dj)) {
-  ##   K[j] <- 1 / sum(Dj * fcij[j,])
+  ## for (j in 1:length(Wj)) {
+  ##   K[j] <- 1 / sum(Wj * fcij[j,])
   ## }
   
   ## output
   return(list(flows = Tij,
-              si = colSums(Tij, na.rm = TRUE),
-              sj = rowSums(Tij, na.rm = TRUE)
+              Dj = colSums(Tij, na.rm = TRUE)              
               )
          )
 }

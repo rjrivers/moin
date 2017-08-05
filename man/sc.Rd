@@ -4,12 +4,12 @@
 \alias{sc}
 \title{Singly constrained location model}
 \usage{
-sc(Oi, Dj, cij, alpha = 1, beta = 1, detfun = "power")
+sc(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power")
 }
 \arguments{
 \item{Oi}{origin values, e.g. measured as purchasing power, money, etc. of location i}
 
-\item{Dj}{destination values, e.g. measured as attractiveness of location j}
+\item{Wj}{destination values, e.g. measured as attractiveness of location j}
 
 \item{cij}{distance/cost etc. matrix}
 
@@ -27,7 +27,7 @@ as soon as the beta estimating function is implemented.); ..}
 a list with the elements:
 \itemize{
 \item flows showing the flows from i to j,  
-\item si are the sum of the rows, i.e. the sum of i along columns j; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power/population, etc. (Oi)
+\item Dj are the sum of the columns; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power/population, etc. (Oi)
 \item sj are the constraints 
 }
 }
@@ -46,7 +46,7 @@ cij <- matrix(data = c(1, 5, 5,
               nc = 3
 )
 
-sc(Oi = ei * Pi, Dj = Wj, cij = cij, detfun = "power")
+sc(Oi = ei * Pi, Wj = Wj, cij = cij, detfun = "power")
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # from: Chan, Y., 2011. Location Theory and Decision
@@ -59,5 +59,5 @@ cij <- matrix(data = c(8,5,10,
 Vi <- c(1000, 1400)
 Vj <- c(1300, 300, 800)
 
-sc(Oi = Vi, Dj = Vj, cij = cij, beta = 2)
+sc(Oi = Vi, Wj = Vj, cij = cij, beta = 2)
 }
