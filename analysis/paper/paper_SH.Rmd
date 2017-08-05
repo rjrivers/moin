@@ -4,7 +4,7 @@ author:
   - Daniel Knitter  
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
-    bookdown::html_document2:
+    bookdown::pdf_book:
     fig_caption: yes
     reference_docx: templates/template.docx
 bibliography: references.bib
@@ -12,7 +12,7 @@ csl: journal-of-archaeological-science.csl
 abstract: |
   Text of abstract
 keywords: |
-  keyword 1; keyword 2; keyword 3
+  Funnel beaker; Entropy Maximization; Landscape Archaeology
 highlights: |
   These are the highlights. 
 ---
@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   echo = FALSE,
   comment = "#>",
-  fig.path = "figures"
+  fig.path = "../figures/"
 )
 
 library(moin)
@@ -85,37 +85,39 @@ for (i in 1:dim(distmat_gab)[1]) {
 A singly-constrained interaction is calculated:
 
 $$
-s_i = O_i * \frac{D_j * c_{ij}}{\sum D_j * c_{ij}}
+D_j = \sum_i \frac{O_i * W_j * c_{ij}^-\beta}{\sum_k W_k * c_{ik}^-\beta}
 $$
+
+[@rihll_modelling_1988, Mathematical Appendix]
 
 ```{r moin1}
 library(moin)
 
 int_mod_del <- sc(Oi = rep(x = 10, times = length(sett)),
-                  Dj = rep(x = 5, times = length(sett)),
+                  Wj = rep(x = 5, times = length(sett)),
                   cij = distmat_del,
                   beta = 1,
                   detfun = "power")
-sett@data$si_del <- int_mod_del$si
+sett@data$Dj_del <- int_mod_del$Dj
 
 int_mod_gab <- sc(Oi = rep(x = 10, times = length(sett2)),
-                  Dj = rep(x = 5, times = length(sett2)),
+                  Wj = rep(x = 5, times = length(sett2)),
                   cij = distmat_gab,
                   beta = 1,
                   detfun = "power")
-sett2@data$si_gab <- int_mod_gab$si
+sett2@data$Dj_gab <- int_mod_gab$Dj
 
 library(ggplot2)
 plot_del <- sett %>%
   sf::st_as_sf() %>%
-  ggplot(aes(size = si_del, color = si_del)) + 
+  ggplot(aes(size = Dj_del, color = Dj_del)) + 
   geom_sf() +
   theme_bw() +
   guides(color=guide_legend(), size = guide_legend())
 
 plot_gab <- sett2 %>%
   sf::st_as_sf() %>%
-  ggplot(aes(size = si_gab, color = si_gab)) + 
+  ggplot(aes(size = Dj_gab, color = Dj_gab)) + 
   geom_sf() +
   theme_bw() +
   guides(color=guide_legend(), size = guide_legend())
@@ -136,16 +138,16 @@ sett@data$del_closeness <- igraph::closeness(g)
 sett@data$del_betweeness <- igraph::betweenness(g)
 
 int_mod_del_deg <- sc(Oi = rep(x = 10, times = length(sett)),
-                      Dj = sett@data$del_degree,
+                      Wj = sett@data$del_degree,
                       cij = distmat_del,
                       beta = 1,
                       detfun = "power"
                       )
-sett@data$si_del_deg <- int_mod_del_deg$si
+sett@data$Dj_del_deg <- int_mod_del_deg$Dj
 
-mapview::mapview(sett["si_del_deg"],
-                 cex = sett$si_del_deg,
-                 zcol = "si_del_deg")
+mapview::mapview(sett["Dj_del_deg"],
+                 cex = sett$Dj_del_deg,
+                 zcol = "Dj_del_deg")
 
 g <- igraph::graph_from_adjacency_matrix(distmat_gab)
 sett2@data$gab_degree <- igraph::degree(g)
@@ -153,25 +155,25 @@ sett2@data$gab_closeness <- igraph::closeness(g)
 sett2@data$gab_betweeness <- igraph::betweenness(g)
 
 int_mod_gab_deg <- sc(Oi = rep(x = 10, times = length(sett2)),
-                      Dj = sett2@data$gab_degree,
+                      Wj = sett2@data$gab_degree,
                       cij = distmat_gab,
                       beta = 1,
                       detfun = "power"
                       )
-sett2@data$si_gab_deg <- int_mod_gab_deg$si
+sett2@data$Dj_gab_deg <- int_mod_gab_deg$Dj
 
-mapview::mapview(sett2["si_gab_deg"],
-                 cex = sett2$si_gab_deg,
-                 zcol = "si_gab_deg")
+mapview::mapview(sett2["Dj_gab_deg"],
+                 cex = sett2$Dj_gab_deg,
+                 zcol = "Dj_gab_deg")
 ```
 
 ### What is the influence of different beta values on the location importance of sites?
 
 First, let us have a look at changing $\beta$ values for the power function
 
-```{r tests, fig.height = 10}
+```{r tests}
 beta_test <- data.frame(beta = 0,
-                        si = 0,
+                        Dj = 0,
                         degree = 0
                         )
 beta_seq <- seq(from = 0.1, to = 2.0, by = .1)
@@ -179,12 +181,12 @@ beta_seq <- seq(from = 0.1, to = 2.0, by = .1)
 for (i in 1:length(beta_seq)) {
   j <- beta_seq[i]
   beta_test <- rbind(beta_test, data.frame(beta = rep(j, length(sett)),
-                                           si = sc(Oi = rep(x = 10, times = length(sett)),
-                                                   Dj = sett@data$del_degree,
+                                           Dj = sc(Oi = rep(x = 10, times = length(sett)),
+                                                   Wj = sett@data$del_degree,
                                                    cij = distmat_del,
                                                    beta = j,
                                                    detfun = "power"
-                                                   )$si,
+                                                   )$Dj,
                                            degree = sett$del_degree)
                      )
 }
@@ -194,21 +196,21 @@ beta_test2 <- beta_test %>%
   dplyr::as.tbl()
 
 library(ggplot2)
-ggplot(beta_test2, aes(x = si, y = as.factor(beta), fill = as.factor(degree))) + 
-  ggjoy::geom_joy(scale = 2.5, rel_min_height=.01, alpha = .8, color = "white") +
-  ggjoy::theme_joy() +
+ggplot(beta_test2, aes(x = Dj, y = as.factor(beta), fill = as.factor(degree))) + 
+  ggjoy::geom_joy(scale = 2, rel_min_height=.01, alpha = .8, color = "white") +
+  ggjoy::theme_joy(font_size = 8, line_size = .5) +
   theme(legend.position = "bottom") +
   viridis::scale_fill_viridis(discrete=TRUE,
                               name = "Degree centrality") +
-  labs(x = "si",
+  labs(x = "Dj",
        y = expression(paste(beta," factor of power function")),
-       title = "Location attractiveness (si) in relation to degree-centrality and distance weight (beta) factors",
+       title = "Location attractiveness (Dj) in relation to degree-centrality and distance weight (beta) factors",
        subtitle = "Connections based on Delaunay graph; Origins weighted equally; attractiveness equals degree centrality",
        caption = "Data source: settlements in Wagrien (Schleswig Holstein, Germany)") +   
   guides(fill=guide_legend(nrow = 1))
 ```
 
-### Colophon
+# Colophon #
 
 This report was generated on `r Sys.time()` using the following computational environment and dependencies: 
 
@@ -224,4 +226,5 @@ current_commit <- rrtools::current_git_commit(path = "../..")
 The current git commit of this file is `r current_commit$sha`, which is on the `r current_commit$branch` branch and was made by `r current_commit$person` on `r current_commit$commit_date`. The current commit message is "`r current_commit$commit_msg`". The repository is online at <`r current_commit$remote_url`>
 
 
+# References #
 
