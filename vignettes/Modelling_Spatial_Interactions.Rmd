@@ -9,14 +9,4 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Ideas to be put in analyses
 
-- use data from Harran plain
-- use size of settlements
-- create network of sites 
-- calculate centrality parameters based on network
-- use centrality parameter as "attractiveness"
-- use size as "Oi" parameter
-- create nice graphs and maps based on that. 
-
-Question: Is the network location mirrored in the size of a settlement? This can be analyzed because the singly-constrained gravity model (also in the entropy maximization case) can be seen as a location model. The more flows that are attracted, the more important is a site
