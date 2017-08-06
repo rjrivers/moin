@@ -11,6 +11,6 @@ Encoding: UTF-8
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown,
-    testthat
+    testthat    
 VignetteBuilder: knitr
 Imports: bookdown
