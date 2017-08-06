@@ -18,6 +18,13 @@ knitr::opts_chunk$set(
 
 The goal of this package is to allow simple interaction analysis using ideas from gravity models as well as entropy maximizing models in a singly- and a doubly-constrained framework. 
 
+# ToDo's
+
+- write nice vignette
+- enhance the functions
+  - automatic creation of distance matrices
+  - calculation of neighborhood graphs and adjacencies
+
 ### Citation
 
 Please cite this compendium as:
