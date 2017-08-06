@@ -174,7 +174,7 @@ tellpoints <- tellpoly %>%
                                            Tell = tellpoly@data$Tell))
 
 library(mapview)
-mapview(harran) + mapview(tellpoly) + mapview(tellpoints)
+## mapview(harran) + mapview(tellpoly) + mapview(tellpoints)
 ```
 
 ## Create Delaunay Graph and calculate the distances between the connected points
@@ -203,9 +203,9 @@ int_mod <- sc(Oi = rep(x = 10, times = length(tellpoints)),
               detfun = "power")
 tellpoints@data$Dj <- int_mod$Dj
 
-mapview(tellpoints,
-        cex = tellpoints$Dj,
-        zcol = "Dj")  
+## mapview(tellpoints,
+##         cex = tellpoints$Dj,
+##         zcol = "Dj")  
 ```
 
 ## Network measures as attributes for Interaction
@@ -225,9 +225,9 @@ int_mod <- sc(Oi = rep(x = 10, times = length(tellpoints)),
               )
 tellpoints@data$Dj <- int_mod$Dj
 
-mapview(tellpoints,
-        cex = tellpoints$Dj,
-        zcol = "Dj")
+## mapview(tellpoints,
+##         cex = tellpoints$Dj,
+##         zcol = "Dj")
 ```
 
 ### What is the influence of different beta values on the location importance of sites?
