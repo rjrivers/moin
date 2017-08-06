@@ -385,10 +385,6 @@ ggplot(beta_test2, aes(x = Dj, y = as.factor(beta), fill = as.factor(degree))) +
   guides(fill=guide_legend(nrow = 1))
 ```
 
-    ## Picking joint bandwidth of 0.537
-
-<img src="Modelling_Spatial_Interactions_files/figure-markdown_github-ascii_identifiers/eex_tests-1.png" style="display: block; margin: auto;" />
-
 References
 ==========
 
