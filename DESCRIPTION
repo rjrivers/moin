@@ -11,6 +11,16 @@ Encoding: UTF-8
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown,
-    testthat    
+    testthat,
+    dplyr,
+    ggplot2,
+    ggjoy,
+    igraph,
+    viridis,
+    magrittr,
+    mapview,
+    rgdal,
+    rgeos,
+    spdep
 VignetteBuilder: knitr
 Imports: bookdown
