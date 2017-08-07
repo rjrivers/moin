@@ -61,7 +61,6 @@ Here are the original data. $S_{11}$ to $S_{33}$ correspond to the `flows` as re
 knitr::include_graphics("WilsonKirkby1980_p101.jpg")
 ```
 
-
 What is important here? The main characteristics is that the flow totals are constrained by $e_i * P_i$. Due to this it can act as a location model and predict the spatial distribution of shopping sales (these are the `Dj` values).
 
 ## Doubly-constrained model
@@ -273,6 +272,55 @@ ggplot(beta_test2, aes(x = Dj, y = as.factor(beta), fill = as.factor(degree))) +
        caption = "Data source: settlements in Harran Ovası, SE Turkey, digitized from Corona satellite images (acquisition dates ~1960-1970)") +   
   guides(fill=guide_legend(nrow = 1))
 ```
+
+## Further terminology (as such not yet implemented in the package functions)
+
+Source: @rihll_modelling_1988, p. 6:
+
+- **credit**/inflow: the number of interactions destined for a site, i.e. interactions arriving at a site; i.e. the sum of $i$ at some $j$.
+- **debit**/outflow: the interaction which originate at a site and which is constrained by the size of a site; i.e. the sum of $j$ for some $i$.
+
+This can be used to create simple site hierarchies:
+
+- $A$ is a lower order settlement than $B$
+  - if the greatest single debit/outflow from site $A$ is to site $B$
+  - and this single figure is larger than the sum of $A$'s credits/inflow
+- A site $B$ is a /*terminal/*
+  - if the greatest single debit/outflow from $B$ is to $C$
+  - and this single figure is smaller than the total of $B$'s credits/inflows
+
+```{r hierarchy}
+test <- sc(Oi = rep(x = 10, times = length(tellpoints)),
+           Wj = tellpoints@data$degree*10,
+           cij = distmat,
+           beta = 2,
+           detfun = "exp"
+           )
+test
+
+tmp <- list()
+for (i in 1:dim(test$flows)[1]) {
+  if (max(test$flows[i,], na.rm = TRUE) > sum(test$flows[,i], na.rm = TRUE)) {
+    tmp[[i]] <- which(test$flows[i,]==max(test$flows[i,], na.rm = TRUE))
+  } else {
+    tmp[[i]] <- NA
+  }
+}
+unlist(tmp)
+
+terminal <- list()
+for (i in 1:dim(test$flows)[1]) {
+  if (max(test$flows[i,], na.rm = TRUE) < sum(test$flows[,i], na.rm = TRUE)) {
+    terminal[[i]] <- which(test$flows[i,]==max(test$flows[i,], na.rm = TRUE))
+  } else {
+    tmp[[i]] <- NA
+  }  
+}
+unlist(terminal)
+
+table(unlist(terminal))
+```	
+
 
 
 # References
