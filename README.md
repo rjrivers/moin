@@ -7,11 +7,19 @@ moin
 
 The goal of this package is to allow simple interaction analysis using ideas from gravity models as well as entropy maximizing models in a singly- and a doubly-constrained framework.
 
+ToDo's
+======
+
+-   write nice vignette
+-   enhance the functions
+-   automatic creation of distance matrices
+-   calculation of neighborhood graphs and adjacencies
+
 ### Citation
 
 Please cite this compendium as:
 
-> Knitter, Daniel (2017). *moin -- Modeling Spatial Interactions*. Accessed 04 Aug 2017. Online at <https://doi.org/xxx/xxx>
+> Knitter, Daniel (2017). *moin -- Modeling Spatial Interactions*. Accessed 07 Aug 2017. Online at <https://doi.org/xxx/xxx>
 
 ### Installation
 
@@ -36,4 +44,4 @@ devtools::install_github("CRC1266-A2/moin")
 
 ### Contributions
 
-We welcome contributions from everyone. Before you get started, please see our [contributor guidelines](CONTRIBUTING.md). Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+We welcome contributions from everyone. Before you get started, please see our [contributor guidelines](CONTRIBUTING.md). Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
