@@ -170,7 +170,7 @@ tellpoints <- tellpoly %>%
   gCentroid(byid=TRUE) %>%
   SpatialPointsDataFrame(data = data.frame(x = .@coords[,1],
                                            y = .@coords[,2],
-                                           Tell = tellpoly@data$Tell))
+                                           area = tellpoly@data$area))
 
 library(mapview)
 ## mapview(harran) + mapview(tellpoly) + mapview(tellpoints)
@@ -290,11 +290,11 @@ This can be used to create simple site hierarchies:
   - and this single figure is smaller than the total of $B$'s credits/inflows
 
 ```{r hierarchy}
-test <- sc(Oi = rep(x = 10, times = length(tellpoints)),
+test <- sc(Oi = tellpoints@data$area,
            Wj = tellpoints@data$degree*10,
            cij = distmat,
            beta = 2,
-           detfun = "exp"
+           detfun = "power"
            )
 test
 
@@ -316,9 +316,12 @@ for (i in 1:dim(test$flows)[1]) {
     tmp[[i]] <- NA
   }  
 }
-unlist(terminal)
+terminal
 
-table(unlist(terminal))
+
+plot(tellpoints, pch = 19, col = rgb(.5,.5,.5,.5))
+points(tellpoints[unlist(terminal),], pch = 19)
+points(tellpoints[na.omit(unlist(tmp)),], pch = 1, cex = 2, col = "red")
 ```	
 
 
