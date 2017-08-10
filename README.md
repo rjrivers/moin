@@ -2,6 +2,8 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Travis-CI Build Status](https://travis-ci.org/CRC1266-A2/moin.svg?branch=master)](https://travis-ci.org/CRC1266-A2/moin)
 
+[![DOI](https://zenodo.org/badge/98172749.svg)](https://zenodo.org/badge/latestdoi/98172749)
+
 moin
 ====
 
@@ -19,7 +21,7 @@ ToDo's
 
 Please cite this compendium as:
 
-> Knitter, Daniel (2017). *moin -- Modeling Spatial Interactions*. Accessed 07 Aug 2017. Online at <https://doi.org/xxx/xxx>
+> Knitter, Daniel (2017). *moin -- Modeling Spatial Interactions*. Accessed 10 Aug 2017. Online at <https://doi.org/xxx/xxx>
 
 ### Installation
 

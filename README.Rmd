@@ -6,6 +6,8 @@ output: github_document
 
 [![Travis-CI Build Status](https://travis-ci.org/CRC1266-A2/moin.svg?branch=master)](https://travis-ci.org/CRC1266-A2/moin)
 
+[![DOI](https://zenodo.org/badge/98172749.svg)](https://zenodo.org/badge/latestdoi/98172749)
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
