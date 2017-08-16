@@ -22,7 +22,11 @@ Date source: Wagrien (1649) out of: Domeier K. and M. Haack (1963): Schleswig-Ho
 ```{r load}
 library(sf)
 sites <- st_read("data/OldenburgerGraben/Placenames.shp")
-plot(sites["rank"])
+roads <- st_read("data/OldenburgerGraben/Routes.shp")
+
+sites$roadconns <- sapply(st_intersects(st_buffer(sites, dist = 10), roads), length)
+
+mapview::mapview(sites, cex = sites$roadconns+1)
 ```
 
 # Create a network of the sites
@@ -35,7 +39,6 @@ sitesdel <- tri2nb(coords = st_coordinates(sites))
 plot(sitesdel, coords = st_coordinates(sites))
 
 distmat <- st_distance(x = sites, y = sites)
-distmat
 distmat <- distmat / 1000
 
 for (i in 1:dim(distmat)[1]) {
@@ -56,15 +59,16 @@ knitr::kable(sites)
 
 library(moin)
 int_mod <- sc(Oi = sites$rank+1,
-              Wj = sites$rank+1,
-              alpha = sites$degree,
+              Wj = sites$degree,
+              alpha = sites$roadconns+1,
               cij = distmat,
               beta = 1,
               detfun = "power"
               )
 sites$Dj <- int_mod$Dj
 
-mapview::mapview(sites,
-                 cex = sites$Dj,
-                 zcol = "rank")
+mapview::mapview(roads) + 
+  mapview::mapview(sites,
+                   cex = sites$Dj,
+                   zcol = "rank")
 ```
