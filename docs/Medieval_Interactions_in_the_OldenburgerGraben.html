@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Daniel Knitter, Alexander Millin" />
+
+<meta name="date" content="2017-08-16" />
+
+<title>Modeling Interactions during the Middle Ages in the Oldenburger Graben</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Modeling Interactions during the Middle Ages in the Oldenburger Graben</h1>
+<h4 class="author"><em>Daniel Knitter, Alexander Millin</em></h4>
+<h4 class="date"><em>2017-08-16</em></h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Date source: Wagrien (1649) out of: Domeier K. and M. Haack (1963): Schleswig-Holstein 1652 - Die Landkarten von Johannes Mejer, Husum, aus der neuen Landesbeschreibung der zwei Herzogtümer Schleswig und Holstein von Caspar Danckmerth D. 1652, Verlag Otto Heinevetter, Hamburg-Bergedorf.</p>
+<p><strong>ToDo</strong> What is this example about?</p>
+</div>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
+<pre><code>## Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.2, lwgeom 2.3.3 r15473</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sites &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/OldenburgerGraben/Placenames.shp&quot;</span>)</code></pre></div>
+<pre><code>## Reading layer `Placenames' from data source `/home/daniel/WiMi_Kiel/SFB_Projects/A-2/Model/moin/vignettes/data/OldenburgerGraben/Placenames.shp' using driver `ESRI Shapefile'
+## Simple feature collection with 175 features and 3 fields
+## geometry type:  POINT
+## dimension:      XY
+## bbox:           xmin: 606598.4 ymin: 5992757 xmax: 635643.1 ymax: 6026986
+## epsg (SRID):    32632
+## proj4string:    +proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">roads &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/OldenburgerGraben/Routes.shp&quot;</span>)</code></pre></div>
+<pre><code>## Reading layer `Routes' from data source `/home/daniel/WiMi_Kiel/SFB_Projects/A-2/Model/moin/vignettes/data/OldenburgerGraben/Routes.shp' using driver `ESRI Shapefile'
+## Simple feature collection with 40 features and 1 field
+## geometry type:  LINESTRING
+## dimension:      XY
+## bbox:           xmin: 606514.7 ymin: 5992757 xmax: 636011.4 ymax: 6026986
+## epsg (SRID):    32632
+## proj4string:    +proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sites$roadconns &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">st_intersects</span>(<span class="kw">st_buffer</span>(sites, <span class="dt">dist =</span> <span class="dv">10</span>), roads), length)
+
+mapview::<span class="kw">mapview</span>(sites, <span class="dt">cex =</span> sites$roadconns<span class="dv">+1</span>)</code></pre></div>
+</div>
+<div id="create-a-network-of-the-sites" class="section level1">
+<h1>Create a network of the sites</h1>
+<div id="create-delaunay-graph-and-calculate-the-distances-between-the-connected-points" class="section level2">
+<h2>Create Delaunay Graph and calculate the distances between the connected points</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spdep)</code></pre></div>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sitesdel &lt;-<span class="st"> </span><span class="kw">tri2nb</span>(<span class="dt">coords =</span> <span class="kw">st_coordinates</span>(sites))</code></pre></div>
+<pre><code>## 
+##      PLEASE NOTE:  The components &quot;delsgs&quot; and &quot;summary&quot; of the
+##  object returned by deldir() are now DATA FRAMES rather than
+##  matrices (as they were prior to release 0.0-18).
+##  See help(&quot;deldir&quot;).
+##  
+##      PLEASE NOTE: The process that deldir() uses for determining
+##  duplicated points has changed from that used in version
+##  0.0-9 of this package (and previously). See help(&quot;deldir&quot;).</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sitesdel, <span class="dt">coords =</span> <span class="kw">st_coordinates</span>(sites))</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">distmat &lt;-<span class="st"> </span><span class="kw">st_distance</span>(<span class="dt">x =</span> sites, <span class="dt">y =</span> sites)
+distmat &lt;-<span class="st"> </span>distmat /<span class="st"> </span><span class="dv">1000</span>
+
+for (i in <span class="dv">1</span>:<span class="kw">dim</span>(distmat)[<span class="dv">1</span>]) {
+  distmat[i,-<span class="kw">c</span>(sitesdel[[i]])] &lt;-<span class="st"> </span><span class="ot">NA</span>
+  }</code></pre></div>
+</div>
+<div id="network-measures-as-attributes-for-interaction" class="section level2">
+<h2>Network measures as attributes for Interaction</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g &lt;-<span class="st"> </span>igraph::<span class="kw">graph_from_adj_list</span>(<span class="dt">adjlist =</span> sitesdel,
+                                 <span class="dt">mode =</span> <span class="st">&quot;all&quot;</span>)
+sites$degree &lt;-<span class="st"> </span>igraph::<span class="kw">degree</span>(g)
+sites$closeness &lt;-<span class="st"> </span>igraph::<span class="kw">closeness</span>(g)
+sites$betweeness &lt;-<span class="st"> </span>igraph::<span class="kw">betweenness</span>(g)
+
+knitr::<span class="kw">kable</span>(sites)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Id</th>
+<th align="left">Name</th>
+<th align="right">rank</th>
+<th align="left">geometry</th>
+<th align="right">roadconns</th>
+<th align="right">degree</th>
+<th align="right">closeness</th>
+<th align="right">betweeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Oldenborg</td>
+<td align="right">4</td>
+<td align="left">623060.8, 6017971.6</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">0.0009775</td>
+<td align="right">42.367868</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Kohoff</td>
+<td align="right">5</td>
+<td align="left">623603.2, 6018289.1</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0.0009542</td>
+<td align="right">62.873416</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Goell</td>
+<td align="right">1</td>
+<td align="left">626745.1, 6017144.7</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010834</td>
+<td align="right">446.403481</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Klotzyn</td>
+<td align="right">1</td>
+<td align="left">630250.9, 6016301.4</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010173</td>
+<td align="right">130.946651</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Rollyn</td>
+<td align="right">1</td>
+<td align="left">629027.2, 6017244.0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010101</td>
+<td align="right">423.230901</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">fangmol</td>
+<td align="right">1</td>
+<td align="left">631524.2, 6016152.5</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010753</td>
+<td align="right">423.333590</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Quals</td>
+<td align="right">1</td>
+<td align="left">628415.3, 6015755.7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010428</td>
+<td align="right">116.048669</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Gartz</td>
+<td align="right">5</td>
+<td align="left">629142.9, 6014680.8</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0011198</td>
+<td align="right">714.441911</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Rosenhoff</td>
+<td align="right">3</td>
+<td align="left">632863.6, 6012729.5</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010881</td>
+<td align="right">42.511007</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Lütkendorp</td>
+<td align="right">1</td>
+<td align="left">626001, 6016268</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0011403</td>
+<td align="right">882.570360</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Schwelbeck</td>
+<td align="right">2</td>
+<td align="left">624777.3, 6016152.5</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010730</td>
+<td align="right">143.045993</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Pütlüch</td>
+<td align="right">1</td>
+<td align="left">627108.9, 6015276.1</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010953</td>
+<td align="right">355.122354</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Sibbersdorp</td>
+<td align="right">1</td>
+<td align="left">621966.1, 6017012.4</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010373</td>
+<td align="right">228.584199</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Elersdorp</td>
+<td align="right">3</td>
+<td align="left">619429.4, 6017178.5</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0010384</td>
+<td align="right">369.467385</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Hohenstein</td>
+<td align="right">4</td>
+<td align="left">617820.7, 6016924.5</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">0.0009911</td>
+<td align="right">13.398643</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Farbe</td>
+<td align="right">3</td>
+<td align="left">616995.2, 6016712.8</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0010905</td>
+<td align="right">405.444761</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Wittenhusen</td>
+<td align="right">3</td>
+<td align="left">615598.2, 6018935.3</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">0.0011274</td>
+<td align="right">455.828126</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Siggen</td>
+<td align="right">3</td>
+<td align="left">633611.1, 6016120.1</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0.0010965</td>
+<td align="right">142.640424</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Dame</td>
+<td align="right">1</td>
+<td align="left">635643.1, 6008246.1</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">0.0013089</td>
+<td align="right">3171.020645</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Grube</td>
+<td align="right">4</td>
+<td align="left">632129.4, 6010775.5</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">0.0011710</td>
+<td align="right">410.129841</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Klenow</td>
+<td align="right">1</td>
+<td align="left">630965.2, 6012775.8</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0011236</td>
+<td align="right">506.717468</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Ribsdorp</td>
+<td align="right">1</td>
+<td align="left">627769.1, 6011442.3</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011521</td>
+<td align="right">429.076672</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Ratem</td>
+<td align="right">1</td>
+<td align="left">628996.7, 6011675.1</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010965</td>
+<td align="right">316.604444</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Quale</td>
+<td align="right">1</td>
+<td align="left">627409.2, 6012797.0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011274</td>
+<td align="right">450.883224</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Koselaw</td>
+<td align="right">3</td>
+<td align="left">626160.4, 6013601.3</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0011161</td>
+<td align="right">151.138044</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Damlose</td>
+<td align="right">1</td>
+<td align="left">624509.4, 6014194.0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011765</td>
+<td align="right">705.011722</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Johannsdorp</td>
+<td align="right">1</td>
+<td align="left">621376.7, 6014807.8</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">0.0011274</td>
+<td align="right">764.781109</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Petersdorp</td>
+<td align="right">5</td>
+<td align="left">621337.6, 6011242.3</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0012240</td>
+<td align="right">1446.932722</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Lensaenhoff</td>
+<td align="right">3</td>
+<td align="left">621178.8, 6008654.6</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011561</td>
+<td align="right">494.967346</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Lensaen</td>
+<td align="right">4</td>
+<td align="left">622401.2, 6009496.0</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">0.0011792</td>
+<td align="right">310.477884</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Rabelhorst</td>
+<td align="right">1</td>
+<td align="left">624226.8, 6010226.3</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011751</td>
+<td align="right">580.533236</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Rüting</td>
+<td align="right">1</td>
+<td align="left">627195.5, 6009178.5</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011614</td>
+<td align="right">412.955077</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Cismar</td>
+<td align="right">5</td>
+<td align="left">630259.3, 6007400.5</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0010823</td>
+<td align="right">63.204191</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Gostorp</td>
+<td align="right">1</td>
+<td align="left">628560.7, 6009765.9</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0011682</td>
+<td align="right">534.533785</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Güthow</td>
+<td align="right">1</td>
+<td align="left">631656.3, 6008924.5</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011848</td>
+<td align="right">422.039243</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Kellenhusen</td>
+<td align="right">1</td>
+<td align="left">632847, 6006496</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011442</td>
+<td align="right">237.759947</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Nienhagen</td>
+<td align="right">1</td>
+<td align="left">626773.1, 6006333.6</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010834</td>
+<td align="right">221.120758</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Lenst</td>
+<td align="right">1</td>
+<td align="left">630560, 6004961</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010526</td>
+<td align="right">45.408917</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Suckesdorp</td>
+<td align="right">1</td>
+<td align="left">627864.5, 6004696.5</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010417</td>
+<td align="right">70.306707</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Brenckenhagn</td>
+<td align="right">1</td>
+<td align="left">626376.2, 6004613.8</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0010449</td>
+<td align="right">13.201748</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Klockenhagn</td>
+<td align="right">1</td>
+<td align="left">628244.9, 6006796.6</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010787</td>
+<td align="right">162.104862</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Groems</td>
+<td align="right">4</td>
+<td align="left">628807.1, 6002943.6</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0010638</td>
+<td align="right">66.746363</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Körnicke</td>
+<td align="right">2</td>
+<td align="left">627484.2, 6002381.4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011364</td>
+<td align="right">298.922194</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Petersdorp</td>
+<td align="right">1</td>
+<td align="left">620042.8, 6010302.3</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0011876</td>
+<td align="right">1183.105754</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Nienrade</td>
+<td align="right">1</td>
+<td align="left">622936.6, 6007656.5</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0011710</td>
+<td align="right">855.303128</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Bendfelt</td>
+<td align="right">1</td>
+<td align="left">624226.5, 6004365.7</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0011481</td>
+<td align="right">856.885014</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Beschendorp</td>
+<td align="right">1</td>
+<td align="left">621977.5, 6006796.6</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0011173</td>
+<td align="right">181.478615</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Seebend</td>
+<td align="right">2</td>
+<td align="left">624172.1, 6017349.8</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010288</td>
+<td align="right">207.498213</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Dannow</td>
+<td align="right">1</td>
+<td align="left">621565.9, 6017879.0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009569</td>
+<td align="right">35.099983</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Gyrenstrandt</td>
+<td align="right">1</td>
+<td align="left">635410.3, 6011671.2</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">0.0010870</td>
+<td align="right">0.000000</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Thomsdorp</td>
+<td align="right">1</td>
+<td align="left">630182.1, 6010701.5</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0.0011086</td>
+<td align="right">93.568324</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Gramdorp</td>
+<td align="right">1</td>
+<td align="left">618634.9, 6015306.8</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010858</td>
+<td align="right">300.445901</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Meyschendorp</td>
+<td align="right">1</td>
+<td align="left">617695.6, 6014235.3</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011050</td>
+<td align="right">267.703569</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Güldenstein</td>
+<td align="right">5</td>
+<td align="left">618568.7, 6012211.2</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0011198</td>
+<td align="right">162.797445</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Harmensdorp</td>
+<td align="right">1</td>
+<td align="left">619680, 6013137</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011416</td>
+<td align="right">469.218231</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Testorp</td>
+<td align="right">5</td>
+<td align="left">615830.3, 6012396.4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010989</td>
+<td align="right">251.240780</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Hansuen</td>
+<td align="right">4</td>
+<td align="left">614361.8, 6013031.4</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">0.0011312</td>
+<td align="right">595.978285</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Kükelyn</td>
+<td align="right">1</td>
+<td align="left">613274.4, 6013811.9</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010741</td>
+<td align="right">241.316576</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Wangel</td>
+<td align="right">1</td>
+<td align="left">614954.5, 6015809.5</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0011655</td>
+<td align="right">889.447837</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Warendorp</td>
+<td align="right">3</td>
+<td align="left">620464.5, 6006500.9</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010989</td>
+<td align="right">294.694993</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Halendorp</td>
+<td align="right">2</td>
+<td align="left">617785.6, 6006054.4</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0.0010593</td>
+<td align="right">262.153878</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Wandero</td>
+<td align="right">1</td>
+<td align="left">618711.7, 6007327.8</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0010941</td>
+<td align="right">160.608901</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Langnrehe</td>
+<td align="right">1</td>
+<td align="left">616280.8, 6007096.2</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0.0011507</td>
+<td align="right">1596.188934</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Langnhagn</td>
+<td align="right">1</td>
+<td align="left">617454.9, 6010982.3</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011641</td>
+<td align="right">716.512683</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Rethwische</td>
+<td align="right">1</td>
+<td align="left">615090.2, 6010734.3</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011442</td>
+<td align="right">688.171828</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Großen Relibbe</td>
+<td align="right">1</td>
+<td align="left">611700.2, 6011495.0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010776</td>
+<td align="right">536.445540</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Lütke-Ralibbe</td>
+<td align="right">1</td>
+<td align="left">612493.9, 6009361.7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010604</td>
+<td align="right">220.939017</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Mönck Neversdorp</td>
+<td align="right">3</td>
+<td align="left">612212.8, 6007641.9</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0010482</td>
+<td align="right">609.652050</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Nüchell</td>
+<td align="right">4</td>
+<td align="left">608682, 6006654</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009737</td>
+<td align="right">14.963287</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Grönhaus</td>
+<td align="right">3</td>
+<td align="left">609161.5, 6006223.8</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009588</td>
+<td align="right">12.483416</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Klethkamp</td>
+<td align="right">3</td>
+<td align="left">606598.4, 6012425.0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010627</td>
+<td align="right">902.889530</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Harmsdorp</td>
+<td align="right">1</td>
+<td align="left">608979.6, 6009845.3</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010504</td>
+<td align="right">449.437260</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Lütken Nüchell</td>
+<td align="right">1</td>
+<td align="left">607425.2, 6005876.5</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010163</td>
+<td align="right">457.996420</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Stendörp</td>
+<td align="right">3</td>
+<td align="left">611063.2, 6003329.9</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0009862</td>
+<td align="right">304.053200</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Küßhersdorp</td>
+<td align="right">1</td>
+<td align="left">612468.8, 6002420.4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">0.0009311</td>
+<td align="right">46.359090</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Schönenwoldt</td>
+<td align="right">4</td>
+<td align="left">614420.1, 6004338.6</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0010256</td>
+<td align="right">173.090870</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Walckmoll</td>
+<td align="right">0</td>
+<td align="left">613676, 6003925</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0009579</td>
+<td align="right">70.681868</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Möhlenkamp</td>
+<td align="right">2</td>
+<td align="left">615081.6, 6002172.3</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0009843</td>
+<td align="right">346.655864</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Stolpe</td>
+<td align="right">1</td>
+<td align="left">615478.5, 6001825.1</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009551</td>
+<td align="right">114.523053</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Schirenbeck</td>
+<td align="right">1</td>
+<td align="left">615924.9, 6004404.8</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010560</td>
+<td align="right">309.900543</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Marcksdorp</td>
+<td align="right">1</td>
+<td align="left">619480.3, 6005033.2</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010638</td>
+<td align="right">297.878362</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Großen Schlämyn</td>
+<td align="right">1</td>
+<td align="left">621547.3, 6004239.4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010823</td>
+<td align="right">346.020221</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Lütken Schlämyn</td>
+<td align="right">1</td>
+<td align="left">620241, 6002404</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010504</td>
+<td align="right">320.207187</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Hübsteyn</td>
+<td align="right">1</td>
+<td align="left">617529, 6002867</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0010363</td>
+<td align="right">805.133800</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Sübsteyn</td>
+<td align="right">1</td>
+<td align="left">619033.8, 6000601.4</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0010173</td>
+<td align="right">425.658797</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Krumbeck</td>
+<td align="right">1</td>
+<td align="left">622457.5, 6002016.2</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011099</td>
+<td align="right">390.375856</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Blysdorp</td>
+<td align="right">1</td>
+<td align="left">624789.2, 6000279.9</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011574</td>
+<td align="right">550.962814</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">möhl</td>
+<td align="right">0</td>
+<td align="left">620440.1, 6001751.7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010030</td>
+<td align="right">60.162615</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Haßelbierg</td>
+<td align="right">3</td>
+<td align="left">618075.3, 5999287.7</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009407</td>
+<td align="right">15.344785</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Schachthagn</td>
+<td align="right">1</td>
+<td align="left">622788.2, 5999469.6</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010384</td>
+<td align="right">118.193423</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Brodow</td>
+<td align="right">3</td>
+<td align="left">623615.1, 5997931.7</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">0.0011074</td>
+<td align="right">230.279430</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Loheberg</td>
+<td align="right">1</td>
+<td align="left">620936.2, 5998312.1</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010331</td>
+<td align="right">153.509237</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Beuscheloh</td>
+<td align="right">1</td>
+<td align="left">621928.3, 5997749.8</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009901</td>
+<td align="right">4.406619</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Merckendorp</td>
+<td align="right">1</td>
+<td align="left">621746.4, 5996807.2</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010965</td>
+<td align="right">367.756562</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Rüttyn</td>
+<td align="right">1</td>
+<td align="left">622556.7, 5995980.4</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0012165</td>
+<td align="right">1981.356012</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Altenkrempe</td>
+<td align="right">4</td>
+<td align="left">619282.5, 5998080.5</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0010299</td>
+<td align="right">386.614249</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Newstadt</td>
+<td align="right">6</td>
+<td align="left">618439.1, 5995947.3</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">0.0011038</td>
+<td align="right">696.799004</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Sierhagen</td>
+<td align="right">3</td>
+<td align="left">617265.1, 5997782.9</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009497</td>
+<td align="right">47.834324</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Gaßow</td>
+<td align="right">1</td>
+<td align="left">616438.2, 5999684.6</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0009533</td>
+<td align="right">174.344246</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Plümkow</td>
+<td align="right">1</td>
+<td align="left">615049.2, 5998362.6</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0009737</td>
+<td align="right">400.649391</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Goemibs</td>
+<td align="right">1</td>
+<td align="left">614701.9, 5996775.1</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0009381</td>
+<td align="right">179.310328</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Bockholtz</td>
+<td align="right">1</td>
+<td align="left">607277, 5997552</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009990</td>
+<td align="right">473.875234</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Reddingsdorp</td>
+<td align="right">1</td>
+<td align="left">611130, 5996196</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009551</td>
+<td align="right">110.651207</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Övelgunne</td>
+<td align="right">3</td>
+<td align="left">613560.9, 5994360.7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009775</td>
+<td align="right">122.250886</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Siricksdorp</td>
+<td align="right">1</td>
+<td align="left">614867.3, 5992756.7</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0010881</td>
+<td align="right">703.342077</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Ponsdorp</td>
+<td align="right">1</td>
+<td align="left">614933.4, 5994823.8</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009756</td>
+<td align="right">88.090786</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Farkoov</td>
+<td align="right">1</td>
+<td align="left">617265.1, 5996957.0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010081</td>
+<td align="right">377.303042</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">haßhoep</td>
+<td align="right">1</td>
+<td align="left">611824.5, 5997403.5</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0009416</td>
+<td align="right">350.899446</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Gryzwel</td>
+<td align="right">1</td>
+<td align="left">611507, 5999414</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009200</td>
+<td align="right">57.697653</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">haßelbrug</td>
+<td align="right">0</td>
+<td align="left">612631.5, 5999652.4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0009488</td>
+<td align="right">174.568339</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Niltendorp</td>
+<td align="right">1</td>
+<td align="left">610280.5, 6013459.0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010515</td>
+<td align="right">160.724064</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Kraeckstede</td>
+<td align="right">1</td>
+<td align="left">632808.4, 6017449.8</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010537</td>
+<td align="right">210.137784</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Gortz</td>
+<td align="right">1</td>
+<td align="left">630757.9, 6018227.0</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">0.0010081</td>
+<td align="right">351.841164</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Heringsdorp</td>
+<td align="right">1</td>
+<td align="left">632097.3, 6018706.6</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009328</td>
+<td align="right">6.801295</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Micholsdorp</td>
+<td align="right">1</td>
+<td align="left">634065.2, 6018342.8</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011364</td>
+<td align="right">368.188241</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Burow</td>
+<td align="right">5</td>
+<td align="left">629732.6, 6019748.4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0009814</td>
+<td align="right">214.146985</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Saetwitz</td>
+<td align="right">3</td>
+<td align="left">631419.3, 6019665.7</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0009506</td>
+<td align="right">160.661520</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Nienkercken</td>
+<td align="right">4</td>
+<td align="left">630394.1, 6020757.1</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009662</td>
+<td align="right">52.719753</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Segalendorp</td>
+<td align="right">1</td>
+<td align="left">628112, 6019203</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0009533</td>
+<td align="right">146.483058</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Giddendorp</td>
+<td align="right">1</td>
+<td align="left">626623.8, 6020244.5</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010121</td>
+<td align="right">226.983492</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Großen Westseecke</td>
+<td align="right">1</td>
+<td align="left">619711.5, 6019434.2</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">0.0009891</td>
+<td align="right">18.975297</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Kl. Westseecke</td>
+<td align="right">1</td>
+<td align="left">620571.4, 6018574.3</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010060</td>
+<td align="right">54.643871</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Sorynkuell</td>
+<td align="right">1</td>
+<td align="left">625185.1, 6012488.9</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011905</td>
+<td align="right">591.656776</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Krempsdorp</td>
+<td align="right">1</td>
+<td align="left">627233.6, 6017943.3</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0009940</td>
+<td align="right">126.636864</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Marckewitz</td>
+<td align="right">1</td>
+<td align="left">625376.2, 6018737.0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0.0010787</td>
+<td align="right">835.363005</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Langhoff</td>
+<td align="right">1</td>
+<td align="left">623772.9, 6019499.0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010101</td>
+<td align="right">182.487519</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Prunow</td>
+<td align="right">0</td>
+<td align="left">622169.5, 6019626.0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010000</td>
+<td align="right">206.792065</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Olde Galendorp</td>
+<td align="right">1</td>
+<td align="left">623280.7, 6020991.3</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010537</td>
+<td align="right">98.587966</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Puthlose</td>
+<td align="right">3</td>
+<td align="left">620645.5, 6020832.5</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010811</td>
+<td align="right">387.020477</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Großen</td>
+<td align="right">1</td>
+<td align="left">622598.1, 6020435.7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010482</td>
+<td align="right">117.898139</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Donsdorp</td>
+<td align="right">1</td>
+<td align="left">612168.2, 6018578.3</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0011403</td>
+<td align="right">235.530101</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Denitzmoll</td>
+<td align="right">0</td>
+<td align="left">614930.5, 6019054.5</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011834</td>
+<td align="right">723.993306</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Wanderade</td>
+<td align="right">0</td>
+<td align="left">616994.2, 6018594.2</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010363</td>
+<td align="right">130.247457</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Waselibueck</td>
+<td align="right">1</td>
+<td align="left">613628.7, 6016212.9</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0010965</td>
+<td align="right">205.268935</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Sarensdorp</td>
+<td align="right">1</td>
+<td align="left">612438.1, 6014847.7</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009833</td>
+<td align="right">3.127206</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Kokeell</td>
+<td align="right">1</td>
+<td align="left">610453.7, 6016149.4</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">0.0010834</td>
+<td align="right">310.124999</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Siggenerbusch</td>
+<td align="right">1</td>
+<td align="left">635387.7, 6013896.5</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">0.0012077</td>
+<td align="right">636.779163</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Süßoou</td>
+<td align="right">1</td>
+<td align="left">633667.9, 6014524.9</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0011013</td>
+<td align="right">102.603994</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Siggenebeth</td>
+<td align="right">1</td>
+<td align="left">633882.8, 6011697.1</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0011086</td>
+<td align="right">23.986369</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Zarnikow</td>
+<td align="right">1</td>
+<td align="left">609895, 5999095</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0009606</td>
+<td align="right">273.430756</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Süßell</td>
+<td align="right">4</td>
+<td align="left">612689, 5993369</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009930</td>
+<td align="right">328.406050</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Middeborg</td>
+<td align="right">1</td>
+<td align="left">610678.2, 5994258.3</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009718</td>
+<td align="right">264.387181</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Keerzwerdr</td>
+<td align="right">1</td>
+<td align="left">612255.1, 5995549.5</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0009434</td>
+<td align="right">149.530270</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Albersdorp</td>
+<td align="right">1</td>
+<td align="left">627336.5, 6000862.5</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0012165</td>
+<td align="right">972.731169</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Gnenyn</td>
+<td align="right">1</td>
+<td align="left">619058.8, 6008774.2</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0011601</td>
+<td align="right">770.632385</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Gadersdorp</td>
+<td align="right">1</td>
+<td align="left">633379.3, 6019239.3</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010101</td>
+<td align="right">131.844865</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Olendorp</td>
+<td align="right">1</td>
+<td align="left">632887.1, 6020731.6</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0009901</td>
+<td align="right">22.686744</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Loersdorp</td>
+<td align="right">3</td>
+<td align="left">631585.4, 6021509.5</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010081</td>
+<td align="right">256.335564</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Süttel</td>
+<td align="right">1</td>
+<td align="left">633506.3, 6022223.8</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0011111</td>
+<td align="right">519.327638</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Harckendorp</td>
+<td align="right">1</td>
+<td align="left">632410.9, 6023652.6</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0010299</td>
+<td align="right">46.575288</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Grotenbrodt</td>
+<td align="right">4</td>
+<td align="left">634998.5, 6026986.3</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0.0012937</td>
+<td align="right">2604.905829</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Lütkenbrodt</td>
+<td align="right">1</td>
+<td align="left">632839.5, 6025541.7</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">0.0011534</td>
+<td align="right">50.344398</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Dimensdorp</td>
+<td align="right">1</td>
+<td align="left">630728.1, 6023620.8</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0009930</td>
+<td align="right">102.638641</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Bauckendorp</td>
+<td align="right">5</td>
+<td align="left">628442.1, 6022827.1</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">0.0010799</td>
+<td align="right">658.342236</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Klinckstein</td>
+<td align="right">1</td>
+<td align="left">630299.5, 6022223.8</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0009960</td>
+<td align="right">77.110889</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Wolckenbruch</td>
+<td align="right">1</td>
+<td align="left">627680.1, 6021319.0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0009990</td>
+<td align="right">85.084744</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Maschendorp</td>
+<td align="right">1</td>
+<td align="left">629220, 6020557</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">0.0009814</td>
+<td align="right">181.202812</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Grimmersdorp</td>
+<td align="right">1</td>
+<td align="left">626441.9, 6021636.5</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0009950</td>
+<td align="right">92.734133</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Techelwitz</td>
+<td align="right">1</td>
+<td align="left">623441.5, 6022319.1</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011574</td>
+<td align="right">430.480906</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">farowitz</td>
+<td align="right">1</td>
+<td align="left">625791, 6023049</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0011038</td>
+<td align="right">204.723201</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Kremps</td>
+<td align="right">1</td>
+<td align="left">625410, 6024002</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0010989</td>
+<td align="right">19.911407</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Dasenrade</td>
+<td align="right">1</td>
+<td align="left">626695.9, 6024954.3</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0012034</td>
+<td align="right">597.472887</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Nandorp</td>
+<td align="right">1</td>
+<td align="left">624473.4, 6021398.3</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0010870</td>
+<td align="right">544.747005</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Wandelwitz</td>
+<td align="right">1</td>
+<td align="left">621774.6, 6022922.3</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">0.0011723</td>
+<td align="right">782.395970</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Bardyn</td>
+<td align="right">1</td>
+<td align="left">622473.1, 6024303.5</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">0.0012837</td>
+<td align="right">2510.836314</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Hilligenhaven</td>
+<td align="right">4</td>
+<td align="left">628823.1, 6026383.1</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">0.0012755</td>
+<td align="right">2141.665506</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Sucksdorp</td>
+<td align="right">1</td>
+<td align="left">629886.8, 6024811.5</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0011050</td>
+<td align="right">112.105298</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Ratzigsdorp</td>
+<td align="right">1</td>
+<td align="left">628521.5, 6024557.5</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">0.0010977</td>
+<td align="right">62.560259</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Clausdorp</td>
+<td align="right">1</td>
+<td align="left">631744.1, 6024716.2</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0.0010811</td>
+<td align="right">149.041719</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Lupendorp</td>
+<td align="right">1</td>
+<td align="left">632950.6, 6024414.6</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0.0010834</td>
+<td align="right">79.936511</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Rathlaw</td>
+<td align="right">1</td>
+<td align="left">608557.3, 6013049.6</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0009990</td>
+<td align="right">79.639586</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Bleckendorp</td>
+<td align="right">4</td>
+<td align="left">607350.8, 6015441.4</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0.0010121</td>
+<td align="right">90.577305</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Voderkamp</td>
+<td align="right">3</td>
+<td align="left">607551.8, 6017124.2</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">0.0010846</td>
+<td align="right">749.141904</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="left">Sechendorp</td>
+<td align="right">1</td>
+<td align="left">609086.4, 6018076.7</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0.0011494</td>
+<td align="right">896.014288</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Stoeff</td>
+<td align="right">1</td>
+<td align="left">615869.7, 6015078.9</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">0.0011111</td>
+<td align="right">145.283776</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(moin)
+int_mod &lt;-<span class="st"> </span><span class="kw">sc</span>(<span class="dt">Oi =</span> sites$rank<span class="dv">+1</span>,
+              <span class="dt">Wj =</span> sites$degree,
+              <span class="dt">alpha =</span> sites$roadconns<span class="dv">+1</span>,
+              <span class="dt">cij =</span> distmat,
+              <span class="dt">beta =</span> <span class="dv">1</span>,
+              <span class="dt">detfun =</span> <span class="st">&quot;power&quot;</span>
+              )
+sites$Dj &lt;-<span class="st"> </span>int_mod$Dj
+
+mapview::<span class="kw">mapview</span>(roads) +<span class="st"> </span>
+<span class="st">  </span>mapview::<span class="kw">mapview</span>(sites,
+                   <span class="dt">cex =</span> sites$Dj,
+                   <span class="dt">zcol =</span> <span class="st">&quot;rank&quot;</span>)</code></pre></div>
+<div id="refs" class="references">
+
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
