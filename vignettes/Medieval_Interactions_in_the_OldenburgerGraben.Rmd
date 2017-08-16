@@ -1,0 +1,70 @@
+---
+title: "Modeling Interactions during the Middle Ages in the Oldenburger Graben"
+author: "Daniel Knitter, Alexander Millin"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette 
+bibliography: references.bib
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+Date source: Wagrien (1649) out of: Domeier K. and M. Haack (1963): Schleswig-Holstein 1652 - Die Landkarten von Johannes Mejer, Husum, aus der neuen Landesbeschreibung der zwei Herzogtümer Schleswig und Holstein von Caspar Danckmerth D. 1652, Verlag Otto Heinevetter, Hamburg-Bergedorf.
+
+**ToDo** What is this example about? 
+
+# Load data
+
+```{r load}
+library(sf)
+sites <- st_read("data/OldenburgerGraben/Placenames.shp")
+plot(sites["rank"])
+```
+
+# Create a network of the sites
+
+## Create Delaunay Graph and calculate the distances between the connected points
+
+```{r eex_del}
+library(spdep)
+sitesdel <- tri2nb(coords = st_coordinates(sites))
+plot(sitesdel, coords = st_coordinates(sites))
+
+distmat <- st_distance(x = sites, y = sites)
+distmat
+distmat <- distmat / 1000
+
+for (i in 1:dim(distmat)[1]) {
+  distmat[i,-c(sitesdel[[i]])] <- NA
+  }
+```
+
+## Network measures as attributes for Interaction
+
+```{r eex_netw, out.width = "100%", out.height = "700px", fig.align = "center"}
+g <- igraph::graph_from_adj_list(adjlist = sitesdel,
+                                 mode = "all")
+sites$degree <- igraph::degree(g)
+sites$closeness <- igraph::closeness(g)
+sites$betweeness <- igraph::betweenness(g)
+
+knitr::kable(sites)
+
+library(moin)
+int_mod <- sc(Oi = sites$rank+1,
+              Wj = sites$rank+1,
+              alpha = sites$degree,
+              cij = distmat,
+              beta = 1,
+              detfun = "power"
+              )
+sites$Dj <- int_mod$Dj
+
+mapview::mapview(sites,
+                 cex = sites$Dj,
+                 zcol = "rank")
+```
