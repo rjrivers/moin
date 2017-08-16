@@ -72,3 +72,7 @@ mapview::mapview(roads) +
                    cex = sites$Dj,
                    zcol = "rank")
 ```
+
+## Todo:
+
+correlate the amount of roads at a site with its Dj value that results from the model with Oi as site rank and Wj as degree centrality
