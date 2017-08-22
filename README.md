@@ -21,7 +21,7 @@ ToDo's
 
 Please cite this compendium as:
 
-> Knitter, Daniel (2017). *moin -- Modeling Spatial Interactions*. Accessed 10 Aug 2017. Online at <https://doi.org/xxx/xxx>
+> Knitter, Daniel et al. (2017). *moin -- Modeling Spatial Interactions*. Accessed 22 Aug 2017. Online at <https://doi.org/xxx/xxx>
 
 ### Installation
 

@@ -31,7 +31,7 @@ The goal of this package is to allow simple interaction analysis using ideas fro
 
 Please cite this compendium as:
 
-> Knitter, Daniel (`r format(Sys.Date(), "%Y")`). _moin -- Modeling Spatial Interactions_. Accessed `r format(Sys.Date(), "%d %b %Y")`. Online at <https://doi.org/xxx/xxx>
+> Knitter, Daniel et al. (`r format(Sys.Date(), "%Y")`). _moin -- Modeling Spatial Interactions_. Accessed `r format(Sys.Date(), "%d %b %Y")`. Online at <https://doi.org/xxx/xxx>
 
 ### Installation
 
