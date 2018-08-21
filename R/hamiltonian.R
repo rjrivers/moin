@@ -1,9 +1,24 @@
 # DETERRENCE FUNCTIONS ---------------------------------------------------------
 
-mdm <- function(mat, min) {
+#' Maximum distance model of deterrence
+#'
+#' Creates a deterrence matrix from a distance matrix based on a simple maximum
+#' interaction distance threshold.
+#'
+#' @param mat a distance matrix
+#' @param max maximum distance of interaction
+#'
+#' @return a matrix of integer deterrences (0 or 1)
+#' @export
+#'
+#' @examples
+#' distmat <- matrix(runif(n=64),8,8)
+#' diag(distmat) <- 0
+#' mdm(distmat, 0.1)
+mdm <- function(mat, max) {
   mat %>%
     is_less_than(min) %>%
-    as.integer() ->
+    multiply_by(1) -> # Cast to int
     mat
 
   # Warn if some nodes are "stranded" from the rest of the graph

@@ -2,5 +2,7 @@
 
 export(dc)
 export(dc2)
+export(inverse_power)
+export(mdm)
 export(sc)
 importFrom(utils,tail)
