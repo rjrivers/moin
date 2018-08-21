@@ -7,4 +7,12 @@ distmat <- sf::st_distance(sites)
 
 distmat <- sites %>%
     as("Spatial") %>%
-    rgeos::gDistance(byid = TRUE)
+    rgeos::gDistance(byid = TRUE) %>%
+    `/`(1000)
+
+costs <- distmat %>%
+    inverse_power()
+
+costs <- distmat %>%
+    inverse_exponentional()
+
