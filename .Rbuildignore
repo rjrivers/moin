@@ -7,3 +7,5 @@
 ^moin.pdf$
 ^Dockerfile$
 analysis
+^.*\.Rproj$
+^\.Rproj\.user$
