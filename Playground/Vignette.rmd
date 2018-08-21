@@ -1,4 +1,8 @@
 
+```{r}
+library(moin)
+
+
 testdata <- sf::st_read("../vignettes/data/OldenburgerGraben/Placenames.shp") 
 
 # MDM - Maximum Distance Modell
@@ -8,13 +12,27 @@ mdm <- modelgraph(testdata,
 
 spatgraph_transform(x=mdm,output="tidygraph")
 
+plot(spatgraph_transform(x=mdm,output="tidygraph"),
+     vertex.size=10,
+     vertex.label.cex=0.5,
+     layout=sf::st_coordinates(testdata))
+
+
+
+
+
+
 # PPA - Proximal Point Analysis
 ppa <- modelgraph(testdata,
                   "ppa",
-                  5)
+                  4)
 
 spatgraph_transform(x=ppa,output="tidygraph")
 
+plot(spatgraph_transform(x=ppa,output="tidygraph"),
+     vertex.size=10,
+     vertex.label.cex=0.5,
+     layout=sf::st_coordinates(testdata))
 
 
 
@@ -28,11 +46,16 @@ dista2 <- as.dist(dista)
 clustertree <- hclust(dista2, method = "single")
 plot(clustertree, hang = -1) 
 
-memb <- cutree(clustertree, h = 2500)
+memb <- cutree(clustertree, h = 1500)
 
 testdata$Membership <- memb
 
-mapview::mapview(testdata["Membership"])
 
 
-yxc <- sf::aggregate.sf(testdata,by=Membership)
+```
+
+```{r}
+#mapview::mapview(testdata["Membership"])
+plot(testdata["Membership"])
+```
+

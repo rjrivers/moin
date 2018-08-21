@@ -2,6 +2,7 @@
 
 export(dc)
 export(dc2)
+export(modelgraph)
 export(sc)
 export(spatgraph_transform)
 importFrom(utils,tail)
