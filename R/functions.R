@@ -5,7 +5,6 @@
 
 parse_all_types = function(type_tibble, ind){
     typelist = type_tibble[, ind]
-    View(typelist)
     tyli = as.list(typelist)
     tyli = unlist(tyli)
     return(tyli)
@@ -52,21 +51,9 @@ find_missing_types <- function(type_list, pre_size){
 
 create_type_generator = function(type_tibble, column){
     index = grep(column, colnames(type_tibble))
-    print(index)
     list_of_types = parse_all_types(type_tibble, index)
-    print(list_of_types)
     complete_types = find_missing_types(list_of_types, 1)
-    print(complete_types)
-    print("Done with creating type tibble")
+    print("Done with creating type list")
     return(complete_types)
 }
 
-#test
-import_stuff = function(csv = "Data/shkr-weapons.csv"){
-    data = read.csv(csv, sep = ";")
-    ti_data = tibble::as_tibble(data)
-    return(ti_data)
-}
-
-import = import_stuff()
-importtyli = create_type_generator(import_stuff(), "loc10_typ_b")
