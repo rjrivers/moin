@@ -1,5 +1,10 @@
-library(sf)
-raw <- read_sf("Placenames.shp")
+
+raw <- sf::read_sf("Placenames.shp")
 sites <- raw %>%
     `[`(1:10,)
-distmat <- st_distance(sites)
+
+distmat <- sf::st_distance(sites)
+
+distmat <- sites %>%
+    as("Spatial") %>%
+    rgeos::gDistance(byid = TRUE)
