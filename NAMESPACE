@@ -3,4 +3,5 @@
 export(dc)
 export(dc2)
 export(sc)
+export(spatgraph_transform)
 importFrom(utils,tail)
