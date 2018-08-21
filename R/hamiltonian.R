@@ -1,11 +1,14 @@
 # DETERRENCE FUNCTIONS ---------------------------------------------------------
 
-minimum_distance <- function(mat, min) {
-  mat[mat < min] <- NA
+mdm <- function(mat, min) {
+  mat %>%
+    is_less_than(min) %>%
+    as.integer() ->
+    mat
 
   # Warn if some nodes are "stranded" from the rest of the graph
-  if(rowSums(is.na(mat)) == ncol(mat) ||
-     colSums(is.na(mat)) == nrow(mat) ) {
+  if(rowSums(mat) == 0 ||
+     colSums(mat) == 0) {
     warning("Some nodes are not connected to the graph. Check min value.")
   }
 
