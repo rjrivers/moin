@@ -1,24 +1,30 @@
-#'@title test function
-#'@param nodes nodes of a graph with types 
-#'@param edges edges of a graph 
-#'@examples 
-#'@export 
-
-test_function = function(name = "Julie"){
-  '%&%' <- function(x, y)paste0(x,y)
-  print(paste("Hello", name %&% "!!!"))
-}
-
-
 #'@title parse all types
 #'@param typelist a tibble with type information (eg. exampledata R1234)
 #'@examples returns flat list of types
 #'@export 
 
-parse_all_types = function(type_tibble){
-  #find all types
-  #make list
-  return(typelist)
+parse_all_types = function(type_tibble, ind){
+    typelist = type_tibble[, ind]
+    View(typelist)
+    tyli = as.list(typelist)
+    tyli = unlist(tyli)
+    return(tyli)
+}
+
+#'@title mtypes
+#'@param type one type from list
+#'@examples returns flat list of meta types
+#'@export 
+
+mtypes <- function(type, pre_size) {
+    type = as.character(type)
+    type_length <- nchar(type)
+    parts <- type_length - pre_size
+    metatypes <- 1:parts
+    for (i in 1:parts){
+        metatypes[i] <- substr(type, 1, pre_size + i)
+    }
+    return(metatypes)
 }
 
 
@@ -26,39 +32,17 @@ parse_all_types = function(type_tibble){
 #'@param typelist a list with type information (eg. exampledata R1234)
 #'@examples returns flat list of types
 #'@export 
+#'
 
-find_missing_types = function(typelist){
-  #check structure eg R1234 R123 R12 R1
-  #subset max stellen 
-    #--> for every max-1
-  #compare with 2 (e.g. R1 missing)
-  #make list
-  return(typelist_missing)
+find_missing_types <- function(type_list, pre_size){
+    type_list <- type_list[!is.na(type_list)]
+    typelistlist <- lapply(type_list, mtypes, pre_size = pre_size)
+    typelist <- unlist(typelistlist)
+    typelist <- sort(typelist)
+    typelist <- unique(typelist)
+    return(typelist)
 }
 
-
-#'@title tidy tibble list
-#'@param typelist_missing a list with complete type information (returned from find_missing_types)
-#'@examples returns flat list of types
-#'@export
-
-tidy_tibble_list = function(typelist_missing){
-    #make list tibble
-    #tidy
-    return(tidy_tibble)
-}
-
-
-#'@title tidy tibble list
-#'@param typelist_missing a list with complete type information (returned from find_missing_types)
-#'@examples returns flat list of types
-#'@export
-
-tidy_tibble_list = function(typelist_missing){
-    #make list tibble
-    #tidy
-    return(tidy_tibble)
-}
 
 
 #'@title create type generator
@@ -66,11 +50,23 @@ tidy_tibble_list = function(typelist_missing){
 #'@examples 
 #'@export 
 
-create_type_generator = function(type_tibble){
-  list_of_types = parse_all_types(type_tibble)
-  missing_types = detect_missing_types(list_of_types)
-  complete_types = tidy_tibble_list(missing_types)
-  print("Done with creating type tibble")
-  return(complete_types)
+create_type_generator = function(type_tibble, column){
+    index = grep(column, colnames(type_tibble))
+    print(index)
+    list_of_types = parse_all_types(type_tibble, index)
+    print(list_of_types)
+    complete_types = find_missing_types(list_of_types, 1)
+    print(complete_types)
+    print("Done with creating type tibble")
+    return(complete_types)
 }
 
+#test
+import_stuff = function(csv = "Data/shkr-weapons.csv"){
+    data = read.csv(csv, sep = ";")
+    ti_data = tibble::as_tibble(data)
+    return(ti_data)
+}
+
+import = import_stuff()
+importtyli = create_type_generator(import_stuff(), "loc10_typ_b")
