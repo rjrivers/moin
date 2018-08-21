@@ -3,16 +3,48 @@ rihll_wilson <- function(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power") {
   
   prepare_data
   
+  
+  
+  
   do_calculation
   
   return(formated(result))
 }
 
+
+find_equilibrium <- function(Oi, fcij, alpha) {
+#   Ai and Ij represent initial values to start the while-loop
+    Ij <- rep(2, times = ncol(fcij))
+    Ai <- rep(2, times = nrow(fcij))
+#   Ai_new and Ij_new are set to initial values (initial values must not be 0
+#   because otherwise a unique solution is not guaranteed)
+    Ij_new <- rep(1, times = ncol(fcij))
+    Ai_new <- rep(1, times = nrow(fcij))
+#   Until equilibrium is reached
+  while(Ij != Ij_new || Ai != Ai_new) {
+#   update old values
+    Ij <- Ij_new
+    Ai <- Ai_new
+#   calculate new value (Evans / Rivers 2017)
+    Ij_new <- rowSums(Ai * Oi * Ij^alpha * fcij)
+    Ai_new <- 1 / colSums(Ij_new^alpha * fcij)
+  }
+  return(list(Ai_new,Ij_new))
+}
+
+  
 do_calculation <- function(Oi, Wj, fcij){
   
+  
+  result <- find_equilibrium(Oi, fcij, alpha)  
+  Ai  <- result[1]
+  Ij  <- result[2]
+
+  
   Tij <- calculate_tij(Oi, Wj, fcij)
-  Dj <- calculate_dj(Tij)
-  calculate_new_wij
+
+  
+  
 }
 
 calculate_tij <- function(Oi, Wj, fcij) {
