@@ -1,4 +1,4 @@
-rihll_wilson <- function(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power") {
+rihll_wilson_old <- function(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power") {
   check_input(Oi, Wj, cij, alpha, beta, detfun)
   
   prepare_data
@@ -11,8 +11,18 @@ rihll_wilson <- function(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power") {
   return(formated(result))
 }
 
-
-find_equilibrium <- function(Oi, fcij, alpha) {
+#' Find Equilibrium for Rihll-Wilson-Model
+#' 
+#' Find Equilibrium for Rihll-Wilson-Model
+#' 
+#' @param Oi Outflows originating from i
+#' @param fcij Deterrence function (has to be calculated from the distance
+#'        cost matrix "cij" first)
+#' @param alpha The scaling factor of attractivity
+#' 
+#' @export rihll_wilson
+#' 
+rihll_wilson <- function(Oi, fcij, alpha) {
 #   Ai and Ij represent initial values to start the while-loop
     Ij <- rep(2, times = ncol(fcij))
     Ai <- rep(2, times = nrow(fcij))
@@ -36,7 +46,7 @@ find_equilibrium <- function(Oi, fcij, alpha) {
 do_calculation <- function(Oi, Wj, fcij){
   
   
-  result <- find_equilibrium(Oi, fcij, alpha)  
+  result <- rihll_wilson(Oi, fcij, alpha)  
   Ai  <- result[1]
   Ij  <- result[2]
 
