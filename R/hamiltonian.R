@@ -29,3 +29,19 @@ inverse_power <- function(mat, power = 2) {
     mat[mat==Inf] <- 0
     return(mat)
 }
+
+#' @title Inverse exponential function
+#' @description calculate the cost of distances based on an inverse exponential function
+#' @param mat a distance matrix
+#' @param beta ..
+#' @examples
+#' distmat <- matrix(runif(n=64),8,8)
+#' diag(distmat) <- 0
+#' inverse_exponential(mat = distmat, beta = 1)
+#' @export
+inverse_exponentional <- function(mat, beta = .1 {
+    mat <- exp(-(beta * mat))
+    mat[mat==Inf] <- 0
+    return(mat)
+}
+
