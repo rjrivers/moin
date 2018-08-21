@@ -1,5 +1,6 @@
 #'@title parse all types
 #'@param typelist a tibble with type information (eg. exampledata R1234)
+#'@param ind index for column to use
 #'@examples returns flat list of types
 #'@export 
 
@@ -11,7 +12,7 @@ parse_all_types = function(type_tibble, ind){
 }
 
 #'@title mtypes
-#'@param type one type from list
+#'@param type one type from list e.g. R12345
 #'@examples returns flat list of meta types
 #'@export 
 
@@ -46,6 +47,7 @@ find_missing_types <- function(type_list, pre_size){
 
 #'@title create type generator
 #'@param type_tibble a tibble with type information (eg. exampledata R1234)
+#'@param column string for column with type information 
 #'@examples 
 #'@export 
 
