@@ -1,24 +1,32 @@
 rihll_wilson_old <- function(Oi, Wj, cij, alpha = 1, beta = 1, detfun = "power") {
+
+  # todo
   check_input(Oi, Wj, cij, alpha, beta, detfun)
   
+  # TODO
   prepare_data
   
-  
-  
-  
+  # TODO
   do_calculation
   
+  # TODO
   return(formated(result))
 }
 
-#' Find Equilibrium for Rihll-Wilson-Model
+#' Calculates the Rihll-Wilson-Model
 #' 
-#' Find Equilibrium for Rihll-Wilson-Model
+#' Calculates the Rihll-Wilson-Model
 #' 
 #' @param Oi Outflows originating from i
 #' @param fcij Deterrence function (has to be calculated from the distance
 #'        cost matrix "cij" first)
 #' @param alpha The scaling factor of attractivity
+#' 
+#' @return a list with the elements:
+#' \itemize{
+#' \item a vector containing Ai
+#' \item a vector containing Ij 
+#' }
 #' 
 #' @export rihll_wilson
 #' 
@@ -45,18 +53,15 @@ rihll_wilson <- function(Oi, fcij, alpha) {
   
 do_calculation <- function(Oi, Wj, fcij){
   
-  
   result <- rihll_wilson(Oi, fcij, alpha)  
   Ai  <- result[1]
   Ij  <- result[2]
 
-  
+  # has to be adapted  
   Tij <- calculate_tij(Oi, Wj, fcij)
-
-  
-  
 }
 
+# currently static case taken from Daniels script
 calculate_tij <- function(Oi, Wj, fcij) {
   for( i in 1:length(Oi)) {
     for( j in 1:length(Wj)) {
@@ -66,6 +71,7 @@ calculate_tij <- function(Oi, Wj, fcij) {
   return(Tij)
 }
 
+# 'leftover' from static implementation
 calculate_dj <- function(Tij) {
   # Dj <- rep(NA, time = ncol(Tij))
   # for (i in 1:ncol(Tij)) {
@@ -74,6 +80,8 @@ calculate_dj <- function(Tij) {
   Dj <- colSums(Tij)
   return(Dj)
 }
+
+# Test area, has to be clean in the final version
 
 Tij <- matrix(1:9, ncol=3)
 

@@ -2,5 +2,6 @@
 
 export(dc)
 export(dc2)
+export(rihll_wilson)
 export(sc)
 importFrom(utils,tail)
