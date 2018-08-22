@@ -2,42 +2,36 @@
 # HAMILTONIAN MODELS ------------------------------------------------------
 
 
-##outer loop
-while (dH < threshold) {
-    dH <- H1 - H2
-    b <- exp(-beta * dH)
+hvars <- NULL # Initial state
+beta <- NULL  # Starting temperature
+odH <- 0
+while (odH > threshold) {
+  oH1 <- hfunc(hvars)
 
-    ## middle loop -> "sweep"
-    i_index <- sample(1:nrow(e))
-    j_index <- sample(1:ncol(e))
-    
-    ## inner_loop
-    H_old <- hamiltonian()
-    hvars_old <- hvars
+  # TODO: Maybe repeat for n sweeps as Evans does?
+  for (h in 1:length(hvars)) {
+    ishuffle <- sample(1:length(hvars[h]))
+    for (i in 1:length(hvars[h])) {
+      hvars2 <- hvars
+      hvars2[[h]][ishuffle[[i]]] <- runif()
 
-    hvars %>%
-        map(change_vars())
+      H1 <- hfunc(hvars)
+      H2 <- hfunc(hvars2)
+      dH <- H1 - H2
+      b <- exp(-beta * dH)
 
-    change_vars <- function() {
-        for (i in 1:length(hvars)) {
-        
-            ## change
-        
-            v[i_index[i]] <- runif(1)
-            e[i_index[i],j_index[i]] <- runif(1)
-
-            H <- hamiltonian()
-            b <- exp(-beta * (H_old - H))
-            
-            if(H < H_old ||
-               runif() < b)) {
-                hvars_old <- hvars_new
-            }
-        }
+      if(dH < 0 ||
+         runif() < b) {
+          hvars <- hvars2
+          rm(hvars2)
+      }
     }
-    if(H < H_old) {
-            ##keep
-        } 
+  }
+
+  oH2 <- hfunc(hvars)
+  odH <- oH1 - oH2
+
+  beta <- beta * 2
 }
 
 
