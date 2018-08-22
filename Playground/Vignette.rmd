@@ -4,6 +4,26 @@ library(moin)
 
 
 testdata <- sf::st_read("../vignettes/data/OldenburgerGraben/Placenames.shp") 
+```
+
+
+Functions modelgraph and modelgraph2 both aim at 
+generating graphs for interaction models.
+
+Function modelgraph requires a two step process:
+1) producing the graph using package `spatgraphs` with
+function modelgraph,
+2) transforming the spatgraph object into a tidygraph object ("tbl_graph") with function `spatgraph_transform()`. So for a result both functions need to be exectuted.
+
+Function modelgraph2 directly produces the graph
+for interaction models without requiring the execution of another function. The resulting object is a list 
+with the tidygraph, the adjacency matrix, the distance
+matrix and a truncated distance matrix (see below).
+
+```{r}
+
+# 1. model graphs with function modelgraph
+
 
 # MDM - Maximum Distance Modell
 mdm <- modelgraph(testdata,
@@ -17,11 +37,6 @@ plot(spatgraph_transform(x=mdm,output="tidygraph"),
      vertex.label.cex=0.5,
      layout=sf::st_coordinates(testdata))
 
-
-
-
-
-
 # PPA - Proximal Point Analysis
 ppa <- modelgraph(testdata,
                   "ppa",
@@ -33,29 +48,37 @@ plot(spatgraph_transform(x=ppa,output="tidygraph"),
      vertex.size=10,
      vertex.label.cex=0.5,
      layout=sf::st_coordinates(testdata))
+```
+
+Now compare function modelgraph2. Note also that the interpretation of argument par differs according to the choice of argument method: for an MDM-graph, par resembles the threshold value "D",  for a PPA-Graph, par resembles the rank of the neighbours to be consideren (k-th neighbour). 
 
 
+```{r}
 
-############
+# 2. model graphs with function modelgraph
 
-dista <- sf::st_distance(x = testdata, 
-                         y = testdata)
+mdm2 <- modelgraph2(testdata, method = "mdm", par=4000)
 
-dista2 <- as.dist(dista)
+str(mdm2)
 
-clustertree <- hclust(dista2, method = "single")
-plot(clustertree, hang = -1) 
+ppa2 <- modelgraph2(testdata, method = "ppa", par=4)
 
-memb <- cutree(clustertree, h = 1500)
-
-testdata$Membership <- memb
-
-
+plot(ppa2$graph,
+     vertex.size=3,
+     vertex.label.cex=0.25,
+     layout=sf::st_coordinates(ppa2$input.data))
 
 ```
 
+
+Note: function modelgraph2 by default produces a full graph for later use with Intervening Opportunity Models.
+
+
 ```{r}
-#mapview::mapview(testdata["Membership"])
-plot(testdata["Membership"])
+
+iom <- modelgraph2(testdata)
+
+names(iom) # Don't plot the full graph ;-)
+
 ```
 
