@@ -1,6 +1,14 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
 
+# TODO:
+# * Validate ARIADNE model
+# * Allow specifying distribution for updating hvars
+# * Add useful messages + statistics + graphs?
+# * Handle large beta values (convert to BigInt?)
+# * More Hamiltonian models
+# * Profiling & optimisation
+
 #' Title
 #'
 #' @param hfunc
@@ -25,7 +33,7 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, thresholds = c
         hvars2 <- hvars
         hvars2[[h]][ishuffle[i]] <- runif(1)
 
-        
+
         #print(hvars2)
 
         H1 <- do.call(hfunc, c(hvars, hconsts))
