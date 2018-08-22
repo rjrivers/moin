@@ -21,10 +21,10 @@
 #' @export
 #'
 #' @examples
-hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, thresholds = c(0.001, 0.01)) {
-  updates <- rep(1, length(thresholds))
-  while (!all(updates < thresholds)) {
-    old_hvars <- hvars
+hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .00001) {
+    dh_out <- vector()
+    repeat {#dh_out > threshold) {
+        old_hvars <- hvars
 
     # TODO: Maybe repeat for n sweeps as Evans does?
     for (h in 1:length(hvars)) {
@@ -50,14 +50,21 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, thresholds = c
         }
       }
     }
-
-    updates <- mapply(function(old, new) {
-      sum(old != new) / length(old)
-    }, old_hvars, hvars, USE.NAMES = FALSE)
-    print(updates)
+    dh_last <- do.call(hfunc, c(hvars, hconsts))
+    dh_out <- c(dh_out, dh_last)
+    
+    message(H2)
+    #dh_out <- (dh_out, H2)
+    #message("dh_out: ",dh_out)
     beta <- beta * 2
-    print(mean(hvars$v))
-    message("beta: ", beta)
+    #print(mean(hvars$v))
+                                        #message("beta: ", beta)
+        
+        if (length(dh_out) > 50 &&
+            abs(mean(dh_out)-dh_last) < threshold) {
+            break
+            }
+        
   }
 
   return(hvars)

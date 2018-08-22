@@ -5,7 +5,7 @@
 \title{Title}
 \usage{
 hamiltonian_metrop(hfunc, hvars, hconsts, beta = 100,
-  thresholds = c(0.001, 0.01))
+  threshold = 1e-05)
 }
 \arguments{
 \item{thresholds}{}
