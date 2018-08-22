@@ -45,7 +45,8 @@ rihll_wilson <- function(Oi, fcij, alpha) {
     Ai <- Ai_new
 #   calculate new value (Evans / Rivers 2017)
     Ij_new <- rowSums(Ai * Oi * Ij^alpha * fcij)
-    Ai_new <- 1 / colSums(Ij_new^alpha * fcij)
+    #Ai_new <- 1 / colSums(Ij_new^alpha * fcij)
+    Ai_new <- (colSums(Ij_new^alpha * fcij))^-1
   }
   return(list(Ai_new,Ij_new))
 }
@@ -86,3 +87,58 @@ calculate_dj <- function(Tij) {
 Tij <- matrix(1:9, ncol=3)
 
 calculate_dj(Tij)
+
+
+cij <- read.csv2("tests/testthat/LTD1costs_10sites.csv", row.names = 1)
+
+beta <- .01
+fcij <- exp(-beta * cij)
+
+alpha <- 1.1
+Oi <- rep(1,time = nrow(cij))
+
+rw_result <- list()
+rw_result$Inputs <- rihll_wilson(Oi, fcij, alpha)[[2]]
+rw_result$Inputs
+
+rw_result_2 <- rwgm(as.matrix(cij), alpha, beta)
+
+display.input(rw_result, sorted = T)
+display.input(rw_result_2, sorted = T)
+
+
+
+display.input <- function(rwgm.result,sorted=FALSE) {
+  opar <- par(mar=c(2.5,9,0.5,0.5))
+  inputs <- rwgm.result$Inputs
+  if(sorted) {
+    inputs <- sort(inputs)
+  }
+  barplot(inputs,horiz=TRUE,las=1,cex.names=0.65)
+  par(opar)
+}
+
+rwgm <- function(costs,alpha,beta,nmax=10000,eps=1e-6,step=0.01,random=FALSE) {
+  expC <- exp(-beta*costs)
+  Outputs <- rep(1,nrow(costs))
+  if(random) {
+    Inputs <- runif(nrow(costs))
+  } else {
+    Inputs <- rep(1,nrow(costs))
+  }
+  for(l in 1:nmax) {
+    A <- expC%*%(Inputs^alpha)
+    T <- sweep(outer(Outputs,(Inputs^alpha))*expC,1,A,"/")
+    n.Inputs <- Inputs+step*(colSums(T)-Inputs)
+    ##        n.Inputs <- colSums(T)
+    ##        print(paste(l,sum((n.Inputs-Inputs)^2)))
+    if(sum((n.Inputs-Inputs)^2)<eps) break
+    Inputs <- n.Inputs
+  }
+  list(Inputs=Inputs,T=T,nb.iter=l)
+}
+
+testdata <- matrix(c(0,150,120,120,150,60,120,30,30,30), nrow=2)
+
+cij <- as.matrix(dist(t(testdata)))
+
