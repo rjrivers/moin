@@ -51,10 +51,10 @@ find_missing_types <- function(type_list, pre_size){
 #'@examples some example 
 #'@export 
 
-create_type_generator <- function(type_tibble, column){
+create_type_generator <- function(type_tibble, column, pre_size){
     index <- grep(column, colnames(type_tibble))
     list_of_types <- parse_all_types(type_tibble, index)
-    complete_types <- find_missing_types(list_of_types, 1)
+    complete_types <- find_missing_types(list_of_types, pre_size)
     print("Done with creating type list")
     return(complete_types)
 }
