@@ -3,6 +3,7 @@
 export(dc)
 export(dc2)
 export(modelgraph)
+export(modelgraph2)
 export(sc)
 export(spatgraph_transform)
 importFrom(utils,tail)

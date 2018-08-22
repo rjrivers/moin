@@ -31,7 +31,7 @@ return(list(graph=tidygraphobj, distance.matrix=dista2, neighbourhood.matrix= nb
 
 }
 
-res <- modelgraph2( testdata, method="ppa", par=3)
+res <- modelgraph2( testdata)
 plot(res$graph,
      vertex.size=3,
      vertex.label.cex=0.25,
