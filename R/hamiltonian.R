@@ -25,17 +25,17 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, thresholds = c
         hvars2 <- hvars
         hvars2[[h]][ishuffle[i]] <- runif(1)
 
-        print(hvars)
-        print(hvars2)
+        
+        #print(hvars2)
 
         H1 <- do.call(hfunc, c(hvars, hconsts))
         H2 <- do.call(hfunc, c(hvars2, hconsts))
         dH <- H1 - H2
-        b <- exp(-beta * dH)
+        b <- exp(beta * dH)
 
-        message("h: ", h, "; i: ", i, "; dH: ", dH)
+        #message("h: ", h, "; i: ", i, "; dH: ", dH)
 
-        if(dH < 0 ||
+        if(dH > 0 ||
            runif(1) < b) {
             hvars <- hvars2
             rm(hvars2)
@@ -46,8 +46,10 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, thresholds = c
     updates <- mapply(function(old, new) {
       sum(old != new) / length(old)
     }, old_hvars, hvars, USE.NAMES = FALSE)
-
+    print(updates)
     beta <- beta * 2
+    print(mean(hvars$v))
+    message("beta: ", beta)
   }
 
   return(hvars)
@@ -93,4 +95,8 @@ h_ariadne <- function(S, v, d, e, k, l, j, u) {
   return(H)
 }
 
+#' @export
+test_k <- function(v) {
+    sum(v * (1-v))
+}
 
