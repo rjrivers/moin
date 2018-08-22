@@ -54,7 +54,7 @@ inverse_power <- function(mat, power = 2) {
 #' diag(distmat) <- 0
 #' inverse_exponential(mat = distmat, beta = 1)
 #' @export
-inverse_exponentional <- function(mat, beta = .1 {
+inverse_exponentional <- function(mat, beta = .1) {
     mat <- exp(-(beta * mat))
     mat[mat==Inf] <- 0
     return(mat)

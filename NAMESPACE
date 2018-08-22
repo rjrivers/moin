@@ -2,6 +2,9 @@
 
 export(dc)
 export(dc2)
+export(h_ariadne)
+export(hamiltonian_metrop)
+export(inverse_exponentional)
 export(inverse_power)
 export(mdm)
 export(sc)
