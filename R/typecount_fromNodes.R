@@ -5,29 +5,41 @@ import_stuff = function(csv = "Data/shkr-weapons.csv"){
     return(ti_data)
 }
 
+csv2 = "Data/output_from_Script_Aggr_fea.csv"
+result_from_nodes = read.csv(csv2, sep = ",")
 
+##TODO add input variable for output
 
-#ALL ABOVE CAN GO
+#'@title create empty type list
+#'@param typelist create.type.generator
+#'@param input generated nodelist with types as output from arrg_fea.aggr.fea.voro()
+#'@examples some example 
+#'@export
 
-
-##TODO add input variable if runtrhough is wanted 
-create_empty_typelist <- function(typelist){
-    data = 0
-    data = tibble::as.tibble(data)
-    data[, typelist] = 0 
+create.empty.typelist <- function(typelist, input){
+    nodes = unique(input[, 2])
+    data = matrix(nrow = length(nodes), ncol = length(typelist) + 1, data = 0)
+    data[, 1] = sort(unique(input[, 2]))
+    data = as.data.frame(data)
     colnames(data) = c("node_id", typelist)
     return(data)
 }
 
-estlim = create_type_generator(type_tibble = import_stuff(), column = "loc10_typ_b", pre_size = 1)
+test_typelist = create.type.generator(type_tibble = import_stuff(), column = "type", pre_size = 1)
+test_export = create.empty.typelist(test_typelist, result_from_nodes)
+output = test_export
 
+""
+#ALL ABOVE CAN GO UNLESS WE STILL NEED CREATE
+""
 
-csv2 = "Data/reslut.csv"
-datares = read.csv(csv2, sep = ",")
- 
+#'@title create typespectrum for node
+#'@param node_id id of a single node (line[x,2] from output)
+#'@param node_type type found on a single node (line[x,1] from output)
+#'@examples some example 
+#'@export 
 
-
-create_typesectrum_for_sties <- function(node_id, node_type, list_to_modify){
+create.typesectrum.for.nodes <- function(node_id, node_type, list_to_modify){
     list_to_modify = list_to_modify
     typelist_node = mtypes(node_type, 1)
     indexes = c()
@@ -42,9 +54,8 @@ create_typesectrum_for_sties <- function(node_id, node_type, list_to_modify){
     return(list_to_modify)
 }
 
-endlist = df
-
-for (e in 1:nrow(new_result)) {
-    endlist = create_typesectrum_for_sties(new_result[e,2], new_result[e,1], endlist)
+#TODO decide what to do. either in other function or in wrapper
+for (i in 1:nrow(result_from_nodes)) {
+    output = create.typesectrum.for.nodes(result_from_nodes[i,2], result_from_nodes[i,1], output)
 }
-VieView(endlist)
+
