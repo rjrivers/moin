@@ -7,7 +7,7 @@
 parse_all_types <- function(type_tibble, ind){
     typelist <- type_tibble[, ind]
     typelist <- as.list(typelist)
-    typelist <- unlist(tyli)
+    typelist <- unlist(typelist)
     return(typelist)
 }
 

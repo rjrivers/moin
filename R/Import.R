@@ -12,4 +12,3 @@ typelist_comp = create_type_generator(import_stuff(), "loc10_typ_b")
 
 testdata = NA
 testdata[, typelist_comp] = NA 
-testdata[,1]
