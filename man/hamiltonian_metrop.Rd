@@ -11,5 +11,5 @@ hamiltonian_metrop(hfunc, hvars, hconsts, beta = 100,
 \item{thresholds}{}
 }
 \description{
-Title
+Description
 }

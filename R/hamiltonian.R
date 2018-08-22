@@ -6,10 +6,13 @@
 # * Allow specifying distribution for updating hvars
 # * Add useful messages + statistics + graphs?
 # * Handle large beta values (convert to BigInt?)
+# * add a progress indicator to communicate that the functions is still running...
 # * More Hamiltonian models
 # * Profiling & optimisation
 
 #' Title
+#'
+#' Description
 #'
 #' @param hfunc
 #' @param hvars
@@ -22,9 +25,9 @@
 #'
 #' @examples
 hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .00001) {
-    dh_out <- vector()
-    repeat {#dh_out > threshold) {
-        old_hvars <- hvars
+  dh_out <- vector()
+  repeat {
+    old_hvars <- hvars
 
     # TODO: Maybe repeat for n sweeps as Evans does?
     for (h in 1:length(hvars)) {
@@ -32,7 +35,6 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .0
       for (i in 1:length(hvars[[h]])) {
         hvars2 <- hvars
         hvars2[[h]][ishuffle[i]] <- runif(1)
-
 
         #print(hvars2)
 
@@ -43,58 +45,37 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .0
 
         #message("h: ", h, "; i: ", i, "; dH: ", dH)
 
-        if(dH > 0 ||
-           runif(1) < b) {
-            hvars <- hvars2
-            rm(hvars2)
+        if(dH > 0 || runif(1) < b) {
+          hvars <- hvars2
+          rm(hvars2)
         }
       }
     }
+    
     dh_last <- do.call(hfunc, c(hvars, hconsts))
     dh_out <- c(dh_out, dh_last)
-    
-    message(H2)
-    #dh_out <- (dh_out, H2)
-    #message("dh_out: ",dh_out)
+    dh_diff <- abs(mean(dh_out)-dh_last)
     beta <- beta * 2
-    #print(mean(hvars$v))
-                                        #message("beta: ", beta)
         
-        if (length(dh_out) > 50 &&
-            abs(mean(dh_out)-dh_last) < threshold) {
-            break
-            }
-        
+    if (length(dh_out) > 50 && dh_diff < threshold) {
+      break
+    }    
   }
-
   return(hvars)
 }
 
-
-
-hamiltonian <- function(node_data, node_formula = ~x, edges) {
-  # Construct a function from ^
-}
-
-# set diagonals to 0?
-# S vector
-# v vector (random 0-1)
-# d deterrence matrix
-# e matrix (random 0-1)
-# k scalar constant
-# l scalar constant
-# j scalar constant
-# u scalar constant
 #' Title
 #'
-#' @param S
-#' @param v
-#' @param d
-#' @param e
-#' @param k
-#' @param l
-#' @param j
-#' @param u
+#' Description
+#'
+#' @param S vector
+#' @param v vector (random 0-1)
+#' @param d deterrence matrix
+#' @param e matrix (random 0-1)
+#' @param k scalar constant
+#' @param l scalar constant
+#' @param j scalar constant
+#' @param u scalar constant
 #'
 #' @return
 #' @export
@@ -109,9 +90,3 @@ h_ariadne <- function(S, v, d, e, k, l, j, u) {
   H <- -(k*kappa) - (l*lambda) + (j*jay) + (u*mu)
   return(H)
 }
-
-#' @export
-test_k <- function(v) {
-    sum(v * (1-v))
-}
-

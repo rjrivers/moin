@@ -7,8 +7,22 @@
 h_ariadne(S, v, d, e, k, l, j, u)
 }
 \arguments{
-\item{u}{}
+\item{S}{vector}
+
+\item{v}{vector (random 0-1)}
+
+\item{d}{deterrence matrix}
+
+\item{e}{matrix (random 0-1)}
+
+\item{k}{scalar constant}
+
+\item{l}{scalar constant}
+
+\item{j}{scalar constant}
+
+\item{u}{scalar constant}
 }
 \description{
-Title
+Description
 }
