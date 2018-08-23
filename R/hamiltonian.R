@@ -1,12 +1,14 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
 # TODO:
-# * Validate ARIADNE model
-# * Allow specifying distribution for updating hvars
-# * Add useful messages + statistics + graphs?
-# * Handle large beta values (convert to BigInt?)
-# * add a progress indicator to communicate that the functions is still running...
-# * More Hamiltonian models
+# * Add progress indicator to metropolis
+# * Add input validation to metropolis
+# * Define a proper output class for metropolis
+# * Write pretty print() function for metropolis results
+# * Write plot() function for metropolis results
+# * Add more Hamiltonian models
+# * Documentation
+# * Unit tests
 # * Profiling & optimisation
 
 
@@ -14,17 +16,17 @@
 # Conventions:
 # * Coefficient are Greek letters (e.g. "alpha")
 # * Capital letters are matrices (i.e. edge variables)
-# * Small letters are vectors (i.e. node variables) or universal scalar
+# * Small letters are vectors (i.e. node variables) or scalar universal constraints
 
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param Si 
-##' @param Sj 
-##' @return 
-##' @author 
+##' @title
+##' @param E
+##' @param Si
+##' @param Sj
+##' @return
+##' @author
 h_omega <- function(E, Si = 1, Sj = 1) {
   SiSj <- matrix(rep(Si, ncol(E)), nrow(E), ncol(E)) *
           matrix(rep(Sj, each = nrow(E)), nrow(E), ncol(E))
@@ -34,25 +36,25 @@ h_omega <- function(E, Si = 1, Sj = 1) {
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param alpha 
-##' @param E 
-##' @param f 
-##' @return 
-##' @author 
+##' @title
+##' @param alpha
+##' @param E
+##' @param f
+##' @return
+##' @author
 h_alpha <- function(alpha, E, f) {
   alpha * (sum(E) - f)^2
 }
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param beta 
-##' @param E 
-##' @param C 
-##' @param c 
-##' @return 
-##' @author 
+##' @title
+##' @param beta
+##' @param E
+##' @param C
+##' @param c
+##' @return
+##' @author
 h_beta <- function(beta, E, C, c) {
   beta * (sum(E*C) - c)^2
 }
@@ -60,13 +62,13 @@ h_beta <- function(beta, E, C, c) {
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param gammas 
-##' @param E 
-##' @param g 
-##' @param margin 
-##' @return 
-##' @author 
+##' @title
+##' @param gammas
+##' @param E
+##' @param g
+##' @param margin
+##' @return
+##' @author
 h_gamma <- function(gammas, E, g, margin) {
   sum(gammas) * (apply(E, margin, sum) - g)^2
 }
@@ -74,13 +76,13 @@ h_gamma <- function(gammas, E, g, margin) {
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param delta 
-##' @param X 
-##' @param g 
-##' @param s 
-##' @return 
-##' @author 
+##' @title
+##' @param delta
+##' @param X
+##' @param g
+##' @param s
+##' @return
+##' @author
 h_delta <- function(delta, X, g, s) {
   delta * (X - sum(g * (log(g / s) - 1)))^2
 }
@@ -90,37 +92,36 @@ h_delta <- function(delta, X, g, s) {
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param Si 
-##' @param Sj 
-##' @param f 
-##' @param alpha 
-##' @param beta 
-##' @param C 
-##' @param c 
-##' @return 
+##' @title
+##' @param E
+##' @param Si
+##' @param Sj
+##' @param f
+##' @param alpha
+##' @param beta
+##' @param C
+##' @param c
+##' @return
 ##' @author
 ##' @export
 h_simple_gravity <- function(E, Si = 1, Sj = 1, f, alpha, beta, C, c) {
   h_omega(E, Si, Sj) + h_alpha(alpha, E, f) + h_beta(beta, E, C, c)
 }
 
-
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param Si 
-##' @param Sj 
-##' @param beta 
-##' @param C 
-##' @param c 
-##' @param gammas 
-##' @param g 
-##' @param margin 
-##' @return 
+##' @title
+##' @param E
+##' @param Si
+##' @param Sj
+##' @param beta
+##' @param C
+##' @param c
+##' @param gammas
+##' @param g
+##' @param margin
+##' @return
 ##' @author
 ##' @export
 h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, margin = 1) {
@@ -131,58 +132,60 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, marg
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param Si 
-##' @param Sj 
-##' @param beta 
-##' @param C 
-##' @param c 
-##' @param in_gammas 
-##' @param in_g 
-##' @param out_gammas 
-##' @param out_g 
-##' @return 
-##' @author 
+##' @title
+##' @param E
+##' @param Si
+##' @param Sj
+##' @param beta
+##' @param C
+##' @param c
+##' @param in_gammas
+##' @param in_g
+##' @param out_gammas
+##' @param out_g
+##' @return
+##' @author
 h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gammas, in_g, out_gammas, out_g) {
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(in_gammas, E, in_g, margin = 1) + h_gamma(out_gammas, E, out_g, margin = 2)
 }
+
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param Si 
-##' @param Sj 
-##' @param beta 
-##' @param C 
-##' @param c 
-##' @param gammas 
-##' @param g 
-##' @param delta 
-##' @param X 
-##' @param s 
-##' @return 
+##' @title
+##' @param E
+##' @param Si
+##' @param Sj
+##' @param beta
+##' @param C
+##' @param c
+##' @param gammas
+##' @param g
+##' @param delta
+##' @param X
+##' @param s
+##' @return
 ##' @author
 ##' @export
 h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin = 1) + h_delta(delta, X, g, s)
 }
+
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param Si 
-##' @param Sj 
-##' @param f 
-##' @param in_delta 
-##' @param out_delta 
-##' @param in_g 
-##' @param in_s 
-##' @param out_g 
-##' @param out_s 
-##' @return 
+##' @title
+##' @param E
+##' @param Si
+##' @param Sj
+##' @param f
+##' @param in_delta
+##' @param out_delta
+##' @param in_g
+##' @param in_s
+##' @param out_g
+##' @param out_s
+##' @return
 ##' @author
 ##' @export
 h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta, in_g, in_s = rep(1, length(in_g)), out_g, out_s = rep(1, length(out_g))) {
