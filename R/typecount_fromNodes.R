@@ -14,7 +14,7 @@ result_from_nodes <- read.csv(csv2, sep = ",")
 #'@examples some example 
 #'@export
 
-create.empty.typelist <- function(typelist, input){
+create_empty_typelist <- function(typelist, input){
     nodes <- unique(input[, 2])
     data <- matrix(nrow = length(nodes), ncol = length(typelist) + 1, data = 0)
     data[, 1] <- sort(unique(input[, 2]))
@@ -23,8 +23,8 @@ create.empty.typelist <- function(typelist, input){
     return(data)
 }
 
-test_typelist <- create.type.generator(type_tibble = import_stuff(), column = "type", pre_size = 1)
-test_export <- create.empty.typelist(test_typelist, result_from_nodes)
+test_typelist <- create_type_generator(type_tibble = import_stuff(), column = "type", pre_size = 1)
+test_export <- create_empty_typelist(test_typelist, result_from_nodes)
 output <- test_export
 
 ""
@@ -37,7 +37,7 @@ output <- test_export
 #'@examples some example 
 #'@export 
 
-create.typesectrum.for.nodes <- function(node_id, node_type, list_to_modify){
+create_typesectrum_for_nodes <- function(node_id, node_type, list_to_modify){
     list_to_modify <- list_to_modify
     typelist_node <- mtypes(node_type, 1)
     indexes <- c()
@@ -54,6 +54,6 @@ create.typesectrum.for.nodes <- function(node_id, node_type, list_to_modify){
 
 #TODO decide what to do. either in other function or in wrapper
 for (i in 1:nrow(result_from_nodes)) {
-    output <- create.typesectrum.for.nodes(result_from_nodes[i,2], result_from_nodes[i,1], output)
+    output <- create_typesectrum_for_nodes(result_from_nodes[i,2], result_from_nodes[i,1], output)
 }
 
