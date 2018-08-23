@@ -18,14 +18,17 @@ costs <- distmat %>%
 
 test_d <- matrix(runif(625),25,25)
 
-hamiltonian_metrop(hfunc = h_ariadne,
-                   hvars = list(v = runif(25),
-                                e = matrix(runif(625),25,25)),
-                   hconsts = list(S = rep(1,25),
-                                  d = test_d,
+res <- hamiltonian_metrop(hfunc = h_ariadne,
+                   hvars = list(v = runif(10),
+                                e = matrix(runif(100),10,10)),
+                   hconsts = list(S = rep(1,10),
+                                  d = costs,
                                   k = 1,
-                                  l = 0,
-                                  j = 0,
-                                  u = 0),
+                                  l = 1,
+                                  j = 1,
+                                  u = 1),
                    beta = 100,
-                   threshold = 1e-02)
+                   threshold = 1e-01)
+res
+
+# TODO: "e" in the function should be created automatically based on the size of d

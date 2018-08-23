@@ -3,6 +3,7 @@
 export(dc)
 export(dc2)
 export(h_ariadne)
+export(h_gravity)
 export(hamiltonian_metrop)
 export(inverse_exponentional)
 export(inverse_power)
