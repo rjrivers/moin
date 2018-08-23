@@ -1,8 +1,11 @@
-#'@title parse all types
-#'@param typelist a tibble with type information (eg. exampledata R1234)
-#'@param indenx_col index for column to use
-#'@return returns flat list of types
-#'@export 
+#' @title parse all types
+#' 
+#' Function which returns a data frame containing type of each feature. 
+#' 
+#' @param typelist a tibble with type information (eg. exampledata R1234)
+#' @param indenx_col index for column to use
+#' @return returns a data frame containg all features
+#' @export 
 
 parse_all_types <- function(type_tibble, index_col){
     typelist <- type_tibble[, index_col]
@@ -12,11 +15,16 @@ parse_all_types <- function(type_tibble, index_col){
 }
 
 
-#'@title mtypes
-#'@param type one type from list e.g. R12345
-#'@param pre_size amount of letters e.g. charactes before typenumber
-#'@examples returns flat list of meta types
-#'@export 
+#' @title mtypes
+#' 
+#' Separating hierarchical type names, so upper levels will be returned. 
+#'   R123 will be returned as R1, R12, R123.
+#' 
+#' @param type one type from list e.g. R12345
+#' @param pre_size amount of letters e.g. charactes before typenumber
+#' @return returns upper level of type hierarchy as list
+#' @examples returns flat list of meta types
+#' @export 
 
 mtypes <- function(type, pre_size) {
     type <- as.character(type)
@@ -30,10 +38,15 @@ mtypes <- function(type, pre_size) {
 }
 
 
-#'@title find missing types
-#'@param typelist a list with type information (eg. exampledata R1234)
-#'@examples returns flat list of types
-#'@export 
+#' @title find missing types
+#' 
+#' Sanity check if each upper level of hierarchical types is represented once in `typelist`.
+#' 
+#' @param typelist a list with type information (eg. exampledata R1234)
+#' @param pre_size amount of letters e.g. charactes before typenumber
+#' @return returns flat list of types
+#' @examples 
+#' @export 
 
 
 find_missing_types <- function(type_list, pre_size){
@@ -46,12 +59,12 @@ find_missing_types <- function(type_list, pre_size){
 }
 
 
-#'@title create type generator
-#'@param type_tibble a tibble with type information (eg. exampledata R1234)
-#'@param type_col string for column with type information 
-#'@param pre_size amount of letters e.g. charactes before typenumber
-#'@examples some example 
-#'@export 
+#' @title create type generator
+#' @param type_tibble a tibble with type information (eg. exampledata R1234)
+#' @param type_col string for column with type information 
+#' @param pre_size amount of letters e.g. charactes before typenumber
+#' @examples some example 
+#' @export 
 
 create_type_generator <- function(type_tibble, type_col, pre_size){
     index_col <- which(colnames(type_tibble) == type_col)

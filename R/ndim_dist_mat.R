@@ -1,5 +1,5 @@
-#' n dimensional euclidian distance function
-#' Calculates the euclidian distance of the compositions of node A and B. If a measure of cultural distance is desired, the composition equals the typespectra. 
+#' n Dimensional Euclidian Distance Function
+#' Calculates the euclidian distance of the compositions of node A and B. If a measure of cultural distance is desired, the composition equals the type spectra. 
 #' @titel edist
 #' @param a vector containing the compositions of node A. 
 #' @param b vector containing the compositions of node B.
@@ -12,7 +12,7 @@
 
 edist <- function(a,b){sqrt(sum((a-b) ^ 2))}
 
-#' n dimensional distance matrix
+#' n Dimensional Distance Matrix
 #' Creates an n dimensional bidirectional distance matrix from a dataframe. If a measure of cultural distance is desired, the data should be structured with a node identifier, followed by the typespectra collums. 
 #' @title dist.matr
 #' @param df a dataframe containing node compositions
@@ -21,7 +21,7 @@ edist <- function(a,b){sqrt(sum((a-b) ^ 2))}
 #'
 #' @examples
 
-dist.matr <- function(df){
+dist_matr <- function(df){
     l <- length(df[,1])
     con_all <- matrix(data = NA, nrow = l, ncol = l)
     for(i in 1:(l-1)){
