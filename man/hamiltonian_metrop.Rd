@@ -4,8 +4,9 @@
 \alias{hamiltonian_metrop}
 \title{Title}
 \usage{
-hamiltonian_metrop(hfunc, hvars, hconsts, beta = 100,
-  threshold = 0.001, min_iterations = 50, silent = FALSE)
+hamiltonian_metrop(hfunc, hvars, hconsts, hvar_constraints, beta = 100,
+  beta_prod = 2, threshold = 0.001, threshold_window = 50,
+  silent = FALSE)
 }
 \arguments{
 \item{thresholds}{}

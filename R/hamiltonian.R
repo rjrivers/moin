@@ -24,11 +24,14 @@
 #' @export
 #'
 #' @examples
-hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
-                               threshold = .001, min_iterations = 50,
+hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 100, beta_prod = 2,
+                               threshold = .001, threshold_window = 50,
                                silent = FALSE) {
+  
+  original_beta <- beta
   # Metropolis loop
   Hs <- vector()
+  meanH_save <- vector()
   repeat {
     # Iterate over all variables in the model
     old_hvars <- hvars
@@ -37,7 +40,9 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
       for (i in 1:length(hvars[[h]])) {
         # Pick a new value for the variable from a uniform random distribution
         hvars2 <- hvars
-        hvars2[[h]][ishuffle[i]] <- runif(1)
+        hvars2[[h]][ishuffle[i]] <- runif(n = 1,
+                                          min = hvar_constraints[[h]][1],
+                                          max = hvar_constraints[[h]][2])
 
         # Calculate the Hamiltonian for old and new states
         H1 <- do.call(hfunc, c(hvars, hconsts))
@@ -59,25 +64,43 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
     # Check for equilibrium
     H_last <- do.call(hfunc, c(hvars, hconsts))
     Hs <- c(Hs, H_last)
-    d_meanH <- abs(mean(Hs) - H_last)
+    if ( length(Hs) > threshold_window ) {
+      d_meanH <- abs(mean(Hs[length(Hs)-threshold_window:length(Hs)]) - H_last)
+    }
+    else {
+      d_meanH <- abs(mean(Hs) - H_last)
+    }
+
+    meanH_save <- c(meanH_save, mean(Hs))
+    
     if (!silent) message("∆ mean H: ", d_meanH)
-    if (length(Hs) > min_iterations &&
+    if (length(Hs) > threshold_window &&
         d_meanH < threshold) {
       break
     }
 
     # Decrease "temperature"
-    beta <- beta * 2
+    beta <- beta * beta_prod
     if (!silent) message("Beta: ", beta)
   }
 
-  return(hvars)
+  return(list(model_parameters = c(beta = original_beta,
+                                  beta_prod = beta_prod,
+                                  threshold = threshold,
+                                  threshold_window = threshold_window),
+              hvars = hvars,
+              hconsts = hconsts,
+              model_iterations = data.frame(i = 1:length(meanH_save),
+                                            H = Hs,
+                                            meanH = meanH_save)))
+  
 }
 
 #' Title
 #'
 #' Description
 #'
+
 #' @param S vector
 #' @param v vector (random 0-1)
 #' @param d deterrence matrix
@@ -100,3 +123,76 @@ h_ariadne <- function(S, v, d, e, k, l, j, u) {
   H <- -(k*kappa) - (l*lambda) + (j*jay) + (u*mu)
   return(H)
 }
+
+
+## TODO: plot_hamiltonian_results function
+## library(ggplot2)
+## res %>%
+##   ggplot(aes(x = i)) +
+##   geom_line(aes(y=d)) +
+##   geom_line(aes(y=H)) +
+##   scale_y_log10()
+
+
+#' Title
+#'
+#' Description
+#'
+#' @param alpha scalar (random)
+#' @param beta scalar (random)
+#' @param E matrix (random 0-1)
+#' @param c cost matrix
+#' @param C scalar constant
+#' @param F scalar constant
+#' 
+#' @return
+#' @export
+#'
+#' @examples
+h_gravity <- function(alpha,
+                      beta,
+                      E,
+                      c,
+                      C,
+                      F) {
+  H <- sum(E * (log(E) - 1 )) + (alpha * (sum(E) - F)^2) + (beta * (sum(E*c)-C)^2)  
+  return(H)
+}
+
+
+#' Title
+#'
+#' Description
+#'
+
+#' @param alpha scalar (random)
+#' @param beta scalar (random)
+#' @param E matrix (random 0-1)
+#' @param c cost matrix
+#' @param C scalar constant
+#' @param F scalar constant
+#' 
+#' @return
+#' @export
+#'
+#' @examples
+h_singly_constrained_gravity_model <- function(alpha,
+                                        beta,
+                                        E,
+                                        c,
+                                        C,
+                                        F) {
+  H <- sum(E * (log(E) - 1 )) +
+    (alpha * (sum(E) - F)^2) +
+    (beta * (sum(E*c)-C)^2) +
+    (gamma * sum(matrix(O, 1, length(O)) %*% E)^2)
+  return(H)
+}
+
+hcomponent_0
+hcomponent_alpha
+hcomponent_beta 
+hcomponent_rho
+
+hcomponent_delta 
+hcomponent_epsilon
