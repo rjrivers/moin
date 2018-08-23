@@ -24,7 +24,8 @@
 #' @export
 #'
 #' @examples
-hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .00001) {
+hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
+                               threshold = .001, silent = FALSE) {
   dh_out <- vector()
   repeat {
     old_hvars <- hvars
@@ -41,9 +42,13 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .0
         H1 <- do.call(hfunc, c(hvars, hconsts))
         H2 <- do.call(hfunc, c(hvars2, hconsts))
         dH <- H1 - H2
-        b <- exp(beta * dH)
 
-        #message("h: ", h, "; i: ", i, "; dH: ", dH)
+        if (dH == 0) {
+          b <- 0
+        }
+        else {
+          b <- exp(beta * dH)
+        }
 
         if(dH > 0 || runif(1) < b) {
           hvars <- hvars2
@@ -51,15 +56,20 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100, threshold = .0
         }
       }
     }
-    
+
     dh_last <- do.call(hfunc, c(hvars, hconsts))
     dh_out <- c(dh_out, dh_last)
     dh_diff <- abs(mean(dh_out)-dh_last)
     beta <- beta * 2
-        
+
+    if (!silent) {
+      message("Mean ∆H: ", dh_diff)
+      message("Beta: ", beta)
+    }
+
     if (length(dh_out) > 50 && dh_diff < threshold) {
       break
-    }    
+    }
   }
   return(hvars)
 }
