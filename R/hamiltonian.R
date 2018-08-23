@@ -25,7 +25,8 @@
 #'
 #' @examples
 hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
-                               threshold = .001, silent = FALSE) {
+                               threshold = .001, min_iterations = 50,
+                               silent = FALSE) {
   dh_out <- vector()
   repeat {
     old_hvars <- hvars
@@ -67,7 +68,8 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
       message("Beta: ", beta)
     }
 
-    if (length(dh_out) > 50 && dh_diff < threshold) {
+    if (length(dh_out) > min_iterations
+        && dh_diff < threshold) {
       break
     }
   }
