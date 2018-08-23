@@ -57,7 +57,7 @@ h_retail <- function() {
 
 }
 
-h_ariadne <- function() {
+h_alonso <- function() {
 
 }
 
