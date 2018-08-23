@@ -27,29 +27,27 @@
 hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
                                threshold = .001, min_iterations = 50,
                                silent = FALSE) {
+  # Metropolis loop
   Hs <- vector()
   repeat {
+    # Iterate over all variables in the model
     old_hvars <- hvars
-
-    # TODO: Maybe repeat for n sweeps as Evans does?
     for (h in 1:length(hvars)) {
       ishuffle <- sample(1:length(hvars[[h]]))
       for (i in 1:length(hvars[[h]])) {
+        # Pick a new value for the variable from a uniform random distribution
         hvars2 <- hvars
         hvars2[[h]][ishuffle[i]] <- runif(1)
 
-        #print(hvars2)
-
+        # Calculate the Hamiltonian for old and new states
         H1 <- do.call(hfunc, c(hvars, hconsts))
         H2 <- do.call(hfunc, c(hvars2, hconsts))
         dH <- H1 - H2
 
-        if (dH == 0) {
-          b <- 0
-        }
-        else {
-          b <- exp(beta * dH)
-        }
+        # Accept new value if H is lowered OR based on a stochastically based on
+        # the Boltzmann distribution
+        if (dH == 0) b <- 0
+        else b <- exp(beta * dH)
 
         if(dH > 0 || runif(1) < b) {
           hvars <- hvars2
@@ -58,22 +56,21 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, beta = 100,
       }
     }
 
+    # Check for equilibrium
     H_last <- do.call(hfunc, c(hvars, hconsts))
     Hs <- c(Hs, H_last)
     d_meanH <- abs(mean(Hs) - H_last)
-
-    beta <- beta * 2
-
-    if (!silent) {
-      message("∆ mean H: ", d_meanH)
-      message("Beta: ", beta)
-    }
-
-    if (length(Hs) > min_iterations
-        && d_meanH < threshold) {
+    if (!silent) message("∆ mean H: ", d_meanH)
+    if (length(Hs) > min_iterations &&
+        d_meanH < threshold) {
       break
     }
+
+    # Decrease "temperature"
+    beta <- beta * 2
+    if (!silent) message("Beta: ", beta)
   }
+
   return(hvars)
 }
 
