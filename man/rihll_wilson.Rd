@@ -4,7 +4,7 @@
 \alias{rihll_wilson}
 \title{Calculates the Rihll-Wilson-Model}
 \usage{
-rihll_wilson(Oi, fcij, alpha)
+rihll_wilson(Oi, Wj, fcij, alpha, eps = 1e-06, maxrun = 1000)
 }
 \arguments{
 \item{Oi}{Outflows originating from i}
