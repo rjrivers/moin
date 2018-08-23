@@ -1,5 +1,13 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
+# TODO:
+# * Validate ARIADNE model
+# * Allow specifying distribution for updating hvars
+# * Add useful messages + statistics + graphs?
+# * Handle large beta values (convert to BigInt?)
+# * add a progress indicator to communicate that the functions is still running...
+# * More Hamiltonian models
+# * Profiling & optimisation
 
 
 # Gravity model components ------------------------------------------------
@@ -41,6 +49,7 @@ h_constrained_gravity <- function() {
 
 }
 
+# Doubly constrained model need to check that sum of Is = sum of Os
 h_double_constrained_gravity <- function() {
 
 }
@@ -52,17 +61,6 @@ h_retail <- function() {
 h_ariadne <- function() {
 
 }
-
-# Doubly constrained model need to check that sum of Is = sum of Os
-
-# TODO:
-# * Validate ARIADNE model
-# * Allow specifying distribution for updating hvars
-# * Add useful messages + statistics + graphs?
-# * Handle large beta values (convert to BigInt?)
-# * add a progress indicator to communicate that the functions is still running...
-# * More Hamiltonian models
-# * Profiling & optimisation
 
 #' MCMC/Metropolis algorithm for solving Hamiltonian functions
 #'
@@ -191,66 +189,3 @@ h_ariadne <- function(S, v, d, e, k, l, j, u) {
 ##   geom_line(aes(y=H)) +
 ##   scale_y_log10()
 
-
-#' Title
-#'
-#' Description
-#'
-#' @param alpha scalar (random)
-#' @param beta scalar (random)
-#' @param E matrix (random 0-1)
-#' @param c cost matrix
-#' @param C scalar constant
-#' @param F scalar constant
-#'
-#' @return
-#' @export
-#'
-#' @examples
-h_gravity <- function(alpha,
-                      beta,
-                      E,
-                      c,
-                      C,
-                      F) {
-  H <- sum(E * (log(E) - 1 )) + (alpha * (sum(E) - F)^2) + (beta * (sum(E*c)-C)^2)
-  return(H)
-}
-
-
-#' Title
-#'
-#' Description
-#'
-
-#' @param alpha scalar (random)
-#' @param beta scalar (random)
-#' @param E matrix (random 0-1)
-#' @param c cost matrix
-#' @param C scalar constant
-#' @param F scalar constant
-#'
-#' @return
-#' @export
-#'
-#' @examples
-h_singly_constrained_gravity_model <- function(alpha,
-                                        beta,
-                                        E,
-                                        c,
-                                        C,
-                                        F) {
-  H <- sum(E * (log(E) - 1 )) +
-    (alpha * (sum(E) - F)^2) +
-    (beta * (sum(E*c)-C)^2) +
-    (gamma * sum(matrix(O, 1, length(O)) %*% E)^2)
-  return(H)
-}
-
-# hcomponent_0
-# hcomponent_alpha
-# hcomponent_beta
-# hcomponent_rho
-#
-# hcomponent_delta
-# hcomponent_epsilon
