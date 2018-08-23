@@ -2,7 +2,7 @@
 % Please edit documentation in R/hamiltonian.R
 \name{hamiltonian_metrop}
 \alias{hamiltonian_metrop}
-\title{Title}
+\title{MCMC/Metropolis algorithm for solving Hamiltonian functions}
 \usage{
 hamiltonian_metrop(hfunc, hvars, hconsts, hvar_constraints, beta = 100,
   beta_prod = 2, threshold = 0.001, threshold_window = 50,
@@ -13,4 +13,11 @@ hamiltonian_metrop(hfunc, hvars, hconsts, hvar_constraints, beta = 100,
 }
 \description{
 Description
+}
+\author{
+Daniel Knitter <\email{knitter@geographie.uni-kiel.de}>
+
+Joe Roe <\email{jwg983@hum.ku.dk}>
+
+Ray Rivers <\email{r.rivers@imperial.ac.uk}>
 }

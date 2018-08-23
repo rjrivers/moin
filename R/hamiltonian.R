@@ -1,21 +1,39 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
 
-hcomponent_omega <- function(E) {
-  sum(E * (log(E) - 1))
+# Conventions:
+# * Coefficient are Greek letters (e.g. "alpha")
+# * Capital letters are matrices (i.e. edge variables)
+# * Small letters are vectors (i.e. node variables) or universal scalar
+# * To do: Sij and SiSj in logs?
+
+h_omega <- function(E, Si = 1, Sj = 1) {
+  SiSj <- matrix(rep(Si, ncol(E)), nrow(E), ncol(E)) *
+          matrix(rep(Sj, each = nrow(E)), nrow(E), ncol(E))
+  sum(E * (log(E / SiSj) - 1))
 }
 
-hcomponent_alpha <- function(alpha, E, F) {
-  alpha * (sum(E) - F)^2
+h_alpha <- function(alpha, E, f) {
+  alpha * (sum(E) - f)^2
 }
 
-hcomponent_beta <- function()
+h_beta <- function(beta, E, C, c) {
+  beta * (sum(E*C) - c)^2
+}
 
-hcomponent_gamma <- function()
+h_gamma <- function(gammas, E, g, margin) {
+  sum(gammas) * (apply(E, margin, sum) - g)^2
+}
 
-hcomponent_delta <- function()
+h_delta <- function(delta, X, g, s) {
+  delta * (X - sum(g * (log(g / s) - 1)))^2
+}
 
-hcomponent_epsilon <- function()
+h_simple_gravity <- function(E, F) {
+  h_omega() + h_alpha() + h_beta()
+}
+
+# Doubly constrained model need to check that sum of Is = sum of Os
 
 # TODO:
 # * Validate ARIADNE model
@@ -26,9 +44,13 @@ hcomponent_epsilon <- function()
 # * More Hamiltonian models
 # * Profiling & optimisation
 
-#' Title
+#' MCMC/Metropolis algorithm for solving Hamiltonian functions
 #'
 #' Description
+#'
+#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
+#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
+#' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #'
 #' @param hfunc
 #' @param hvars
@@ -43,7 +65,7 @@ hcomponent_epsilon <- function()
 hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 100, beta_prod = 2,
                                threshold = .001, threshold_window = 50,
                                silent = FALSE) {
-  
+
   original_beta <- beta
   # Metropolis loop
   Hs <- vector()
@@ -88,7 +110,7 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 1
     }
 
     meanH_save <- c(meanH_save, mean(Hs))
-    
+
     if (!silent) message("∆ mean H: ", d_meanH)
     if (length(Hs) > threshold_window &&
         d_meanH < threshold) {
@@ -109,7 +131,7 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 1
               model_iterations = data.frame(i = 1:length(meanH_save),
                                             H = Hs,
                                             meanH = meanH_save)))
-  
+
 }
 
 #' Title
@@ -160,7 +182,7 @@ h_ariadne <- function(S, v, d, e, k, l, j, u) {
 #' @param c cost matrix
 #' @param C scalar constant
 #' @param F scalar constant
-#' 
+#'
 #' @return
 #' @export
 #'
@@ -171,7 +193,7 @@ h_gravity <- function(alpha,
                       c,
                       C,
                       F) {
-  H <- sum(E * (log(E) - 1 )) + (alpha * (sum(E) - F)^2) + (beta * (sum(E*c)-C)^2)  
+  H <- sum(E * (log(E) - 1 )) + (alpha * (sum(E) - F)^2) + (beta * (sum(E*c)-C)^2)
   return(H)
 }
 
@@ -187,7 +209,7 @@ h_gravity <- function(alpha,
 #' @param c cost matrix
 #' @param C scalar constant
 #' @param F scalar constant
-#' 
+#'
 #' @return
 #' @export
 #'
@@ -205,10 +227,10 @@ h_singly_constrained_gravity_model <- function(alpha,
   return(H)
 }
 
-hcomponent_0
-hcomponent_alpha
-hcomponent_beta 
-hcomponent_rho
-
-hcomponent_delta 
-hcomponent_epsilon
+# hcomponent_0
+# hcomponent_alpha
+# hcomponent_beta
+# hcomponent_rho
+#
+# hcomponent_delta
+# hcomponent_epsilon
