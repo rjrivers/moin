@@ -1,6 +1,22 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
 
+hcomponent_omega <- function(E) {
+  sum(E * (log(E) - 1))
+}
+
+hcomponent_alpha <- function(alpha, E, F) {
+  alpha * (sum(E) - F)^2
+}
+
+hcomponent_beta <- function()
+
+hcomponent_gamma <- function()
+
+hcomponent_delta <- function()
+
+hcomponent_epsilon <- function()
+
 # TODO:
 # * Validate ARIADNE model
 # * Allow specifying distribution for updating hvars
