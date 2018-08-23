@@ -1,11 +1,12 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
 
+
+# Gravity model components ------------------------------------------------
 # Conventions:
 # * Coefficient are Greek letters (e.g. "alpha")
 # * Capital letters are matrices (i.e. edge variables)
 # * Small letters are vectors (i.e. node variables) or universal scalar
-# * To do: Sij and SiSj in logs?
 
 h_omega <- function(E, Si = 1, Sj = 1) {
   SiSj <- matrix(rep(Si, ncol(E)), nrow(E), ncol(E)) *
@@ -29,8 +30,27 @@ h_delta <- function(delta, X, g, s) {
   delta * (X - sum(g * (log(g / s) - 1)))^2
 }
 
+
+# Gravity models ----------------------------------------------------------
+
 h_simple_gravity <- function(E, F) {
   h_omega() + h_alpha() + h_beta()
+}
+
+h_constrained_gravity <- function() {
+
+}
+
+h_double_constrained_gravity <- function() {
+
+}
+
+h_retail <- function() {
+
+}
+
+h_ariadne <- function() {
+
 }
 
 # Doubly constrained model need to check that sum of Is = sum of Os
