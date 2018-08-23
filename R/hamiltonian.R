@@ -1,11 +1,20 @@
 
 # HAMILTONIAN MODELS ------------------------------------------------------
+# TODO:
+# * Validate ARIADNE model
+# * Allow specifying distribution for updating hvars
+# * Add useful messages + statistics + graphs?
+# * Handle large beta values (convert to BigInt?)
+# * add a progress indicator to communicate that the functions is still running...
+# * More Hamiltonian models
+# * Profiling & optimisation
 
+
+# Gravity model components ------------------------------------------------
 # Conventions:
 # * Coefficient are Greek letters (e.g. "alpha")
 # * Capital letters are matrices (i.e. edge variables)
 # * Small letters are vectors (i.e. node variables) or universal scalar
-# * To do: Sij and SiSj in logs?
 
 h_omega <- function(E, Si = 1, Sj = 1) {
   SiSj <- matrix(rep(Si, ncol(E)), nrow(E), ncol(E)) *
@@ -29,40 +38,28 @@ h_delta <- function(delta, X, g, s) {
   delta * (X - sum(g * (log(g / s) - 1)))^2
 }
 
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title 
-##' @param E 
-##' @param f 
-##' @param C 
-##' @param c 
-##' @param alpha 
-##' @param beta 
-##' @param Si 
-##' @param Sj 
-##' @return 
-##' @author
-##' @export
-h_simple_gravity <- function(E, f, C, c, alpha, beta, Si = 1, Sj = 1) {
-  h_omega(E, Si, Sj) + h_alpha(alpha, E, f) + h_beta(beta, E, C, c)
+# Gravity models ----------------------------------------------------------
+
+h_simple_gravity <- function(E, F) {
+  h_omega() + h_alpha() + h_beta()
 }
 
+h_constrained_gravity <- function() {
 
-
+}
 
 # Doubly constrained model need to check that sum of Is = sum of Os
+h_double_constrained_gravity <- function() {
 
+}
 
+h_retail <- function() {
 
-# TODO:
-# * Validate ARIADNE model
-# * Allow specifying distribution for updating hvars
-# * Add useful messages + statistics + graphs?
-# * Handle large beta values (convert to BigInt?)
-# * add a progress indicator to communicate that the functions is still running...
-# * More Hamiltonian models
-# * Profiling & optimisation
+}
+
+h_ariadne <- function() {
+
+}
 
 #' MCMC/Metropolis algorithm for solving Hamiltonian functions
 #'
@@ -191,66 +188,3 @@ h_ariadne <- function(S, v, d, e, k, l, j, u) {
 ##   geom_line(aes(y=H)) +
 ##   scale_y_log10()
 
-
-#' Title
-#'
-#' Description
-#'
-#' @param alpha scalar (random)
-#' @param beta scalar (random)
-#' @param E matrix (random 0-1)
-#' @param c cost matrix
-#' @param C scalar constant
-#' @param F scalar constant
-#'
-#' @return
-#' @export
-#'
-#' @examples
-h_gravity <- function(alpha,
-                      beta,
-                      E,
-                      c,
-                      C,
-                      F) {
-  H <- sum(E * (log(E) - 1 )) + (alpha * (sum(E) - F)^2) + (beta * (sum(E*c)-C)^2)
-  return(H)
-}
-
-
-#' Title
-#'
-#' Description
-#'
-
-#' @param alpha scalar (random)
-#' @param beta scalar (random)
-#' @param E matrix (random 0-1)
-#' @param c cost matrix
-#' @param C scalar constant
-#' @param F scalar constant
-#'
-#' @return
-#' @export
-#'
-#' @examples
-h_singly_constrained_gravity_model <- function(alpha,
-                                        beta,
-                                        E,
-                                        c,
-                                        C,
-                                        F) {
-  H <- sum(E * (log(E) - 1 )) +
-    (alpha * (sum(E) - F)^2) +
-    (beta * (sum(E*c)-C)^2) +
-    (gamma * sum(matrix(O, 1, length(O)) %*% E)^2)
-  return(H)
-}
-
-# hcomponent_0
-# hcomponent_alpha
-# hcomponent_beta
-# hcomponent_rho
-#
-# hcomponent_delta
-# hcomponent_epsilon
