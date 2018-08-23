@@ -5,6 +5,7 @@ Title: Modelling Interactions in R
 Description: This package provides functions to calculate simple location and interaction models. It is based on the gravity and entropy maximization approaches. These can be defined within the deterrence (or cost) functions. Two functions are implmented, covered singly- as well as doubly-constrained models.
 Authors@R: c(
   person("Daniel", "Knitter", email = "knitter@geographie.uni-kiel.de", role = c("aut","cre"))
+  person("Franziska", "Faupel", email = "ffaupel@ufg.uni-kiel.de", role = c("aut"))
   )
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
