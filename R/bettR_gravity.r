@@ -77,7 +77,7 @@ rihll_wilson <- function(Oi, Wj, fcij, alpha, eps = 1e-6, maxrun = 1000){
 }
 
 
-rw_result_3<-rihll_wilson(Oi,Oi,fcij,alpha = 1)
+#rw_result_3<-rihll_wilson(Oi,Oi,fcij,alpha = 1)
 
 ########### OLD VERSIONS
 
@@ -153,27 +153,27 @@ calculate_dj <- function(Tij) {
 
 # Test area, has to be clean in the final version
 
-Tij <- matrix(1:9, ncol=3)
-
-calculate_dj(Tij)
-
-
-cij <- read.csv2("tests/testthat/LTD1costs_10sites.csv", row.names = 1)
-
-beta <- .01
-fcij <- exp(-beta * cij)
-
-alpha <- 1.1
-Oi <- rep(1,time = nrow(cij))
-
-rw_result <- list()
-rw_result$Inputs <- rihll_wilson(Oi, fcij, alpha)[[2]]
-rw_result$Inputs
-
-rw_result_2 <- rwgm(as.matrix(cij), alpha, beta)
-
-display.input(rw_result, sorted = T)
-display.input(rw_result_3, sorted = T)
+# Tij <- matrix(1:9, ncol=3)
+# 
+# calculate_dj(Tij)
+# 
+# 
+# cij <- read.csv2("tests/testthat/LTD1costs_10sites.csv", row.names = 1)
+# 
+# beta <- .01
+# fcij <- exp(-beta * cij)
+# 
+# alpha <- 1.1
+# Oi <- rep(1,time = nrow(cij))
+# 
+# rw_result <- list()
+# rw_result$Inputs <- rihll_wilson(Oi, fcij, alpha)[[2]]
+# rw_result$Inputs
+# 
+# rw_result_2 <- rwgm(as.matrix(cij), alpha, beta)
+# 
+# display.input(rw_result, sorted = T)
+# display.input(rw_result_3, sorted = T)
 
 
 
@@ -207,9 +207,9 @@ rwgm <- function(costs,alpha,beta,nmax=10000,eps=1e-6,step=0.01,random=FALSE) {
   list(Inputs=Inputs,T=T,nb.iter=l)
 }
 
-testdata <- matrix(c(0,150,120,120,150,60,120,30,30,30), nrow=2)
+#testdata <- matrix(c(0,150,120,120,150,60,120,30,30,30), nrow=2)
 
-cij <- as.matrix(dist(t(testdata)))
+#cij <- as.matrix(dist(t(testdata)))
 
 ####################################################################################
 
@@ -236,25 +236,25 @@ simple_gravity <- function(Mi, fcij, k) {
 
 
 ###### test
-Mi<- as.vector(c(1,2,1,5,3))
-k<-2
+#Mi<- as.vector(c(1,2,1,5,3))
+#k<-2
 
-testgravity <- simple_gravity(Mi,fcij,2)
+#testgravity <- simple_gravity(Mi,fcij,2)
 
 
 
 ##################################
 ###### DETERRENCE FUNCTIONS ######
 
-# Power
-# Exponential
-
 deterrence_function<-function(cij,beta,type = 'exponential') {
   if (type=='exponential'){
     fcij <- exp(-beta * cij)  
   }
-  else if (type == 'power'){
+  else if (type == 'negpower'){
     fcij <- cij^-beta 
+  }
+  else if (type == 'power'){
+    fcij <- cij^beta 
   }
   else {
     stop ("Sorry, I do not know this kind of deterrence function")
@@ -262,4 +262,4 @@ deterrence_function<-function(cij,beta,type = 'exponential') {
   return(fcij)
 }
 
-fcij<-deterrence_function(cij, .005)
+#fcij<-deterrence_function("A", 0)
