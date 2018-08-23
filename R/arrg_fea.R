@@ -1,12 +1,12 @@
 #' Aggregate features by Voronoi tesselation
 #' Creates a Voronoi tesselation of the nodes and aggregates features in tiles according to their spatial location. Returns a dataframe of aggregated features and their associated node as a new collum.
-#' @tile aggr.fea.voro
+#' @title aggr_fea_voro
 #' @param nodes a data.frame containing metric x and y coordinates of nodes, additionally an identifier. Coordinates are expected to be the first two columns.
 #' @param features a data.frame containing metric x and y coordinates of nodes, and feature type. Coordinates are expected to be the first two columns.
 #' @param type_col a character string naming the columname containing feature types.
 #'
 #' @return a dataframe with feature types and their corresponding node. Additionally a
-#'     plot is created to picture the aggregation of features to nodes. Amount of feature
+#'     plot is created to display the aggregation of features to nodes. Amount of feature
 #'     per node is added as number to the plot.
 #' @export
 #'

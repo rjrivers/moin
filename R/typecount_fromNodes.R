@@ -26,8 +26,8 @@ create_typesectra_for_nodes <- function(node_id, node_type, list_to_modify){
     indexes <- c()
     
     for (element in typelist_node) {
-        which <- which(colnames(list_to_modify) == element)
-        indexes <- c(indexes, which) }
+        sel <- which(colnames(list_to_modify) == element)
+        indexes <- c(indexes, sel) }
     
     row <- which(list_to_modify$node_id == node_id)
     list_to_modify[row, indexes] <- list_to_modify[row, indexes] + 1
@@ -46,7 +46,7 @@ create_typespectra <- function(aggr_fea, typelist){
     export <- create_empty_typelist(typelist, aggr_fea)
     output <- export
     for (i in 1:nrow(aggr_fea)) {
-        output <- create_typesectra_for_nodes(aggr_fea[i,2], aggr_fea[i,1], output)
+        output <- create_typesectra_for_nodes(aggr_fea[i,"nodes"], aggr_fea[i,"type"], output)
     }
     return(output)
 }
