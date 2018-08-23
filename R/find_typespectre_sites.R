@@ -1,11 +1,11 @@
 #'@title parse all types
 #'@param typelist a tibble with type information (eg. exampledata R1234)
-#'@param ind index for column to use
+#'@param indenx_col index for column to use
 #'@return returns flat list of types
 #'@export 
 
-parse_all_types <- function(type_tibble, ind){
-    typelist <- type_tibble[, ind]
+parse_all_types <- function(type_tibble, index_col){
+    typelist <- type_tibble[, index_col]
     typelist <- as.list(typelist)
     typelist <- unlist(typelist)
     return(typelist)
@@ -14,6 +14,7 @@ parse_all_types <- function(type_tibble, ind){
 
 #'@title mtypes
 #'@param type one type from list e.g. R12345
+#'@param pre_size amount of letters e.g. charactes before typenumber
 #'@examples returns flat list of meta types
 #'@export 
 
@@ -47,13 +48,14 @@ find_missing_types <- function(type_list, pre_size){
 
 #'@title create type generator
 #'@param type_tibble a tibble with type information (eg. exampledata R1234)
-#'@param column string for column with type information 
+#'@param type_col string for column with type information 
+#'@param pre_size amount of letters e.g. charactes before typenumber
 #'@examples some example 
 #'@export 
 
-create_type_generator <- function(type_tibble, column, pre_size){
-    index <- grep(column, colnames(type_tibble))
-    list_of_types <- parse_all_types(type_tibble, index)
+create_type_generator <- function(type_tibble, type_col, pre_size){
+    index_col <- which(colnames(type_tibble) == type_col)
+    list_of_types <- parse_all_types(type_tibble, index_col)
     complete_types <- find_missing_types(list_of_types, pre_size)
     print("Done with creating type list")
     return(complete_types)
