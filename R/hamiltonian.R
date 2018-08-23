@@ -29,11 +29,31 @@ h_delta <- function(delta, X, g, s) {
   delta * (X - sum(g * (log(g / s) - 1)))^2
 }
 
-h_simple_gravity <- function(E, F) {
-  h_omega() + h_alpha() + h_beta()
+##' .. content for \description{} (no empty lines) ..
+##'
+##' .. content for \details{} ..
+##' @title 
+##' @param E 
+##' @param f 
+##' @param C 
+##' @param c 
+##' @param alpha 
+##' @param beta 
+##' @param Si 
+##' @param Sj 
+##' @return 
+##' @author
+##' @export
+h_simple_gravity <- function(E, f, C, c, alpha, beta, Si = 1, Sj = 1) {
+  h_omega(E, Si, Sj) + h_alpha(alpha, E, f) + h_beta(beta, E, C, c)
 }
 
+
+
+
 # Doubly constrained model need to check that sum of Is = sum of Os
+
+
 
 # TODO:
 # * Validate ARIADNE model

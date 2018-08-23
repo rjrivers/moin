@@ -32,3 +32,16 @@ res <- hamiltonian_metrop(hfunc = h_ariadne,
 res
 
 # TODO: "e" in the function should be created automatically based on the size of d
+
+test_d <- matrix(runif(25),5,5)
+
+res <- hamiltonian_metrop(hfunc = h_simple_gravity,
+                   hvars = list(E = test_d),
+                   hconsts = list(c = 4,
+                                  f = 2,
+                                  C = costs,
+                                  alpha = 64,
+                                  beta = 64),
+                   hvar_constraints = list(E = c(0,1)),
+                   beta = 100,
+                   threshold = 1)
