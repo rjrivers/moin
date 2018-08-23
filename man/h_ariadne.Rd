@@ -26,3 +26,10 @@ h_ariadne(S, v, d, e, k, l, j, u)
 \description{
 Description
 }
+\author{
+Daniel Knitter <\email{knitter@geographie.uni-kiel.de}>
+
+Joe Roe <\email{jwg983@hum.ku.dk}>
+
+Ray Rivers <\email{r.rivers@imperial.ac.uk}>
+}

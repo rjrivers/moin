@@ -2,10 +2,11 @@
 
 export(dc)
 export(dc2)
+export(h_alonso)
 export(h_ariadne)
-export(h_gravity)
+export(h_constrained_gravity)
+export(h_retail)
 export(h_simple_gravity)
-export(h_singly_constrained_gravity_model)
 export(hamiltonian_metrop)
 export(inverse_exponentional)
 export(inverse_power)
