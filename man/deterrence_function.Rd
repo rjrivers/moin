@@ -4,7 +4,8 @@
 \alias{deterrence_function}
 \title{Calculates the deterrence function}
 \usage{
-deterrence_function(cij, beta, type = "exponential")
+deterrence_function(cij, beta, type = "exponential", alpha = 4,
+  gamma = 1)
 }
 \arguments{
 \item{cij}{a matrix containing the cost matrix}
@@ -12,12 +13,23 @@ deterrence_function(cij, beta, type = "exponential")
 \item{beta}{the distance decay factor}
 
 \item{type}{the family of deterrence function to use}
+
+\item{alpha}{shape parameter 1 for ariadne type deterrence function}
+
+\item{gamma}{shape parameter 2 for ariadne type deterrence function}
 }
 \value{
 a matrix containing the deterrence function
 }
 \description{
 Calculates the deterrence function used for the different gravity based models
+}
+\details{
+Power is generally used for simple gravity models, exponential and ariadne can be used for the Rihll-Wilson model.
+\code{alpha} and \code{gamma} are only relevant for the ariadne type model and default to the values alpha=4 and gamma=1 like in Evans&Rivers 2017.
+}
+\references{
+Evans Tim S., Rivers Ray J., Was Thebes Necessary? Contingency in Spatial Modeling. Frontiers in Digital Humanities 4, 2017, \url{https://doi.org/10.3389/fdigh.2017.00008}
 }
 \author{
 Daniel Knitter <knitter@geographie.uni-kiel.de>

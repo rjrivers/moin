@@ -102,6 +102,14 @@ simple_gravity <- function(Mi, fcij, k=1) {
 #' @param cij a matrix containing the cost matrix
 #' @param beta the distance decay factor
 #' @param type the family of deterrence function to use
+#' @param alpha shape parameter 1 for ariadne type deterrence function
+#' @param gamma shape parameter 2 for ariadne type deterrence function
+#' 
+#' @details Power is generally used for simple gravity models, exponential and ariadne can be used for the Rihll-Wilson model.
+#' \code{alpha} and \code{gamma} are only relevant for the ariadne type model and default to the values alpha=4 and gamma=1 like in Evans&Rivers 2017.
+#' 
+#' 
+#' @references Evans Tim S., Rivers Ray J., Was Thebes Necessary? Contingency in Spatial Modeling. Frontiers in Digital Humanities 4, 2017, \url{https://doi.org/10.3389/fdigh.2017.00008}
 #' 
 #' @return a matrix containing the deterrence function
 #' 
@@ -113,7 +121,7 @@ simple_gravity <- function(Mi, fcij, k=1) {
 #' @author Clara Filet <clara.filet@gmail.com>
 #' 
 #' @export deterrence_function
-deterrence_function <- function(cij,beta,type = 'exponential') {
+deterrence_function <- function(cij,beta,type = 'exponential', alpha=4, gamma=1) {
   if (type=='exponential'){
     fcij <- exp(-beta * cij)  
   }
@@ -122,6 +130,9 @@ deterrence_function <- function(cij,beta,type = 'exponential') {
   }
   else if (type == 'power'){
     fcij <- cij^beta 
+  }
+  else if (type == 'ariadne'){
+    fcij <- (1 + (cij^beta)^alpha)^-gamma
   }
   else {
     stop ("Sorry, I do not know this kind of deterrence function")
