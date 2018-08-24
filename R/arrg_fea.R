@@ -9,9 +9,9 @@
 #'     plot is created to display the aggregation of features to nodes. Amount of feature
 #'     per node is added as number to the plot.
 #' @export
-#' @author Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
-#' @author Chiara Girotto <chiara.girotto@web.de>
-#' @author Franziska Faupel <franziska-faupel@gmx.de>
+#' @author Oliver Nakoinz <\email{oliver.nakoinz@@ufg.uni-kiel.de}>
+#' @author Chiara Girotto <\email{chiara.girotto@@web.de}>
+#' @author Franziska Faupel <\email{franziska-faupel@@gmx.de}>
 #' @examples
 #' 
 
@@ -38,9 +38,9 @@ aggr_fea_voro <- function(nodes, features, type_col){
 #' @param features a data.frame containing metric x and y coordinates of nodes, and feature type. Coordinates are expected to be the first two columns.
 #'
 #' @return an owin object which is slightly bigger, to avoid missing points due to edge effects
-#' @author Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
-#' @author Chiara Girotto <chiara.girotto@web.de>
-#' @author Franziska Faupel <franziska-faupel@gmx.de>
+#' @author Oliver Nakoinz <\email{oliver.nakoinz@@ufg.uni-kiel.de}>
+#' @author Chiara Girotto <\email{chiara.girotto@@web.de}>
+#' @author Franziska Faupel <\email{franziska-faupel@@gmx.de}>
 
 global_bb <- function(nodes, features){
   result_bb <-  spatstat::boundingbox(
@@ -64,7 +64,7 @@ global_bb <- function(nodes, features){
 #' @param voronoi a tesselation list object generated from nodes
 #'
 #' @return an owin object which is slightly bigger, to avoid missing points due to edge effects
-#' @author Juliane Watson <juliane.bonness@web.de>
+#' @author Juliane Watson <\email{juliane.bonness@@web.de}>
 
 plot_voro_fea <- function(df_aggr_fea, nodes, voronoi){
   
