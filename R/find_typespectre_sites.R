@@ -2,7 +2,7 @@
 #' 
 #' Function which returns a data frame containing type of each feature. 
 #' 
-#' @param typelist a tibble with type information (eg. exampledata R1234)
+#' @param type_tippe a tibble with type information (eg. exampledata R1234)
 #' @param indenx_col index for column to use
 #' 
 #' @return returns a data frame containg all features
@@ -46,7 +46,7 @@ mtypes <- function(type, pre_size) {
 #' 
 #' Sanity check if each upper level of hierarchical types is represented once in `typelist`.
 #' 
-#' @param typelist a list with type information (eg. exampledata R1234)
+#' @param type_list a list with type information (eg. exampledata R1234)
 #' @param pre_size amount of letters e.g. charactes before typenumber
 #' 
 #' @return returns flat list of types

@@ -14,9 +14,6 @@ create_empty_typelist(typelist, aggr_fea)
 \description{
 create empty type list
 }
-\examples{
-some example 
-}
 \author{
 Juliane Watson <<\email{juliane.bonness@web.de}>>
 }

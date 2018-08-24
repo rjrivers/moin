@@ -9,9 +9,9 @@ Sanity check if each upper level of hierarchical types is represented once in `t
 find_missing_types(type_list, pre_size)
 }
 \arguments{
-\item{pre_size}{amount of letters e.g. charactes before typenumber}
+\item{type_list}{a list with type information (eg. exampledata R1234)}
 
-\item{typelist}{a list with type information (eg. exampledata R1234)}
+\item{pre_size}{amount of letters e.g. charactes before typenumber}
 }
 \value{
 returns flat list of types

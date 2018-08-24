@@ -9,7 +9,7 @@ Function which returns a data frame containing type of each feature.}
 parse_all_types(type_tibble, index_col)
 }
 \arguments{
-\item{typelist}{a tibble with type information (eg. exampledata R1234)}
+\item{type_tippe}{a tibble with type information (eg. exampledata R1234)}
 
 \item{indenx_col}{index for column to use}
 }

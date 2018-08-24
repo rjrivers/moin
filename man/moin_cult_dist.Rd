@@ -28,6 +28,7 @@ used ("euclidean", "maximum", "manhattan", "canberra",
 }
 \value{
 a list containing a graph object of classes tidygraph ("tbl_graph") resp. igraph ("igraph") and the cultural distance matrix.
+        NOTE: The output igraph object contains zeros for display purpose. The cultural distance matrix (cult_dist_matr) is correct, containing NA for missing values.
 }
 \description{
 Cultural distance Network
@@ -44,10 +45,11 @@ moin_cult_dist(nodes_x=sample(3433806:3581396, 10, replace = TRUE),
                nodes_id=c(1:10), 
              features=data.frame(x=sample(3433806:3581396, 100, replace = TRUE),
                    y=sample(5286004:5484972, 100, replace = TRUE),
-                   type=paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
+                   type=paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), 
+                   sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
                    ), 
              type_col="type" , pre_size=1, method = "euclidean", plotted = TRUE)
-             )
+     
 
 }
 \author{

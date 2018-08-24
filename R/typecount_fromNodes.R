@@ -16,6 +16,7 @@ create_empty_typelist <- function(typelist, aggr_fea){
 #' @title create typespectra for nodes
 #' @param node_id id of a single node (line[x,2] from output)
 #' @param node_type type found on a single node (line[x,1] from output)
+#' @param list_to_modify the empty typelist created from create_empty_typelist(typelist, aggr_fea)
 #' @author Juliane Watson <<\email{juliane.bonness@@web.de}>>
 
 create_typesectra_for_nodes <- function(node_id, node_type, list_to_modify){

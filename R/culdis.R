@@ -32,7 +32,7 @@
 #'                    sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
 #'                    ), 
 #'              type_col="type" , pre_size=1, method = "euclidean")
-#'              )
+#'            
 #'
 #' @export
 
