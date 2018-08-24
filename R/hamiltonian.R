@@ -19,7 +19,7 @@
 # * Small letters are vectors (i.e. node variables) or scalar universal
 # *   constraints
 
-#' .. content for \description{} (no empty lines) ..
+#' Entropy part of the gravity model
 #'
 #' .. content for \details{} ..
 #' @title
@@ -36,30 +36,15 @@ h_omega <- function(E, Si = 1, Sj = 1) {
   sum(E * (log(E / SiSj) - 1))
 }
 
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title
-##' @param alpha
-##' @param E
-##' @param f
-##' @return
-##' @author
-#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
-#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
-#' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-h_alpha <- function(alpha, E, f) {
-  alpha * (sum(E) - f)^2
-}
-
-#' .. content for \description{} (no empty lines) ..
+#' The general flow constrained of the gravity model
 #'
 #' .. content for \details{} ..
 #' @title
-#' @param alpha
+#' @param alpha 
 #' @param E
 #' @param f
 #' @return
+#' @author
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -67,7 +52,7 @@ h_alpha <- function(alpha, E, f) {
   alpha * (sum(E) - f)^2
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' The cost constrained of the gravity model
 #'
 #' .. content for \details{} ..
 #' @title
@@ -83,36 +68,40 @@ h_beta <- function(beta, E, C, c) {
   beta * (sum(E*C) - c)^2
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' The in- or outflow constrained of the gravity model
 #'
 #' .. content for \details{} ..
 #' @title
 #' @param gammas
 #' @param E
-#' @param g
+#' @param g constraining vector
 #' @param margin
 #' @return
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 h_gamma <- function(gammas, E, g, margin) {
-  sum(gammas) * (apply(E, margin, sum) - g)^2
+  if (length(g)==1) {
+    g <- rep(g, dim(E)[margin])
+  }
+  
+  sum(gammas * (apply(E, margin, sum) - g)^2)
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' The site characteristics constrained of the gravity model
 #'
 #' .. content for \details{} ..
 #' @title
 #' @param delta
-#' @param X
+#' @param x
 #' @param g
 #' @param s
 #' @return
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-h_delta <- function(delta, X, g, s) {
-  delta * (X - sum(g * (log(g / s) - 1)))^2
+h_delta <- function(delta, x, g, s) {
+  delta * (x - sum(g * (log(g / s) - 1)))^2
 }
 
 #' .. content for \description{} (no empty lines) ..
@@ -177,9 +166,14 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g,
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
+#' @export
 ## TODO: need to check that sum of Is = sum of Os
 h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
                                          in_gammas, in_g, out_gammas, out_g) {
+  if(sum(in_g)!=sum(out_g)) {
+    warning("Your input does not match the model assumptions. The inflows have to be equal to the outflows.")
+  }
+  
  h_omega(E, Si, Sj) +
     h_beta(beta, E, C, c) +
     h_gamma(in_gammas, E, in_g, margin = 1) +
@@ -206,65 +200,11 @@ h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 ##' @export
-h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
+h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, x, s) {
  h_omega(E, Si, Sj) +
     h_beta(beta, E, C, c) +
     h_gamma(gammas, E, g, margin = 1) +
-    h_delta(delta, X, g, s)
-}
-
-#' .. content for \description{} (no empty lines) ..
-#'
-#' .. content for \details{} ..
-#' @title
-#' @param E
-#' @param Si
-#' @param Sj
-#' @param beta
-#' @param C
-#' @param c
-#' @param in_gammas
-#' @param in_g
-#' @param out_gammas
-#' @param out_g
-#' @return
-#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
-#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
-#' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-#' @export
-h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
-                                         in_gammas, in_g, out_gammas, out_g) {
- h_omega(E, Si, Sj) +
-    h_beta(beta, E, C, c) +
-    h_gamma(in_gammas, E, in_g, margin = 1) +
-    h_gamma(out_gammas, E, out_g, margin = 2)
-}
-
-#' .. content for \description{} (no empty lines) ..
-#'
-#' .. content for \details{} ..
-#' @title
-#' @param E
-#' @param Si
-#' @param Sj
-#' @param beta
-#' @param C
-#' @param c
-#' @param gammas
-#' @param g
-#' @param delta
-#' @param X
-#' @param s
-#' @return
-#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
-#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
-#' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-#' @export
-h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
- h_omega(E, Si, Sj) +
-    h_beta(beta, E, C, c) +
-    h_gamma(gammas, E, g, margin = 1) +
-    h_delta(delta, X, g, s)
+    h_delta(delta, x, g, s)
 }
 
 #' .. content for \description{} (no empty lines) ..
@@ -288,11 +228,11 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @export
 h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta,
                      in_g, in_s = rep(1, length(in_g)),
-                     out_g, out_s = rep(1, length(out_g)), alpha, X) {
+                     out_g, out_s = rep(1, length(out_g)), alpha, x) {
  h_omega(E, Si, Sj) +
     h_alpha(alpha, E, f) +
-    h_delta(in_delta, X, in_g, in_s) +
-    h_delta(out_delta, X, out_g, out_s)
+    h_delta(in_delta, x, in_g, in_s) +
+    h_delta(out_delta, x, out_g, out_s)
 }
 
 #' MCMC/Metropolis algorithm for solving Hamiltonian functions
