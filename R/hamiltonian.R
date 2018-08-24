@@ -159,7 +159,6 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g,
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin)
 }
 
-<<<<<<< HEAD
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
