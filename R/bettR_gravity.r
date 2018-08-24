@@ -88,7 +88,6 @@ rihll_wilson <- function(Oi, Wj, fcij, alpha, eps = 1e-6, maxrun = 1000){
 #' @export simple_gravity
 simple_gravity <- function(Mi, fcij, k=1) {
   Mmatrix <- Mi%o%Mi
-  diag(Mmatrix)<- 0
   Tij <- k*((Mmatrix)/fcij) 
   return(Tij)
 }
