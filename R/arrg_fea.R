@@ -38,7 +38,6 @@ aggr_fea_voro <- function(nodes, features, type_col){
 #' @param features a data.frame containing metric x and y coordinates of nodes, and feature type. Coordinates are expected to be the first two columns.
 #'
 #' @return an owin object which is slightly bigger, to avoid missing points due to edge effects
-#' @export
 #' @author Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
 #' @author Chiara Girotto <chiara.girotto@web.de>
 #' @author Franziska Faupel <franziska-faupel@gmx.de>
@@ -65,7 +64,6 @@ global_bb <- function(nodes, features){
 #' @param voronoi a tesselation list object generated from nodes
 #'
 #' @return an owin object which is slightly bigger, to avoid missing points due to edge effects
-#' @export
 #' @author Juliane Watson <juliane.bonness@web.de>
 
 plot_voro_fea <- function(df_aggr_fea, nodes, voronoi){
