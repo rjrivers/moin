@@ -11,6 +11,8 @@
 #' @return a matrix of integer deterrences (0 or 1)
 #' @export
 #'
+#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
+#'
 #' @examples
 #' distmat <- matrix(runif(n=64),8,8)
 #' diag(distmat) <- 0
@@ -34,6 +36,7 @@ mdm <- function(mat, max) {
 #' @description calculate the cost of distances based on an inverse power law
 #' @param mat a distance matrix
 #' @param power the power to be used; default 2
+#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @examples
 #' distmat <- matrix(runif(n=64),8,8)
 #' diag(distmat) <- 0
@@ -49,6 +52,7 @@ inverse_power <- function(mat, power = 2) {
 #' @description calculate the cost of distances based on an inverse exponential function
 #' @param mat a distance matrix
 #' @param beta ..
+#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @examples
 #' distmat <- matrix(runif(n=64),8,8)
 #' diag(distmat) <- 0
