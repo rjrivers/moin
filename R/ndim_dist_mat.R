@@ -7,9 +7,9 @@
 #'   "binary" or "minkowski")
 #' @return symmetrical distance matrix
 #' @export
-#' @author Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
-#' @author Franziska Faupel <franziska-faupel@gmx.de>
-#' @author Georg Roth <georg.roth@fu-berlin.de>
+#' @author Oliver Nakoinz <\email{oliver.nakoinz@ufg.uni-kiel.de}>
+#' @author Franziska Faupel <\email{franziska-faupel@gmx.de}>
+#' @author Georg Roth <\email{georg.roth@fu-berlin.de}>
 #'
 #' @examples
 
