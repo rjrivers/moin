@@ -44,3 +44,4 @@ dist_matr <- function(df){
 }
 
  
+blub <- dist_matr(type_spectra, method="euclidean")
