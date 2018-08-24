@@ -159,53 +159,6 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, marg
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin)
 }
 
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title
-##' @param E
-##' @param Si
-##' @param Sj
-##' @param beta
-##' @param C
-##' @param c
-##' @param in_gammas
-##' @param in_g
-##' @param out_gammas
-##' @param out_g
-##' @return
-#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
-#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
-#' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-## TODO: need to check that sum of Is = sum of Os
-h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gammas, in_g, out_gammas, out_g) {
- h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(in_gammas, E, in_g, margin = 1) + h_gamma(out_gammas, E, out_g, margin = 2)
-}
-
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title
-##' @param E
-##' @param Si
-##' @param Sj
-##' @param beta
-##' @param C
-##' @param c
-##' @param gammas
-##' @param g
-##' @param delta
-##' @param X
-##' @param s
-##' @return
-#' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
-#' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
-#' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-##' @export
-h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
- h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin = 1) + h_delta(delta, X, g, s)
-}
-
 #' .. content for \description{} (no empty lines) ..
 #'
 #' .. content for \details{} ..
@@ -224,9 +177,11 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
+#' @export
 h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gammas, in_g, out_gammas, out_g) {
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(in_gammas, E, in_g, margin = 1) + h_gamma(out_gammas, E, out_g, margin = 2)
 }
+
 #' .. content for \description{} (no empty lines) ..
 #'
 #' .. content for \details{} ..
