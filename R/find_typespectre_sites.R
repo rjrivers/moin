@@ -4,6 +4,7 @@
 #' 
 #' @param typelist a tibble with type information (eg. exampledata R1234)
 #' @param indenx_col index for column to use
+#' 
 #' @return returns a data frame containg all features
 #' @author Juliane Watson <\email{juliane.bonness@@web.de}>
 
@@ -22,8 +23,11 @@ parse_all_types <- function(type_tibble, index_col){
 #' 
 #' @param type one type from list e.g. R12345
 #' @param pre_size amount of letters e.g. charactes before typenumber
+#' 
 #' @return returns upper level of type hierarchy as list
+#' 
 #' @examples returns flat list of meta types
+#' 
 #' @author Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
 
 mtypes <- function(type, pre_size) {
@@ -44,8 +48,11 @@ mtypes <- function(type, pre_size) {
 #' 
 #' @param typelist a list with type information (eg. exampledata R1234)
 #' @param pre_size amount of letters e.g. charactes before typenumber
+#' 
 #' @return returns flat list of types
+#' 
 #' @examples 
+#' 
 #' @author Juliane Watson <\email{juliane.bonness@@web.de}>
 
 
@@ -60,12 +67,17 @@ find_missing_types <- function(type_list, pre_size){
 
 
 #' @title create type generator
+#' 
 #' @param type_tibble a tibble with type information (eg. exampledata R1234)
 #' @param type_col string for column with type information 
 #' @param pre_size amount of letters e.g. charactes before typenumber
+#' 
 #' @examples some example 
-#' @export 
+#'  
 #' @author Juliane Watson <\email{juliane.bonness@@web.de}>
+#' 
+#' @export
+
 
 create_type_generator <- function(type_tibble, type_col, pre_size){
     index_col <- which(colnames(type_tibble) == type_col)

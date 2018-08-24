@@ -1,6 +1,9 @@
 #' Cultural distance Network
+#' 
 #' Creates a network based on a cultural distance matrix 
+#' 
 #' @title moin_cult_dist
+#' 
 #' @param nodes_x a vector containing metric x coordinates of nodes
 #' @param nodes_y a vector containing metric y coordinates of nodes
 #' @param nodes_id a vector containing ID for nodes
@@ -11,8 +14,8 @@
 #'   used ("euclidean", "maximum", "manhattan", "canberra", 
 #'   "binary" or "minkowski"). Defaults to euclidean distance.
 #' @param plotted a Boolean operator defining whether a plot should be created. Defaults to FALSE. Edge widths are scaled by maximum distance values and enlarged by factor 2. 
+#' 
 #' @return a list containing a graph object of classes tidygraph ("tbl_graph") resp. igraph ("igraph") and the cultural distance matrix. 
-#' @export
 #'
 #' @author Wolfgang Hamer <\email{hamer@@geographie.uni-kiel.de}>
 #' @author Chiara Girotto <\email{chiara.girotto@@web.de}>
@@ -23,7 +26,7 @@
 #' set.seed(1234)
 #' moin_cult_dist(nodes_x=sample(1:100,10),nodes_y=sample(1:100,10), nodes_id=c(1:10), features=data.frame(x=sample(1:100,50),y=sample(1:100,50),type=paste0(LETTERS[1:4],sample(1:3,50,replace=TRUE))), type_col="type",pre_size=1, method = "euclidean", plotted = TRUE)
 #'
-
+#' @export 
 
 
 moin_cult_dist <- function(nodes_x,nodes_y, nodes_id, features, type_col,pre_size=1, method = "euclidean", plotted = FALSE){
