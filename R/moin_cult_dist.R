@@ -23,7 +23,9 @@
 #' @author Georg Roth <\email{georg.roth@@fu-berlin.de}>
 #' 
 #' @examples
+#' 
 #' set.seed(1234)
+#' 
 #' moin_cult_dist(nodes_x=sample(3433806:3581396, 10, replace = TRUE),
 #'                nodes_y=sample(5286004:5484972, 10, replace = TRUE), 
 #'                nodes_id=c(1:10), 

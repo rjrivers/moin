@@ -22,6 +22,7 @@
 #' @examples
 #' 
 #' set.seed(1234)
+#' 
 #' cul_dist(nodes_x=sample(3433806:3581396, 10, replace = TRUE),
 #'                nodes_y=sample(5286004:5484972, 10, replace = TRUE), 
 #'                nodes_id=c(1:10), 
@@ -34,7 +35,7 @@
 #'
 #' @export
 
-cul_dist <- function(nodes_x, nodes_y,nodes_id,features,type_col, pre_size=1, method){
+cul_dist <- function(nodes_x, nodes_y, nodes_id, features,type_col, pre_size=1, method){
     nodes <- data.frame(nodes_x, nodes_y, nodes_id)
     aggr_fea <- aggr_fea_voro(nodes,features, type_col)
     typelist <- create_type_generator(features, type_col, pre_size)

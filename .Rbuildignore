@@ -7,3 +7,6 @@
 ^moin.pdf$
 ^Dockerfile$
 analysis
+^.*\.Rproj$
+^\.Rproj\.user$
+^vignettes/Medieval_Interactions_in_the_OldenburgerGraben\.Rmd$
