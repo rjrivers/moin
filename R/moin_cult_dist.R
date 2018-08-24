@@ -14,10 +14,10 @@
 #' @return a list containing a graph object of classes tidygraph ("tbl_graph") resp. igraph ("igraph") and the cultural distance matrix. 
 #' @export
 #'
-#' @author Wolfgang Hamer <hamer@geographie.uni-kiel.de>
-#' @author Chiara Girotto <chiara.girotto@web.de>
-#' @author Hendrik Raese <h.raese@ufg.uni-kiel.de>
-#' @author Georg Roth <georg.roth@fu-berlin.de>
+#' @author Wolfgang Hamer <\email{hamer@@geographie.uni-kiel.de}>
+#' @author Chiara Girotto <\email{chiara.girotto@@web.de}>
+#' @author Hendrik Raese <\email{h.raese@@ufg.uni-kiel.de}>
+#' @author Georg Roth <\email{georg.roth@@fu-berlin.de}>
 #' 
 #' @examples
 #' set.seed(1234)
