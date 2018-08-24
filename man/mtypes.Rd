@@ -23,10 +23,6 @@ mtypes
 Separating hierarchical type names, so upper levels will be returned. 
   R123 will be returned as R1, R12, R123.
 }
-\examples{
-returns flat list of meta types
-
-}
 \author{
 Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
 }

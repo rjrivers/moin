@@ -14,15 +14,12 @@ find_missing_types(type_list, pre_size)
 \item{pre_size}{amount of letters e.g. charactes before typenumber}
 }
 \value{
-returns flat list of types
+returns list of types
 }
 \description{
 find missing types
 
 Sanity check if each upper level of hierarchical types is represented once in `typelist`.
-}
-\examples{
-
 }
 \author{
 Juliane Watson <\email{juliane.bonness@web.de}>

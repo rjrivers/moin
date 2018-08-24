@@ -2,8 +2,8 @@
 #' 
 #' Function which returns a data frame containing type of each feature. 
 #' 
-#' @param type_tippe a tibble with type information (eg. exampledata R1234)
-#' @param indenx_col index for column to use
+#' @param type_tibble a tibble with type information (eg. exampledata R1234)
+#' @param index_col index for column to use
 #' 
 #' @return returns a data frame containg all features
 #' @author Juliane Watson <\email{juliane.bonness@@web.de}>
@@ -26,8 +26,6 @@ parse_all_types <- function(type_tibble, index_col){
 #' 
 #' @return returns upper level of type hierarchy as list
 #' 
-#' @examples returns flat list of meta types
-#' 
 #' @author Oliver Nakoinz <oliver.nakoinz@ufg.uni-kiel.de>
 
 mtypes <- function(type, pre_size) {
@@ -49,9 +47,7 @@ mtypes <- function(type, pre_size) {
 #' @param type_list a list with type information (eg. exampledata R1234)
 #' @param pre_size amount of letters e.g. charactes before typenumber
 #' 
-#' @return returns flat list of types
-#' 
-#' @examples 
+#' @return returns list of types
 #' 
 #' @author Juliane Watson <\email{juliane.bonness@@web.de}>
 

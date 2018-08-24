@@ -28,7 +28,7 @@
 #'                    type = paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), 
 #'                    sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
 #'                    ) 
-#' aggr_fea <- aggr_feature_voro(nodes, features, "type") 
+#' aggr_fea <- aggr_fea_voro(nodes, features, "type") 
 #' 
 #' @export
 
@@ -89,6 +89,6 @@ plot_voro_fea <- function(df_aggr_fea, nodes, ppp_nd, voronoi){
   count_fea <- dplyr::count(df_aggr_fea,df_aggr_fea[,2])
   colnames(count_fea) <-  c("ID", "count")
   for_plot <-  merge(nodes, count_fea, by.x="nodes_id",by.y="ID", all.x = TRUE)
-  plot(voronoi, main = "Amount of features per node")
-  text(ppp_nd, as.character(for_plot$count),col="red")
+  graphics::plot(voronoi, main = "Amount of features per node")
+  graphics::text(ppp_nd, as.character(for_plot$count),col="red")
 }

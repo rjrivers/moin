@@ -21,6 +21,9 @@ Suggests: knitr,
     mapview,
     rgdal,
     rgeos,
-    spdep
+    spdep,
+    spatstat, 
+    tidygraph, 
+    sp
 VignetteBuilder: knitr
 Imports: bookdown

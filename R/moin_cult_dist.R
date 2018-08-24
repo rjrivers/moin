@@ -65,7 +65,7 @@ moin_cult_dist <- function(nodes_x,nodes_y, nodes_id, features, type_col,pre_siz
     igraph::V(net)$label = colnames(cudist)
     
     if(plotted){
-        plot(net,layout=as.matrix(data.frame(x=nodes_x,y=nodes_y)), 
+        graphics::plot(net,layout=as.matrix(data.frame(x=nodes_x,y=nodes_y)), 
              edge.width = (igraph::E(net)$weight/max(igraph::E(net)$weight))*2,
              main = "Cultural Distance Network")
     }

@@ -36,7 +36,7 @@ features <- data.frame(x = sample(3433806:3581396, 100, replace = TRUE),
                    type = paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), 
                    sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
                    ) 
-aggr_fea <- aggr_feature_voro(nodes, features, "type") 
+aggr_fea <- aggr_fea_voro(nodes, features, "type") 
 
 }
 \author{

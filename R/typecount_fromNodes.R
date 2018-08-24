@@ -51,7 +51,7 @@ create_typesectra_for_nodes <- function(node_id, node_type, list_to_modify){
 #'                    type = paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), 
 #'                    sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
 #'                    ) 
-#' aggr_fea <- aggr_feature_voro(nodes, features, "type")
+#' aggr_fea <- aggr_fea_voro(nodes, features, "type")
 #' typelist <- create_type_generator(features, "type", 1)
 #' 
 #' create_typespectra(aggr_fea, typelist) 
