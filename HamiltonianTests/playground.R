@@ -32,6 +32,18 @@ res <- hamiltonian_metrop(
   beta = 100,
   threshold = 1e-01)
 
+## simple gravity
+res <- hamiltonian_metrop(hfunc = h_simple_gravity,
+                          hvars = list(E = test_d),
+                          hconsts = list(beta = 64,
+                                         alpha = 64,
+                                         C = costs,
+                                         c = 1,
+                                         f = 1),
+                          hvar_constraints = list(E = c(0,1)),
+                          beta = 100,
+                          threshold = 1)
+res
 ## Alonso
 res <- hamiltonian_metrop(hfunc = h_alonso,
                           hvars = list(E = test_d),
