@@ -49,12 +49,12 @@ moin_cult_dist <- function(nodes_x,nodes_y, nodes_id, features, type_col,pre_siz
     cudist <- cudist[order(as.numeric(rownames(cudist))),]
     cudist <- cudist[,order(as.numeric(colnames(cudist)))]
     
-    net <- graph_from_adjacency_matrix(cudist, mode = "undirected", weighted = TRUE, diag = FALSE)
-    V(net)$label = colnames(cudist)
+    net <- igraph::graph_from_adjacency_matrix(cudist, mode = "undirected", weighted = TRUE, diag = FALSE)
+    igraph::V(net)$label = colnames(cudist)
     
     if(plotted){
         plot(net,layout=as.matrix(data.frame(x=nodes_x,y=nodes_y)), 
-             edge.width = (E(net)$weight/max(E(net)$weight))*2,
+             edge.width = (igraph::E(net)$weight/max(igraph::E(net)$weight))*2,
              main = "Cultural Distance Network")
     }
     
