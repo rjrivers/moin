@@ -31,7 +31,7 @@ aggr_fea_voro <- function(nodes, features, type_col){
         ## Exporting results from assignment
     df_aggr_fea <- cbind(features[type_col],nodes=as.numeric(ppp_assign[["marks"]]))
     
-    plot_voro_fea(df_aggr_fea, nodes, voronoi)
+    plot_voro_fea(df_aggr_fea, nodes, ppp_nd, voronoi)
     
     return(df_aggr_fea)
 }
@@ -71,7 +71,7 @@ global_bb <- function(nodes, features){
 #' @return an owin object which is slightly bigger, to avoid missing points due to edge effects
 #' @author Juliane Watson <\email{juliane.bonness@@web.de}>
 
-plot_voro_fea <- function(df_aggr_fea, nodes, voronoi){
+plot_voro_fea <- function(df_aggr_fea, nodes, ppp_nd, voronoi){
   
   count_fea <- dplyr::count(df_aggr_fea,df_aggr_fea[,2])
   colnames(count_fea) <-  c("ID", "count")
