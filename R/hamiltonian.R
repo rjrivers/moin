@@ -159,6 +159,7 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g,
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin)
 }
 
+<<<<<<< HEAD
 ##' .. content for \description{} (no empty lines) ..
 ##'
 ##' .. content for \details{} ..
@@ -231,6 +232,7 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
+#' @export
 h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
                                          in_gammas, in_g, out_gammas, out_g) {
  h_omega(E, Si, Sj) +
@@ -238,6 +240,7 @@ h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
     h_gamma(in_gammas, E, in_g, margin = 1) +
     h_gamma(out_gammas, E, out_g, margin = 2)
 }
+
 #' .. content for \description{} (no empty lines) ..
 #'
 #' .. content for \details{} ..
@@ -286,7 +289,7 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @export
 h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta,
                      in_g, in_s = rep(1, length(in_g)),
-                     out_g, out_s = rep(1, length(out_g))) {
+                     out_g, out_s = rep(1, length(out_g)), alpha, X) {
  h_omega(E, Si, Sj) +
     h_alpha(alpha, E, f) +
     h_delta(in_delta, X, in_g, in_s) +
@@ -389,10 +392,10 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints,
 #'
 #' Description
 #'
-#' @param S vector
+#' @param s vector
 #' @param v vector (random 0-1)
-#' @param d deterrence matrix
-#' @param e matrix (random 0-1)
+#' @param D deterrence matrix
+#' @param E matrix (random 0-1)
 #' @param k scalar constant
 #' @param l scalar constant
 #' @param j scalar constant
@@ -406,11 +409,11 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints,
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #'
 #' @examples
-h_ariadne <- function(S, v, d, e, k, l, j, u) {
-  kappa <- sum(S * v * (1 - v))
-  lambda <- sum(matrix(S*v, 1, length(S)) %*% (d * e) %*% matrix(S*v, length(S), 1))
-  jay <- sum(S * v)
-  mu <- sum(matrix(S*v, 1, length(S)) %*% e)
+h_ariadne <- function(s, v, D, E, k, l, j, u) {
+  kappa <- sum(s * v * (1 - v))
+  lambda <- sum(matrix(s*v, 1, length(s)) %*% (D * E) %*% matrix(s*v, length(s), 1))
+  jay <- sum(s * v)
+  mu <- sum(matrix(s*v, 1, length(s)) %*% E)
 
   H <- -(k*kappa) - (l*lambda) + (j*jay) + (u*mu)
   return(H)
