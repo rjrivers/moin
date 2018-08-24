@@ -369,10 +369,10 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 1
 #'
 #' Description
 #'
-#' @param S vector
+#' @param s vector
 #' @param v vector (random 0-1)
-#' @param d deterrence matrix
-#' @param e matrix (random 0-1)
+#' @param D deterrence matrix
+#' @param E matrix (random 0-1)
 #' @param k scalar constant
 #' @param l scalar constant
 #' @param j scalar constant
@@ -386,11 +386,11 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 1
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #'
 #' @examples
-h_ariadne <- function(S, v, d, e, k, l, j, u) {
-  kappa <- sum(S * v * (1 - v))
-  lambda <- sum(matrix(S*v, 1, length(S)) %*% (d * e) %*% matrix(S*v, length(S), 1))
-  jay <- sum(S * v)
-  mu <- sum(matrix(S*v, 1, length(S)) %*% e)
+h_ariadne <- function(s, v, D, E, k, l, j, u) {
+  kappa <- sum(s * v * (1 - v))
+  lambda <- sum(matrix(s*v, 1, length(s)) %*% (D * E) %*% matrix(s*v, length(s), 1))
+  jay <- sum(s * v)
+  mu <- sum(matrix(s*v, 1, length(s)) %*% E)
 
   H <- -(k*kappa) - (l*lambda) + (j*jay) + (u*mu)
   return(H)
