@@ -1,5 +1,5 @@
 
-# HAMILTONIAN MODELS ------------------------------------------------------
+# HAMILTONIAN MODELS -----------------------------------------------------------
 # TODO:
 # * Add progress indicator to metropolis
 # * Add input validation to metropolis
@@ -12,11 +12,12 @@
 # * Profiling & optimisation
 
 
-# Gravity model components ------------------------------------------------
+# Maximum entropy (gravity) models ---------------------------------------------
 # Conventions:
 # * Coefficient are Greek letters (e.g. "alpha")
 # * Capital letters are matrices (i.e. edge variables)
-# * Small letters are vectors (i.e. node variables) or scalar universal constraints
+# * Small letters are vectors (i.e. node variables) or scalar universal
+# *   constraints
 
 #' .. content for \description{} (no empty lines) ..
 #'
@@ -114,8 +115,6 @@ h_delta <- function(delta, X, g, s) {
   delta * (X - sum(g * (log(g / s) - 1)))^2
 }
 
-# Gravity models ----------------------------------------------------------
-
 #' .. content for \description{} (no empty lines) ..
 #'
 #' .. content for \details{} ..
@@ -155,7 +154,8 @@ h_simple_gravity <- function(E, Si = 1, Sj = 1, f, alpha, beta, C, c) {
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #' @export
-h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, margin = 1) {
+h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g,
+                                  margin = 1) {
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin)
 }
 
@@ -178,8 +178,12 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, marg
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 ## TODO: need to check that sum of Is = sum of Os
-h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gammas, in_g, out_gammas, out_g) {
- h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(in_gammas, E, in_g, margin = 1) + h_gamma(out_gammas, E, out_g, margin = 2)
+h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
+                                         in_gammas, in_g, out_gammas, out_g) {
+ h_omega(E, Si, Sj) +
+    h_beta(beta, E, C, c) +
+    h_gamma(in_gammas, E, in_g, margin = 1) +
+    h_gamma(out_gammas, E, out_g, margin = 2)
 }
 
 ##' .. content for \description{} (no empty lines) ..
@@ -203,7 +207,10 @@ h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gamma
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 ##' @export
 h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
- h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin = 1) + h_delta(delta, X, g, s)
+ h_omega(E, Si, Sj) +
+    h_beta(beta, E, C, c) +
+    h_gamma(gammas, E, g, margin = 1) +
+    h_delta(delta, X, g, s)
 }
 
 #' .. content for \description{} (no empty lines) ..
@@ -224,8 +231,12 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
-h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gammas, in_g, out_gammas, out_g) {
- h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(in_gammas, E, in_g, margin = 1) + h_gamma(out_gammas, E, out_g, margin = 2)
+h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
+                                         in_gammas, in_g, out_gammas, out_g) {
+ h_omega(E, Si, Sj) +
+    h_beta(beta, E, C, c) +
+    h_gamma(in_gammas, E, in_g, margin = 1) +
+    h_gamma(out_gammas, E, out_g, margin = 2)
 }
 #' .. content for \description{} (no empty lines) ..
 #'
@@ -248,7 +259,10 @@ h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, in_gamma
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #' @export
 h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
- h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin = 1) + h_delta(delta, X, g, s)
+ h_omega(E, Si, Sj) +
+    h_beta(beta, E, C, c) +
+    h_gamma(gammas, E, g, margin = 1) +
+    h_delta(delta, X, g, s)
 }
 
 #' .. content for \description{} (no empty lines) ..
@@ -270,8 +284,13 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #' @export
-h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta, in_g, in_s = rep(1, length(in_g)), out_g, out_s = rep(1, length(out_g))) {
- h_omega(E, Si, Sj) + h_alpha(alpha, E, f) + h_delta(in_delta, X, in_g, in_s) + h_delta(out_delta, X, out_g, out_s)
+h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta,
+                     in_g, in_s = rep(1, length(in_g)),
+                     out_g, out_s = rep(1, length(out_g))) {
+ h_omega(E, Si, Sj) +
+    h_alpha(alpha, E, f) +
+    h_delta(in_delta, X, in_g, in_s) +
+    h_delta(out_delta, X, out_g, out_s)
 }
 
 #' MCMC/Metropolis algorithm for solving Hamiltonian functions
@@ -293,7 +312,8 @@ h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta, in_g, in_s = rep
 #' @export
 #'
 #' @examples
-hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints, beta = 100, beta_prod = 2,
+hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints,
+                               beta = 100, beta_prod = 2,
                                threshold = .001, threshold_window = 50,
                                silent = FALSE) {
 
