@@ -1,0 +1,3 @@
+testmatrixrand <- data.frame(
+    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
+    )
