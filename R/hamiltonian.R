@@ -21,12 +21,11 @@
 
 #' Entropy part of the gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param E
-#' @param Si
-#' @param Sj
-#' @return
+#' @title h_omega
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param Si a vectory of node attributes, e.g. carrying capacity or population
+#' @param Sj a vectory of node attributes, e.g. carrying capacity or population
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -38,13 +37,11 @@ h_omega <- function(E, Si = 1, Sj = 1) {
 
 #' The general flow constrained of the gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param alpha 
-#' @param E
-#' @param f
-#' @return
-#' @author
+#' @title h_alpha
+#' @param alpha lagrange multiplier
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param f a scalar giving the general systems constrained
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -54,13 +51,12 @@ h_alpha <- function(alpha, E, f) {
 
 #' The cost constrained of the gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param beta
-#' @param E
-#' @param C
-#' @param c
-#' @return
+#' @title h_beta
+#' @param beta langrange multiplier
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param C distance matrix
+#' @param c distance constraining cost of the system
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -70,13 +66,12 @@ h_beta <- function(beta, E, C, c) {
 
 #' The in- or outflow constrained of the gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param gammas
-#' @param E
+#' @title h_gamma
+#' @param gammas lagrange multiplier vector
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
 #' @param g constraining vector
-#' @param margin
-#' @return
+#' @param margin constraining dimension (either sum of rows or columns)
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -88,15 +83,14 @@ h_gamma <- function(gammas, E, g, margin) {
   sum(gammas * (apply(E, margin, sum) - g)^2)
 }
 
-#' The site characteristics constrained of the gravity model
+#' The node characteristics constrained of the gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param delta
-#' @param x
-#' @param g
-#' @param s
-#' @return
+#' @title h_delta
+#' @param delta lagrange multiplier
+#' @param x general node constraining value
+#' @param g a vector representing node characteristics 
+#' @param s a vector of node characteristics
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -104,19 +98,18 @@ h_delta <- function(delta, x, g, s) {
   delta * (x - sum(g * (log(g / s) - 1)))^2
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' Simple gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param E
-#' @param Si
-#' @param Sj
-#' @param f
-#' @param alpha
-#' @param beta
-#' @param C
-#' @param c
-#' @return
+#' @title h_simple_gravity
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param Si a vectory of node attributes, e.g. carrying capacity or population
+#' @param Sj a vectory of node attributes, e.g. carrying capacity or population
+#' @param f a scalar giving the general systems constrained
+#' @param alpha lagrange multiplier
+#' @param beta lagrange multiplier
+#' @param C distance matrix
+#' @param c distance constraining cost of the system
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -125,20 +118,19 @@ h_simple_gravity <- function(E, Si = 1, Sj = 1, f, alpha, beta, C, c) {
   h_omega(E, Si, Sj) + h_alpha(alpha, E, f) + h_beta(beta, E, C, c)
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' Constrained gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param E
-#' @param Si
-#' @param Sj
-#' @param beta
-#' @param C
-#' @param c
-#' @param gammas
-#' @param g
-#' @param margin
-#' @return
+#' @title h_constrained gravity
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param Si a vectory of node attributes, e.g. carrying capacity or population
+#' @param Sj a vectory of node attributes, e.g. carrying capacity or population
+#' @param beta lagrange multiplier
+#' @param C distance matrix
+#' @param c distance constraining cost of the system
+#' @param gammas lagrange multiplier vector
+#' @param g constraining vector
+#' @param margin constraining dimension (either sum of rows or columns)
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -148,26 +140,24 @@ h_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g,
  h_omega(E, Si, Sj) + h_beta(beta, E, C, c) + h_gamma(gammas, E, g, margin)
 }
 
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title
-##' @param E
-##' @param Si
-##' @param Sj
-##' @param beta
-##' @param C
-##' @param c
-##' @param in_gammas
-##' @param in_g
-##' @param out_gammas
-##' @param out_g
-##' @return
+#' Double constrained gravity model
+#'
+#' @title h_double_constrained_gravity
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param Si a vectory of node attributes, e.g. carrying capacity or population
+#' @param Sj a vectory of node attributes, e.g. carrying capacity or population
+#' @param beta lagrange multiplier
+#' @param C distance matrix
+#' @param c distance constraining cost of the system
+#' @param in_gammas lagrange multiplier vector
+#' @param in_g vector of inflows (rows)
+#' @param out_gammas lagrange multiplier vector
+#' @param out_g vector of outflows (columns)
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #' @export
-## TODO: need to check that sum of Is = sum of Os
 h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
                                          in_gammas, in_g, out_gammas, out_g) {
   if(sum(in_g)!=sum(out_g)) {
@@ -180,22 +170,21 @@ h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
     h_gamma(out_gammas, E, out_g, margin = 2)
 }
 
-##' .. content for \description{} (no empty lines) ..
-##'
-##' .. content for \details{} ..
-##' @title
-##' @param E
-##' @param Si
-##' @param Sj
-##' @param beta
-##' @param C
-##' @param c
-##' @param gammas
-##' @param g
-##' @param delta
-##' @param X
-##' @param s
-##' @return
+#' Retail Gravity model
+#'
+#' @title h_retail
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param Si a vectory of node attributes, e.g. carrying capacity or population
+#' @param Sj a vectory of node attributes, e.g. carrying capacity or population
+#' @param beta lagrange multiplier
+#' @param C distance matrix
+#' @param c distance constraining cost of the system
+#' @param gammas lagrange multiplier vector
+#' @param g constraining vector
+#' @param delta lagrange multiplier
+#' @param x general node constraining value
+#' @param s a vector of node characteristics
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -207,21 +196,20 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, x, s) {
     h_delta(delta, x, g, s)
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' Alonso gravity model
 #'
-#' .. content for \details{} ..
-#' @title
-#' @param E
-#' @param Si
-#' @param Sj
-#' @param f
-#' @param in_delta
-#' @param out_delta
-#' @param in_g
-#' @param in_s
-#' @param out_g
-#' @param out_s
-#' @return
+#' @title h_alonso
+#' @param E a matrix of random values (to be "optimized" by the Hamiltonian)
+#' @param Si a vectory of node attributes, e.g. carrying capacity or population
+#' @param Sj a vectory of node attributes, e.g. carrying capacity or population
+#' @param f a scalar giving the general systems constrained
+#' @param in_delta general node constraining value of inflows
+#' @param out_delta general node constraining value of outflows
+#' @param in_g vector of inflows (rows)
+#' @param in_s vector of inflows (rows)
+#' @param out_g vector of outflows (rows)
+#' @param out_s vector of outflows (rows)
+#' @return a scalar
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
@@ -239,25 +227,26 @@ h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta,
 #'
 #' Description
 #'
-#' @param hfunc
-#' @param hvars
-#' @param hconsts
-#' @param beta
-#' @param thresholds
+#' @param hfunc a Hamiltonian function either of the Ariadne or one of the gravity models
+#' @param hvars a list of named arguments to the selected Hamiltonian function
+#' @param hconsts a list of named constants to the selected Hamiltonian function
+#' @param beta a scalar; the cooling factor of the "hot Hamiltonian landscape"
+#' @param threshold a scalar; stopping threshold
+#' @param threshold_window a scalar; the size of the moving average window calculating the stopping threshold
+#' @param silent a boolean indicating whether you want to see information of changes in beta and the Hamiltonian per iteration
 #'
-#' @return
+#' @return a list
 #'
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #'
 #' @export
-#'
-#' @examples
-hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints,
-                               beta = 100, beta_prod = 2,
-                               threshold = .001, threshold_window = 50,
-                               silent = FALSE) {
+hamiltonian_metrop <- function(
+  hfunc, hvars, hconsts, hvar_constraints,
+  beta = 100, beta_prod = 2,
+  threshold = .001, threshold_window = 50,
+  silent = FALSE) {
 
   original_beta <- beta
   # Metropolis loop

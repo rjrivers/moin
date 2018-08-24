@@ -4,7 +4,13 @@
 \name{medieval_settlements}
 \alias{medieval_settlements}
 \title{Medieval Settlements in Wagrien, Schleswig-Holstein, Germany}
-\format{An object of class \code{data.frame} with 175 rows and 4 columns.}
+\format{A data.frame
+\describe{
+  \item{Name}{The name of the site as written on the map}
+  \item{rank}{The rank of the site as written on the map}
+  \item{x}{The x-coordiante in EPSG:25832 as dervied from the georeferenced point}
+  \item{y}{The y-coordiante in EPSG:25832 as dervied from the georeferenced point}
+}}
 \source{
 TODO:add reference
 }

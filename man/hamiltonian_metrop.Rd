@@ -9,10 +9,22 @@ hamiltonian_metrop(hfunc, hvars, hconsts, hvar_constraints, beta = 100,
   silent = FALSE)
 }
 \arguments{
-\item{thresholds}{}
+\item{hfunc}{a Hamiltonian function either of the Ariadne or one of the gravity models}
+
+\item{hvars}{a list of named arguments to the selected Hamiltonian function}
+
+\item{hconsts}{a list of named constants to the selected Hamiltonian function}
+
+\item{beta}{a scalar; the cooling factor of the "hot Hamiltonian landscape"}
+
+\item{threshold}{a scalar; stopping threshold}
+
+\item{threshold_window}{a scalar; the size of the moving average window calculating the stopping threshold}
+
+\item{silent}{a boolean indicating whether you want to see information of changes in beta and the Hamiltonian per iteration}
 }
 \value{
-
+a list
 }
 \description{
 Description
