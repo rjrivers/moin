@@ -26,9 +26,9 @@ as soon as the beta estimating function is implemented.); ..}
 \value{
 a list with the elements:
 \itemize{
-\item flows showing the flows from i to j,  
+\item flows showing the flows from i to j,
 \item Dj are the sum of the columns; this is the factor that can be used to predict, e.g. shopping sales, subject to the constraint of purchasing power/population, etc. (Oi)
-\item sj are the constraints 
+\item sj are the constraints
 }
 }
 \description{

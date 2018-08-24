@@ -11,9 +11,6 @@ hamiltonian_metrop(hfunc, hvars, hconsts, hvar_constraints, beta = 100,
 \arguments{
 \item{thresholds}{}
 }
-\value{
-
-}
 \description{
 Description
 }

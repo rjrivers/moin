@@ -40,7 +40,7 @@ h_omega <- function(E, Si = 1, Sj = 1) {
 #'
 #' .. content for \details{} ..
 #' @title
-#' @param alpha 
+#' @param alpha
 #' @param E
 #' @param f
 #' @return
@@ -84,7 +84,7 @@ h_gamma <- function(gammas, E, g, margin) {
   if (length(g)==1) {
     g <- rep(g, dim(E)[margin])
   }
-  
+
   sum(gammas * (apply(E, margin, sum) - g)^2)
 }
 
@@ -173,7 +173,7 @@ h_double_constrained_gravity <- function(E, Si = 1, Sj = 1, beta, C, c,
   if(sum(in_g)!=sum(out_g)) {
     warning("Your input does not match the model assumptions. The inflows have to be equal to the outflows.")
   }
-  
+
  h_omega(E, Si, Sj) +
     h_beta(beta, E, C, c) +
     h_gamma(in_gammas, E, in_g, margin = 1) +
@@ -324,30 +324,31 @@ hamiltonian_metrop <- function(hfunc, hvars, hconsts, hvar_constraints,
               model_iterations = data.frame(i = 1:length(meanH_save),
                                             H = Hs,
                                             meanH = meanH_save)))
-
 }
 
-#' Title
+#' Hamiltonian ariadne models
 #'
-#' Description
+#' An implementation of Evans, Rivers & Knappett's ``ariadne`` model; a
+#' Hamiltonian, cost-benefit network model.
 #'
-#' @param s vector
-#' @param v vector (random 0-1)
-#' @param D deterrence matrix
-#' @param E matrix (random 0-1)
-#' @param k scalar constant
-#' @param l scalar constant
-#' @param j scalar constant
-#' @param u scalar constant
+#' @param s a vector of node values (e.g. carrying capacity)
+#' @param v a vector of node values (e.g. exploitation of the carry capacity)
+#' @param D a matrix of edge deterrence values
+#' @param E a matrix of edge weight values (e.g. intensity of interaction)
+#' @param k scalar lagrange multiplier for the kappa term
+#' @param l scalar lagrange multiplier for the lambda term
+#' @param j scalar lagrange multiplier for the jay term
+#' @param u scalar lagrange multiplier for the mu term
 #'
-#' @return
-#' @export
+#' @return the scalar Hamiltonian value
+#'
+#' @examples
 #'
 #' @author Daniel Knitter <\email{knitter@@geographie.uni-kiel.de}>
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #'
-#' @examples
+#' @export
 h_ariadne <- function(s, v, D, E, k, l, j, u) {
   kappa <- sum(s * v * (1 - v))
   lambda <- sum(matrix(s*v, 1, length(s)) %*% (D * E) %*% matrix(s*v, length(s), 1))
@@ -357,13 +358,3 @@ h_ariadne <- function(s, v, D, E, k, l, j, u) {
   H <- -(k*kappa) - (l*lambda) + (j*jay) + (u*mu)
   return(H)
 }
-
-
-## TODO: plot_hamiltonian_results function
-## library(ggplot2)
-## res %>%
-##   ggplot(aes(x = i)) +
-##   geom_line(aes(y=d)) +
-##   geom_line(aes(y=H)) +
-##   scale_y_log10()
-
