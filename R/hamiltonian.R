@@ -225,7 +225,7 @@ h_retail <- function(E, Si = 1, Sj = 1, beta, C, c, gammas, g, delta, X, s) {
 #' @author Joe Roe <\email{jwg983@@hum.ku.dk}>
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #' @export
-h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta, in_g, in_s = rep(1, length(in_g)), out_g, out_s = rep(1, length(out_g))) {
+h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta, in_g, in_s = rep(1, length(in_g)), out_g, out_s = rep(1, length(out_g)), alpha, X) {
  h_omega(E, Si, Sj) + h_alpha(alpha, E, f) + h_delta(in_delta, X, in_g, in_s) + h_delta(out_delta, X, out_g, out_s)
 }
 
