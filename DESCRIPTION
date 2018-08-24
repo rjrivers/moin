@@ -6,6 +6,7 @@ Description: This package provides functions to calculate simple location and in
 Authors@R: c(
   person("Daniel", "Knitter", email = "knitter@geographie.uni-kiel.de", role = c("aut","cre")),
   person("Franziska", "Faupel", email = "ffaupel@ufg.uni-kiel.de", role = c("aut")),
+  person("Ray", "Rivers", email = "r.rivers@imperial.ac.uk", role = c("aut")),
   person("Joe", "Roe", email = "jwg983@hum.ku.dk", role = c("aut")),
   person("Wolfgang", "Hamer", email = "hamer@geographie.uni-kiel.de", role = c("aut"))
   )
