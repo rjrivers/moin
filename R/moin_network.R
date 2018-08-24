@@ -6,8 +6,8 @@
 #'
 #' @param input a sf object containing point coordinates or a data.frame. 
 #' @param method type of model graph to be produced, either a Maximum Distance Model ("mdm"), a Proximal Point Analysis ("ppa") or a full graph as base for a Intervening Opportunity Model ("iom"); defaults to "iom" i.e. a full graph.
-#' 
 #' @param par an integer indicating the distance threshold value D for method "mdm" and the neighbour rank k for "ppa" .
+#' @param mode a character string; default is undirected. Directed networks are not supported!
 #' @param coords_x a character string; defines the column name of the X-coordinate in case input is a data.frame; Defaults to NA. 
 #' @param coords_y a character string; defines the column name of the Y-coordinate in case input is a data.frame; Defaults to NA. 
 #' @param crs coordinate reference system: integer with the EPSG code, or character with proj4string.
@@ -34,7 +34,7 @@
 #' result <- moin_network(input = p, method = "mdm", par = 0.3)
 #' plot(result$graph,sf::st_coordinates(result$input_data))
 
-moin_network <- function(input, method="iom", par=NULL, mode="undirected", coords_x=NA,coords_y=NA, crs=NA,...){
+moin_network <- function(input, method="iom", par=NULL, mode="undirected", coords_x=NA,coords_y=NA, crs=NA){
 
   if(any(class(input)=="sf")){
     input <- input

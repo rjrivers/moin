@@ -5,7 +5,7 @@
 \title{moin_network}
 \usage{
 moin_network(input, method = "iom", par = NULL, mode = "undirected",
-  coords_x = NA, coords_y = NA, crs = NA, ...)
+  coords_x = NA, coords_y = NA, crs = NA)
 }
 \arguments{
 \item{input}{a sf object containing point coordinates or a data.frame.}
@@ -13,6 +13,8 @@ moin_network(input, method = "iom", par = NULL, mode = "undirected",
 \item{method}{type of model graph to be produced, either a Maximum Distance Model ("mdm"), a Proximal Point Analysis ("ppa") or a full graph as base for a Intervening Opportunity Model ("iom"); defaults to "iom" i.e. a full graph.}
 
 \item{par}{an integer indicating the distance threshold value D for method "mdm" and the neighbour rank k for "ppa" .}
+
+\item{mode}{a character string; default is undirected. Directed networks are not supported!}
 
 \item{coords_x}{a character string; defines the column name of the X-coordinate in case input is a data.frame; Defaults to NA.}
 
