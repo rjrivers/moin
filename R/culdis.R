@@ -2,7 +2,7 @@
 #' 
 #' Creates a cultural distance matrix by aggregating all features to the nodes by means of a Voronoi tesselation. xxxxxxx. The n dimensional distance matrix of the nodes and their assigned features will be calculated with euclidean distances. The bidirectional matrix will be returned and can be used as network weight.
 #' 
-#' @title cul.dist
+#' @title cul_dist
 #' 
 #' @param nodes_x a vector containing metric x coordinates of nodes
 #' @param nodes_y a vector containing metric y coordinates of nodes
