@@ -13,7 +13,7 @@
 #' 
 #' @return bidirectional cultural distance matrix 
 #' @export
-#' @author Franziska Faupel <franziska-faupel@gmx.de>
+#' @author Franziska Faupel <\email{franziska-faupel@@gmx.de}>
 #'
 #' @examples
 #'
