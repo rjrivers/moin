@@ -4,16 +4,16 @@
 \alias{h_ariadne}
 \title{Title}
 \usage{
-h_ariadne(S, v, d, e, k, l, j, u)
+h_ariadne(s, v, D, E, k, l, j, u)
 }
 \arguments{
-\item{S}{vector}
+\item{s}{vector}
 
 \item{v}{vector (random 0-1)}
 
-\item{d}{deterrence matrix}
+\item{D}{deterrence matrix}
 
-\item{e}{matrix (random 0-1)}
+\item{E}{matrix (random 0-1)}
 
 \item{k}{scalar constant}
 
