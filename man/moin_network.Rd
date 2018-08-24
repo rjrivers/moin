@@ -4,14 +4,21 @@
 \alias{moin_network}
 \title{moin_network}
 \usage{
-moin_network(sfobj, method = "iom", par = NULL, mode = "undirected")
+moin_network(input, method = "iom", par = NULL, mode = "undirected",
+  coords_x = NA, coords_y = NA, crs = NA, ...)
 }
 \arguments{
-\item{sfobj}{a sf object containing point coordinates}
+\item{input}{a sf object containing point coordinates or a data.frame.}
 
-\item{method}{type of model graph to be produced, either a Maximum Distance Modell ("mdm"), a Proximal Point Analysis ("ppa") or a full graph as base for a Intervening Opportunity Model ("iom"); defaults to "iom" i.e. a full graph.}
+\item{method}{type of model graph to be produced, either a Maximum Distance Model ("mdm"), a Proximal Point Analysis ("ppa") or a full graph as base for a Intervening Opportunity Model ("iom"); defaults to "iom" i.e. a full graph.}
 
-\item{par}{for type "mdm" the threshold value D, and for "ppa" neighbour rank k}
+\item{par}{an integer indicating the distance threshold value D for method "mdm" and the neighbour rank k for "ppa" .}
+
+\item{coords_x}{a character string; defines the column name of the X-coordinate in case input is a data.frame; Defaults to NA.}
+
+\item{coords_y}{a character string; defines the column name of the Y-coordinate in case input is a data.frame; Defaults to NA.}
+
+\item{crs}{coordinate reference system: integer with the EPSG code, or character with proj4string.}
 }
 \value{
 a list with
@@ -26,11 +33,14 @@ a list with
 \description{
 Generates model graphs for MDM, PPA or IOM models.
 }
+\details{
+To find EPSG codes see e.g.  \href{http://epsg.io/}{EPSG.io} or package \href{https://cran.r-project.org/web/packages/rgdal/index.html}{rgdal}.
+}
 \examples{
 set.seed(1985)
 d <- data.frame(matrix(runif(15), ncol = 3))
 p <- sf::st_as_sf(x = d, coords = 1:2)
-result <- moin_network(sfobj = p, method = "mdm", par = 0.3)
+result <- moin_network(input = p, method = "mdm", par = 0.3)
 plot(result$graph,sf::st_coordinates(result$input_data))
 }
 \author{

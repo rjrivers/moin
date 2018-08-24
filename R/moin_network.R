@@ -4,11 +4,15 @@
 #' 
 #' Generates model graphs for MDM, PPA or IOM models.
 #'
-#' @param sfobj a sf object containing point coordinates 
-#' @param method type of model graph to be produced, either a Maximum Distance Modell ("mdm"), a Proximal Point Analysis ("ppa") or a full graph as base for a Intervening Opportunity Model ("iom"); defaults to "iom" i.e. a full graph.
+#' @param input a sf object containing point coordinates or a data.frame. 
+#' @param method type of model graph to be produced, either a Maximum Distance Model ("mdm"), a Proximal Point Analysis ("ppa") or a full graph as base for a Intervening Opportunity Model ("iom"); defaults to "iom" i.e. a full graph.
 #' 
-#' @param par for type "mdm" the threshold value D, and for "ppa" neighbour rank k
+#' @param par an integer indicating the distance threshold value D for method "mdm" and the neighbour rank k for "ppa" .
+#' @param coords_x a character string; defines the column name of the X-coordinate in case input is a data.frame; Defaults to NA. 
+#' @param coords_y a character string; defines the column name of the Y-coordinate in case input is a data.frame; Defaults to NA. 
+#' @param crs coordinate reference system: integer with the EPSG code, or character with proj4string.
 #'
+#' @details To find EPSG codes see e.g.  \href{http://epsg.io/}{EPSG.io} or package \href{https://cran.r-project.org/web/packages/rgdal/index.html}{rgdal}.
 #' @return a list with
 #' \itemize{
 #' \item{"graph"}{ = a graph object of class tidygraph }
@@ -27,12 +31,22 @@
 #' set.seed(1985)
 #' d <- data.frame(matrix(runif(15), ncol = 3))
 #' p <- sf::st_as_sf(x = d, coords = 1:2)
-#' result <- moin_network(sfobj = p, method = "mdm", par = 0.3)
+#' result <- moin_network(input = p, method = "mdm", par = 0.3)
 #' plot(result$graph,sf::st_coordinates(result$input_data))
 
-moin_network <- function(sfobj, method="iom", par=NULL, mode="undirected"){
-  dista <- sf::st_distance(x = sfobj, 
-                           y = sfobj)
+moin_network <- function(input, method="iom", par=NULL, mode="undirected", coords_x=NA,coords_y=NA, crs=NA,...){
+
+  if(any(class(input)=="sf")){
+    input <- input
+  }else if(class(input)=="data.frame"){
+    input <- sf::st_as_sf(x = input, coords = c(coords_x,coords_y),crs=crs)
+  }else{
+    stop("Unknown data input. Please use object of class sf or data.frame!")
+  }
+  
+  
+  dista <- sf::st_distance(x = input, 
+                           y = input)
   
   dista2 <- matrix(dista,nrow=nrow(dista))
   
@@ -51,5 +65,5 @@ moin_network <- function(sfobj, method="iom", par=NULL, mode="undirected"){
               distance_matrix=dista2, 
               neighbourhood_matrix= nb_mat, 
               truncated_distance_matrix=truncated, 
-              input_data=sfobj))
+              input_data=input))
 }
