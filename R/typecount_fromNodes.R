@@ -1,7 +1,6 @@
 #' @title create empty type list
 #' @param typelist create.type.generator
 #' @param aggr_fea generated nodelist with types as output from arrg_fea.aggr.fea.voro()
-#' @examples some example 
 #' @author Juliane Watson <<\email{juliane.bonness@@web.de}>>
 
 create_empty_typelist <- function(typelist, aggr_fea){
@@ -17,7 +16,6 @@ create_empty_typelist <- function(typelist, aggr_fea){
 #' @title create typespectra for nodes
 #' @param node_id id of a single node (line[x,2] from output)
 #' @param node_type type found on a single node (line[x,1] from output)
-#' @examples some example 
 #' @author Juliane Watson <<\email{juliane.bonness@@web.de}>>
 
 create_typesectra_for_nodes <- function(node_id, node_type, list_to_modify){
@@ -49,7 +47,8 @@ create_typesectra_for_nodes <- function(node_id, node_type, list_to_modify){
 #'                nodes_id = c(1:10))
 #' features <- data.frame(x = sample(3433806:3581396, 100, replace = TRUE),
 #'                    y = sample(5286004:5484972, 100, replace = TRUE),
-#'                    type = paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
+#'                    type = paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), 
+#'                    sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
 #'                    ) 
 #' aggr_fea <- aggr_feature_voro(nodes, features, "type")
 #' typelist <- create_type_generator(features, "type", 1)

@@ -15,7 +15,8 @@
 #'   "binary" or "minkowski"). Defaults to euclidean distance.
 #' @param plotted a Boolean operator defining whether a plot should be created. Defaults to FALSE. Edge widths are scaled by maximum distance values and enlarged by factor 2. 
 #' 
-#' @return a list containing a graph object of classes tidygraph ("tbl_graph") resp. igraph ("igraph") and the cultural distance matrix. 
+#' @return a list containing a graph object of classes tidygraph ("tbl_graph") resp. igraph ("igraph") and the cultural distance matrix.
+#'         NOTE: The output igraph object contains zeros for display purpose. The cultural distance matrix (cult_dist_matr) is correct, containing NA for missing values.  
 #'
 #' @author Wolfgang Hamer <\email{hamer@@geographie.uni-kiel.de}>
 #' @author Chiara Girotto <\email{chiara.girotto@@web.de}>
@@ -31,7 +32,8 @@
 #'                nodes_id=c(1:10), 
 #'              features=data.frame(x=sample(3433806:3581396, 100, replace = TRUE),
 #'                    y=sample(5286004:5484972, 100, replace = TRUE),
-#'                    type=paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
+#'                    type=paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), 
+#'                    sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
 #'                    ), 
 #'              type_col="type" , pre_size=1, method = "euclidean", plotted = TRUE)
 #'              )
