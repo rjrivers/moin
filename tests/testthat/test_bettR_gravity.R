@@ -27,3 +27,5 @@ test_that("deterrence function gives no error for correct type parameter", {
     deterrence_function(matrix(c(1,1,1,1),nrow=2),2, type = "power"),
     NA)
 })
+
+#TODO test ariadne type deterrence function
