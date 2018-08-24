@@ -2,6 +2,8 @@
 
 export(dc)
 export(dc2)
+export(deterrence_function)
 export(rihll_wilson)
 export(sc)
+export(simple_gravity)
 importFrom(utils,tail)
