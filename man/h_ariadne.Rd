@@ -2,29 +2,36 @@
 % Please edit documentation in R/hamiltonian.R
 \name{h_ariadne}
 \alias{h_ariadne}
-\title{Title}
+\title{Hamiltonian ariadne models}
 \usage{
 h_ariadne(s, v, D, E, k, l, j, u)
 }
 \arguments{
-\item{s}{vector}
+\item{s}{a vector of node values (e.g. carrying capacity)}
 
-\item{v}{vector (random 0-1)}
+\item{v}{a vector of node values (e.g. exploitation of the carry capacity)}
 
-\item{D}{deterrence matrix}
+\item{D}{a matrix of edge deterrence values}
 
-\item{E}{matrix (random 0-1)}
+\item{E}{a matrix of edge weight values (e.g. intensity of interaction)}
 
-\item{k}{scalar constant}
+\item{k}{scalar lagrange multiplier for the kappa term}
 
-\item{l}{scalar constant}
+\item{l}{scalar lagrange multiplier for the lambda term}
 
-\item{j}{scalar constant}
+\item{j}{scalar lagrange multiplier for the jay term}
 
-\item{u}{scalar constant}
+\item{u}{scalar lagrange multiplier for the mu term}
+}
+\value{
+the scalar Hamiltonian value
 }
 \description{
-Description
+An implementation of Evans, Rivers & Knappett's \code{ariadne} model; a
+Hamiltonian, cost-benefit network model.
+}
+\examples{
+
 }
 \author{
 Daniel Knitter <\email{knitter@geographie.uni-kiel.de}>

@@ -23,9 +23,6 @@ hamiltonian_metrop(hfunc, hvars, hconsts, hvar_constraints, beta = 100,
 
 \item{silent}{a boolean indicating whether you want to see information of changes in beta and the Hamiltonian per iteration}
 }
-\value{
-a list
-}
 \description{
 Description
 }
