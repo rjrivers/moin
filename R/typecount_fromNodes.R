@@ -2,7 +2,6 @@
 #' @param typelist create.type.generator
 #' @param aggr_fea generated nodelist with types as output from arrg_fea.aggr.fea.voro()
 #' @examples some example 
-#' @export
 #' @author Juliane Watson <juliane.bonness@web.de>
 
 create_empty_typelist <- function(typelist, aggr_fea){
@@ -19,7 +18,6 @@ create_empty_typelist <- function(typelist, aggr_fea){
 #' @param node_id id of a single node (line[x,2] from output)
 #' @param node_type type found on a single node (line[x,1] from output)
 #' @examples some example 
-#' @export 
 #' @author Juliane Watson <juliane.bonness@web.de>
 
 create_typesectra_for_nodes <- function(node_id, node_type, list_to_modify){
