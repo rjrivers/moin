@@ -242,7 +242,7 @@ h_alonso <- function(E, Si = 1, Sj = 1, f, in_delta, out_delta,
 #' @author Ray Rivers <\email{r.rivers@@imperial.ac.uk}>
 #'
 #' @export
-hamiltonian_metrop <- function(
+metropolis <- function(
   hfunc, hvars, hconsts, hvar_constraints,
   beta = 100, beta_prod = 2,
   threshold = .001, threshold_window = 50,
