@@ -66,6 +66,7 @@ global_bb <- function(nodes, features){
 #' @title plot_voro_fea
 #' @param nodes a data.frame containing metric x and y coordinates of nodes, additionally an identifier. Coordinates are expected to be the first two columns.
 #' @param df_aggr_fea a dataframe with feature types and their corresponding node
+#' @param ppp_nd a ppp object of nodes
 #' @param voronoi a tesselation list object generated from nodes
 #'
 #' @return an owin object which is slightly bigger, to avoid missing points due to edge effects

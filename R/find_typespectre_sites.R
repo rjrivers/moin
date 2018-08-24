@@ -83,7 +83,6 @@ create_type_generator <- function(type_tibble, type_col, pre_size){
     index_col <- which(colnames(type_tibble) == type_col)
     list_of_types <- parse_all_types(type_tibble, index_col)
     complete_types <- find_missing_types(list_of_types, pre_size)
-    print("Done with creating type list")
     return(complete_types)
 }
 

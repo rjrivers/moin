@@ -20,6 +20,17 @@
 #' @author Franziska Faupel <\email{franziska-faupel@@gmx.de}>
 #'
 #' @examples
+#' 
+#' set.seed(1234)
+#' cul_dist(nodes_x=sample(3433806:3581396, 10, replace = TRUE),
+#'                nodes_y=sample(5286004:5484972, 10, replace = TRUE), 
+#'                nodes_id=c(1:10), 
+#'              features=data.frame(x=sample(3433806:3581396, 100, replace = TRUE),
+#'                    y=sample(5286004:5484972, 100, replace = TRUE),
+#'                    type=paste0("B", c(rep(1, 5), rep(2,15), sample(11:19, 20, replace = TRUE), sample(111:119, 30, replace = TRUE), sample(1111:1115, 30, replace = TRUE)))
+#'                    ), 
+#'              type_col="type" , pre_size=1, method = "euclidean")
+#'              )
 #'
 #' @export
 
