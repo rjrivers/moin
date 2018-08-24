@@ -20,8 +20,14 @@ test_that("function gives an error for wrong parameter class", {
 
 test_that("Oi and Wj have same length", {
   expect_equal(
-    calculate_tij(rep(1, time=2), rep(1, time=2), matrix(c(1,2,1,2)),nrow=2, 1.2) ,  apply(matrix(c(1,2,1,2)),nrow=2) * rep(1, time=2) %o% (rep(1, time=2))^1.2, 2, `/`, t((rep(1, time=2))^1.2) %*% t(matrix(c(1,2,1,2),nrow=2))
-  )
+    calculate_tij(rep(1, time=2),
+                  rep(1, time=2),
+                  matrix(c(1,2,1,2),nrow=2), 1.2) , 
+    apply(matrix(c(1,2,1,2),nrow=2) * rep(1, time=2) %o% (rep(1, time=2))^1.2,
+          2,
+          `/`,
+          t((rep(1, time=2))^1.2) %*% t(matrix(c(1,2,1,2),nrow=2))
+  ))
 })
 
   
