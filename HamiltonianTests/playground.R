@@ -32,6 +32,13 @@ res <- hamiltonian_metrop(
   beta = 100,
   threshold = 1e-01)
 
+library(ggplot2)
+res$model_iterations %>%
+  ggplot(aes(x = i)) +
+  geom_line(aes(y=meanH),color="green") +
+  geom_line(aes(y=H)) +
+  scale_y_log10()
+
 ## simple gravity
 res <- hamiltonian_metrop(hfunc = h_simple_gravity,
                           hvars = list(E = test_d),
@@ -44,6 +51,7 @@ res <- hamiltonian_metrop(hfunc = h_simple_gravity,
                           beta = 100,
                           threshold = 1)
 res
+
 ## Alonso
 res <- hamiltonian_metrop(hfunc = h_alonso,
                           hvars = list(E = test_d),
@@ -51,16 +59,13 @@ res <- hamiltonian_metrop(hfunc = h_alonso,
                                          in_g = rep(.1,ncol(costs)),
                                          out_g = rep(.1,ncol(costs)),
                                          alpha = 64,
-                                         X = 2,
+                                         x = 2,
                                          in_delta = 2,
                                          out_delta = 3),
                           hvar_constraints = list(E = c(0,1)),
                           beta = 100,
                           threshold = 1)
 
-##################################################
-##################################################
-########## PROBLEMS ####################
 res <- hamiltonian_metrop(hfunc = h_constrained_gravity,
                           hvars = list(E = test_d),
                           hconsts = list(c = 4,
@@ -71,7 +76,6 @@ res <- hamiltonian_metrop(hfunc = h_constrained_gravity,
                           hvar_constraints = list(E = c(0,1)),
                           beta = 100,
                           threshold = 1)
-warnings()
 
 res <- hamiltonian_metrop(hfunc = h_double_constrained_gravity,
                           hvars = list(E = test_d),
@@ -85,7 +89,6 @@ res <- hamiltonian_metrop(hfunc = h_double_constrained_gravity,
                           hvar_constraints = list(E = c(0,1)),
                           beta = 100,
                           threshold = 50)
-warnings()
 
 res <- hamiltonian_metrop(hfunc = h_retail,
                           hvars = list(E = test_d),
@@ -95,9 +98,8 @@ res <- hamiltonian_metrop(hfunc = h_retail,
                                          g = .1,
                                          C = costs,
                                          delta = 2,
-                                         X = 3,
+                                         x = 3,
                                          beta = 64),
                           hvar_constraints = list(E = c(0,1)),
                           beta = 100,
                           threshold = 1)
-warnings()
